@@ -77,7 +77,7 @@
     <title>Pravilo filtriranja: Akcije</title>
     <para>
     U nastavku su navedene akcije koje se mogu primijeniti na poruku koja
-    zadovoljava zadane uvjete. Napomena da dostupne akcije ovise o 
+    zadovoljava zadane uvjete. Napomena da dostupne akcije ovise o
     kori&#x161;tenom mehanizmu filtriranja.</para>
     <heading>Isporu&#x10D;i u moj Inbox</heading>
     <para>Sprema poruku u po&#x161;tanski sandu&#x10D;i&#x107; korisnika (Inbox). Ovo je
@@ -149,7 +149,7 @@
     vrijednosti polja. Primjer: joe@example se ne nalazi na po&#x10D;etku
     vrijednosti user@example.com</para>
     <heading>Zavr&#x161;ava sa</heading>
-    <para>Uvjet je ispunjen kad se zadani tekst nalazi na kraju 
+    <para>Uvjet je ispunjen kad se zadani tekst nalazi na kraju
     vrijednosti polja. Primjer: example.com se nalazi na kraju vrijednosti
     user@example.com</para>
     <heading>Ne zavr&#x161;ava sa</heading>
@@ -170,7 +170,7 @@
     <para> Podudaranje je sli&#x10D;no usporedbi Sadr&#x17E;i osim &#x161;to je mogu&#x107;e
     koristiti zamjenske znakove * i ?. Znak * zamjenjuje vi&#x161;e znakova dok ?
     zamjenjuje to&#x10D;no jedan znak. Primjer: "*user?@example.com" podudara se sa
-    vrijednostima zaglavlja "user1@example.com" i 
+    vrijednostima zaglavlja "user1@example.com" i
     "otheruser2@example.com"</para>
     <heading>Ne odgovara</heading>
     <para>Sli&#x10D;no kao usporedba Podudara se osim &#x161;to uvjet ne&#x107;e biti
