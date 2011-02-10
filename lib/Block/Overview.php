@@ -1,25 +1,22 @@
 <?php
-
-$block_name = _("Overview");
-
 /**
- * Ingo_Filters_Block:: implementation of the Horde_Block API to show filter
- * information on the portal.
+ * Block to show filter information.
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/asl.php.
  *
  * @author  Oliver Kuhl <okuhl@netcologne.de>
- * @package Horde_Block
  */
-class Horde_Block_ingo_overview extends Horde_Block
+class Ingo_Block_Overview extends Horde_Block
 {
-    protected $_app = 'ingo';
+    /**
+     */
+    public function getName()
+    {
+        return _("Overview");
+    }
 
     /**
-     * The title to go in this block.
-     *
-     * @return string   The title text.
      */
     protected function _title()
     {
@@ -27,9 +24,6 @@ class Horde_Block_ingo_overview extends Horde_Block
     }
 
     /**
-     * The content to go in this block.
-     *
-     * @return string   The content
      */
     protected function _content()
     {
