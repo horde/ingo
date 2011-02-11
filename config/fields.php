@@ -3,6 +3,10 @@
  * This file defines the set of default match items to display when creating
  * a new filter rule.
  *
+ * IMPORTANT: Local overrides should be placed in fields.local.php, or
+ * fields-servername.php if the 'vhosts' setting has been enabled in Horde's
+ * configuration.
+ *
  * These fields will only appear if the driver can handle it.
  *
  * Users will have to manually insert the name of the header on the rule
@@ -21,8 +25,6 @@
  *                          If not set, will use the fields generally
  *                          available to the driver.
  * )
- *
- * $Id$
  */
 $ingo_fields = array(
     'To' => array(
@@ -108,3 +110,8 @@ $ingo_fields = array(
         )
     )
 );
+
+/* Local overrides. */
+if (file_exists(dirname(__FILE__) . '/fields.local.php')) {
+    include dirname(__FILE__) . '/fields.local.php';
+}
