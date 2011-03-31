@@ -4,7 +4,7 @@
  * Converts a user's filter rules from the preferences storage backend to the
  * new SQL storage backend that has been added in Ingo 1.2.
  *
- * Usage: php convert_prefs_to_sql.php < filename
+ * Usage: ingo-convert-prefs-to-sql < filename
  * Filename is a file that contains a list of users, one username per line.
  * The username should be the same as how the preferences are stored in
  * the preferences backend (e.g. usernames may have to be in the form
@@ -18,7 +18,14 @@
  * @author Jan Schneider <jan@horde.org>
  */
 
-require_once dirname(__FILE__) . '/../../../lib/Application.php';
+$baseFile = dirname(__FILE__) . '/../../ingo/lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/ingo/lib/Application.php';
+}
 Horde_Registry::appInit('ingo', array('cli' => true));
 
 /* Initialize storage backends. */
