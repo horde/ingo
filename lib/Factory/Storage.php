@@ -8,7 +8,6 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
- * @link     http://pear.horde.org/index.php?package=Ingo
  * @package  Ingo
  */
 
@@ -18,7 +17,6 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
- * @link     http://pear.horde.org/index.php?package=Ingo
  * @package  Ingo
  */
 class Ingo_Factory_Storage extends Horde_Core_Factory_Base
