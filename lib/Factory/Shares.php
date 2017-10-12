@@ -8,7 +8,6 @@
  * @category  Horde
  * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
- * @link      http://pear.horde.org/index.php?package=Ingo
  * @package   Ingo
  */
 
@@ -19,7 +18,6 @@
  * @category  Horde
  * @copyright 2014-2017 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
- * @link      http://pear.horde.org/index.php?package=Ingo
  * @package   Ingo
  */
 class Ingo_Factory_Shares extends Horde_Core_Factory_Injector
