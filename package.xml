@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-10-13</date>
+ <date>2017-10-16</date>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -547,7 +547,7 @@
    <file name="basic.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="LICENSE" role="doc" />
-   <file name="README" role="doc" />
+   <file name="README.rst" role="doc" />
    <file name="smartmobile.php" role="horde" />
   </dir> <!-- / -->
  </contents>
@@ -697,7 +697,7 @@
    <install as="ingo/basic.php" name="basic.php" />
    <install as="ingo/index.php" name="index.php" />
    <install as="LICENSE" name="LICENSE" />
-   <install as="README" name="README" />
+   <install as="README.rst" name="README.rst" />
    <install as="ingo/smartmobile.php" name="smartmobile.php" />
    <install as="ingo-admin-upgrade" name="bin/ingo-admin-upgrade" />
    <install as="ingo-convert-prefs-to-sql" name="bin/ingo-convert-prefs-to-sql" />
@@ -1783,7 +1783,7 @@
    </notes>
   </release>
   <release>
-   <date>2017-10-13</date>
+   <date>2017-10-16</date>
    <version>
     <release>4.0.0</release>
     <api>4.0.0</api>
