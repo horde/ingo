@@ -32,18 +32,18 @@ The following documentation is available in the Ingo distribution:
 
 :README_:            This file
 :LICENSE_:           Copyright and license information
-:`docs/CHANGES`_:    Changes by release
-:`docs/CREDITS`_:    Project developers
-:`docs/INSTALL`_:    Installation instructions and notes
-:`docs/TODO`_:       Development TODO list
-:`docs/UPGRADING`_:  Pointers on upgrading from previous Ingo versions
+:`doc/CHANGES`_:    Changes by release
+:`doc/CREDITS`_:    Project developers
+:`doc/INSTALL`_:    Installation instructions and notes
+:`doc/TODO`_:       Development TODO list
+:`doc/UPGRADING`_:  Pointers on upgrading from previous Ingo versions
 
 
 Installation
 ============
 
 Instructions for installing Ingo can be found in the file INSTALL_ in the
-``docs/`` directory of the Ingo distribution.
+``doc/`` directory of the Ingo distribution.
 
 
 Assistance
@@ -79,9 +79,9 @@ The Ingo team
 
 .. _README: README
 .. _LICENSE: http://www.horde.org/licenses/apache
-.. _docs/CHANGES: CHANGES
-.. _docs/CREDITS: CREDITS
+.. _doc/CHANGES: CHANGES
+.. _doc/CREDITS: CREDITS
 .. _INSTALL:
-.. _docs/INSTALL: INSTALL
-.. _docs/TODO: TODO
-.. _docs/UPGRADING: UPGRADING
+.. _doc/INSTALL: INSTALL
+.. _doc/TODO: TODO
+.. _doc/UPGRADING: UPGRADING

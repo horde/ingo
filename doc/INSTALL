@@ -29,7 +29,7 @@ To function properly, Ingo **requires** the following:
                   earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the
-                  `horde/docs/INSTALL`_ file for the Horde Framework before
+                  `horde/doc/INSTALL`_ file for the Horde Framework before
                   installing Ingo. Many of Ingo's prerequisites are also Horde
                   prerequisites. Additionally, many of Ingo's optional features
                   are configured via the Horde install.
@@ -47,7 +47,7 @@ latest not yet released fixes, you can install Ingo from Git.
 Installing with PEAR
 ~~~~~~~~~~~~~~~~~~~~
 
-First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
+First follow the instructions in `horde/doc/INSTALL`_ to prepare a PEAR
 environment for Horde and install the Horde Framework.
 
 When installing Ingo through PEAR now, the installer will automatically install
@@ -151,5 +151,5 @@ The Ingo team
 
 
 .. _README: README
-.. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
-.. _`horde/docs/TRANSLATIONS`: ../../horde/docs/TRANSLATIONS
+.. _`horde/doc/INSTALL`: ../../horde/doc/INSTALL
+.. _`horde/doc/TRANSLATIONS`: ../../horde/doc/TRANSLATIONS
