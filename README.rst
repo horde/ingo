@@ -30,8 +30,8 @@ Documentation
 
 The following documentation is available in the Ingo distribution:
 
-:README_:            This file
-:LICENSE_:           Copyright and license information
+:README_:           This file
+:LICENSE_:          Copyright and license information
 :`doc/CHANGES`_:    Changes by release
 :`doc/CREDITS`_:    Project developers
 :`doc/INSTALL`_:    Installation instructions and notes
