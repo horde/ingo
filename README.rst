@@ -80,8 +80,8 @@ The Ingo team
 .. _README: README.rst
 .. _LICENSE: http://www.horde.org/licenses/apache
 .. _doc/CHANGES: doc/CHANGES
-.. _doc/CREDITS: doc/CREDITS
+.. _doc/CREDITS: doc/CREDITS.rst
 .. _INSTALL:
-.. _doc/INSTALL: doc/INSTALL
-.. _doc/TODO: doc/TODO
-.. _doc/UPGRADING: doc/UPGRADING
+.. _doc/INSTALL: doc/INSTALL.rst
+.. _doc/TODO: doc/TODO.rst
+.. _doc/UPGRADING: doc/UPGRADING.rst

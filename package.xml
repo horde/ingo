@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-10-16</date>
+ <date>2017-10-17</date>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -69,11 +69,11 @@
    </dir> <!-- /config -->
    <dir name="doc">
     <file name="CHANGES" role="doc" />
-    <file name="CREDITS" role="doc" />
-    <file name="INSTALL" role="doc" />
+    <file name="CREDITS.rst" role="doc" />
+    <file name="INSTALL.rst" role="doc" />
     <file name="RELEASE_NOTES" role="doc" />
-    <file name="TODO" role="doc" />
-    <file name="UPGRADING" role="doc" />
+    <file name="TODO.rst" role="doc" />
+    <file name="UPGRADING.rst" role="doc" />
    </dir> <!-- /doc -->
    <dir name="js">
     <file name="blacklist.js" role="horde" />
@@ -695,6 +695,8 @@
  <phprelease>
   <filelist>
    <install as="ingo/basic.php" name="basic.php" />
+   <install as="TODO.rst" name="doc/TODO.rst" />
+   <install as="UPGRADING.rst" name="doc/UPGRADING.rst" />
    <install as="ingo/index.php" name="index.php" />
    <install as="LICENSE" name="LICENSE" />
    <install as="README.rst" name="README.rst" />
@@ -710,11 +712,9 @@
    <install as="ingo/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="ingo/config/prefs.php" name="config/prefs.php" />
    <install as="CHANGES" name="doc/CHANGES" />
-   <install as="CREDITS" name="doc/CREDITS" />
-   <install as="INSTALL" name="doc/INSTALL" />
+   <install as="CREDITS.rst" name="doc/CREDITS.rst" />
+   <install as="INSTALL.rst" name="doc/INSTALL.rst" />
    <install as="RELEASE_NOTES" name="doc/RELEASE_NOTES" />
-   <install as="TODO" name="doc/TODO" />
-   <install as="UPGRADING" name="doc/UPGRADING" />
    <install as="ingo/js/blacklist.js" name="js/blacklist.js" />
    <install as="ingo/js/filters.js" name="js/filters.js" />
    <install as="ingo/js/new_folder.js" name="js/new_folder.js" />
@@ -1783,7 +1783,7 @@
    </notes>
   </release>
   <release>
-   <date>2017-10-16</date>
+   <date>2017-10-17</date>
    <version>
     <release>4.0.0</release>
     <api>4.0.0</api>
