@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-10-17</date>
+ <date>2017-10-20</date>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -517,7 +517,6 @@
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
      <file name="bootstrap.php" role="test" />
-     <file name="phpunit.xml" role="test" />
     </dir> <!-- /test/Ingo -->
    </dir> <!-- /test -->
    <dir name="themes">
@@ -695,12 +694,6 @@
  <phprelease>
   <filelist>
    <install as="ingo/basic.php" name="basic.php" />
-   <install as="TODO.rst" name="doc/TODO.rst" />
-   <install as="UPGRADING.rst" name="doc/UPGRADING.rst" />
-   <install as="ingo/index.php" name="index.php" />
-   <install as="LICENSE" name="LICENSE" />
-   <install as="README.rst" name="README.rst" />
-   <install as="ingo/smartmobile.php" name="smartmobile.php" />
    <install as="ingo-admin-upgrade" name="bin/ingo-admin-upgrade" />
    <install as="ingo-convert-prefs-to-sql" name="bin/ingo-convert-prefs-to-sql" />
    <install as="ingo-convert-sql-shares-to-sqlng" name="bin/ingo-convert-sql-shares-to-sqlng" />
@@ -715,6 +708,9 @@
    <install as="CREDITS.rst" name="doc/CREDITS.rst" />
    <install as="INSTALL.rst" name="doc/INSTALL.rst" />
    <install as="RELEASE_NOTES" name="doc/RELEASE_NOTES" />
+   <install as="TODO.rst" name="doc/TODO.rst" />
+   <install as="UPGRADING.rst" name="doc/UPGRADING.rst" />
+   <install as="ingo/index.php" name="index.php" />
    <install as="ingo/js/blacklist.js" name="js/blacklist.js" />
    <install as="ingo/js/filters.js" name="js/filters.js" />
    <install as="ingo/js/new_folder.js" name="js/new_folder.js" />
@@ -722,20 +718,11 @@
    <install as="ingo/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="ingo/js/whitelist.js" name="js/whitelist.js" />
    <install as="ingo/lib/.htaccess" name="lib/.htaccess" />
-   <install as="ingo/lib/Api.php" name="lib/Api.php" />
-   <install as="ingo/lib/Application.php" name="lib/Application.php" />
-   <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
-   <install as="ingo/lib/Flist.php" name="lib/Flist.php" />
-   <install as="ingo/lib/Ingo.php" name="lib/Ingo.php" />
-   <install as="ingo/lib/Perms.php" name="lib/Perms.php" />
-   <install as="ingo/lib/Rule.php" name="lib/Rule.php" />
-   <install as="ingo/lib/Session.php" name="lib/Session.php" />
-   <install as="ingo/lib/Smartmobile.php" name="lib/Smartmobile.php" />
-   <install as="ingo/lib/Storage.php" name="lib/Storage.php" />
-   <install as="ingo/lib/Test.php" name="lib/Test.php" />
    <install as="ingo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="ingo/lib/Ajax/Application/Filters.php" name="lib/Ajax/Application/Filters.php" />
    <install as="ingo/lib/Ajax/Application/Smartmobile.php" name="lib/Ajax/Application/Smartmobile.php" />
+   <install as="ingo/lib/Api.php" name="lib/Api.php" />
+   <install as="ingo/lib/Application.php" name="lib/Application.php" />
    <install as="ingo/lib/Basic/Base.php" name="lib/Basic/Base.php" />
    <install as="ingo/lib/Basic/Blacklist.php" name="lib/Basic/Blacklist.php" />
    <install as="ingo/lib/Basic/Filters.php" name="lib/Basic/Filters.php" />
@@ -746,24 +733,29 @@
    <install as="ingo/lib/Basic/Vacation.php" name="lib/Basic/Vacation.php" />
    <install as="ingo/lib/Basic/Whitelist.php" name="lib/Basic/Whitelist.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
+   <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
    <install as="ingo/lib/Factory/Script.php" name="lib/Factory/Script.php" />
    <install as="ingo/lib/Factory/Shares.php" name="lib/Factory/Shares.php" />
    <install as="ingo/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />
    <install as="ingo/lib/Factory/Transport.php" name="lib/Factory/Transport.php" />
+   <install as="ingo/lib/Flist.php" name="lib/Flist.php" />
    <install as="ingo/lib/Form/Base.php" name="lib/Form/Base.php" />
    <install as="ingo/lib/Form/Forward.php" name="lib/Form/Forward.php" />
    <install as="ingo/lib/Form/Spam.php" name="lib/Form/Spam.php" />
-   <install as="ingo/lib/Form/Vacation.php" name="lib/Form/Vacation.php" />
    <install as="ingo/lib/Form/Type/Longemail.php" name="lib/Form/Type/Longemail.php" />
+   <install as="ingo/lib/Form/Vacation.php" name="lib/Form/Vacation.php" />
+   <install as="ingo/lib/Ingo.php" name="lib/Ingo.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="ingo/lib/Perms.php" name="lib/Perms.php" />
+   <install as="ingo/lib/Rule.php" name="lib/Rule.php" />
    <install as="ingo/lib/Rule/Addresses.php" name="lib/Rule/Addresses.php" />
    <install as="ingo/lib/Rule/System.php" name="lib/Rule/System.php" />
-   <install as="ingo/lib/Rule/User.php" name="lib/Rule/User.php" />
    <install as="ingo/lib/Rule/System/Blacklist.php" name="lib/Rule/System/Blacklist.php" />
    <install as="ingo/lib/Rule/System/Forward.php" name="lib/Rule/System/Forward.php" />
    <install as="ingo/lib/Rule/System/Spam.php" name="lib/Rule/System/Spam.php" />
    <install as="ingo/lib/Rule/System/Vacation.php" name="lib/Rule/System/Vacation.php" />
    <install as="ingo/lib/Rule/System/Whitelist.php" name="lib/Rule/System/Whitelist.php" />
+   <install as="ingo/lib/Rule/User.php" name="lib/Rule/User.php" />
    <install as="ingo/lib/Rule/User/Discard.php" name="lib/Rule/User/Discard.php" />
    <install as="ingo/lib/Rule/User/FlagOnly.php" name="lib/Rule/User/FlagOnly.php" />
    <install as="ingo/lib/Rule/User/Keep.php" name="lib/Rule/User/Keep.php" />
@@ -776,31 +768,23 @@
    <install as="ingo/lib/Script/Base.php" name="lib/Script/Base.php" />
    <install as="ingo/lib/Script/Customsql.php" name="lib/Script/Customsql.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
-   <install as="ingo/lib/Script/Ispconfig.php" name="lib/Script/Ispconfig.php" />
-   <install as="ingo/lib/Script/Item.php" name="lib/Script/Item.php" />
-   <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
-   <install as="ingo/lib/Script/Procmail.php" name="lib/Script/Procmail.php" />
-   <install as="ingo/lib/Script/Sieve.php" name="lib/Script/Sieve.php" />
-   <install as="ingo/lib/Script/String.php" name="lib/Script/String.php" />
    <install as="ingo/lib/Script/Imap/Api.php" name="lib/Script/Imap/Api.php" />
    <install as="ingo/lib/Script/Imap/Live.php" name="lib/Script/Imap/Live.php" />
    <install as="ingo/lib/Script/Imap/Mock.php" name="lib/Script/Imap/Mock.php" />
+   <install as="ingo/lib/Script/Ispconfig.php" name="lib/Script/Ispconfig.php" />
    <install as="ingo/lib/Script/Ispconfig/Vacation.php" name="lib/Script/Ispconfig/Vacation.php" />
+   <install as="ingo/lib/Script/Item.php" name="lib/Script/Item.php" />
+   <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
    <install as="ingo/lib/Script/Maildrop/Comment.php" name="lib/Script/Maildrop/Comment.php" />
    <install as="ingo/lib/Script/Maildrop/Recipe.php" name="lib/Script/Maildrop/Recipe.php" />
    <install as="ingo/lib/Script/Maildrop/Variable.php" name="lib/Script/Maildrop/Variable.php" />
+   <install as="ingo/lib/Script/Procmail.php" name="lib/Script/Procmail.php" />
    <install as="ingo/lib/Script/Procmail/Comment.php" name="lib/Script/Procmail/Comment.php" />
    <install as="ingo/lib/Script/Procmail/Default.php" name="lib/Script/Procmail/Default.php" />
    <install as="ingo/lib/Script/Procmail/Recipe.php" name="lib/Script/Procmail/Recipe.php" />
    <install as="ingo/lib/Script/Procmail/Variable.php" name="lib/Script/Procmail/Variable.php" />
+   <install as="ingo/lib/Script/Sieve.php" name="lib/Script/Sieve.php" />
    <install as="ingo/lib/Script/Sieve/Action.php" name="lib/Script/Sieve/Action.php" />
-   <install as="ingo/lib/Script/Sieve/Base.php" name="lib/Script/Sieve/Base.php" />
-   <install as="ingo/lib/Script/Sieve/Comment.php" name="lib/Script/Sieve/Comment.php" />
-   <install as="ingo/lib/Script/Sieve/Else.php" name="lib/Script/Sieve/Else.php" />
-   <install as="ingo/lib/Script/Sieve/Elsif.php" name="lib/Script/Sieve/Elsif.php" />
-   <install as="ingo/lib/Script/Sieve/If.php" name="lib/Script/Sieve/If.php" />
-   <install as="ingo/lib/Script/Sieve/Require.php" name="lib/Script/Sieve/Require.php" />
-   <install as="ingo/lib/Script/Sieve/Test.php" name="lib/Script/Sieve/Test.php" />
    <install as="ingo/lib/Script/Sieve/Action/Addflag.php" name="lib/Script/Sieve/Action/Addflag.php" />
    <install as="ingo/lib/Script/Sieve/Action/Discard.php" name="lib/Script/Sieve/Action/Discard.php" />
    <install as="ingo/lib/Script/Sieve/Action/Fileinto.php" name="lib/Script/Sieve/Action/Fileinto.php" />
@@ -812,6 +796,13 @@
    <install as="ingo/lib/Script/Sieve/Action/Removeflag.php" name="lib/Script/Sieve/Action/Removeflag.php" />
    <install as="ingo/lib/Script/Sieve/Action/Stop.php" name="lib/Script/Sieve/Action/Stop.php" />
    <install as="ingo/lib/Script/Sieve/Action/Vacation.php" name="lib/Script/Sieve/Action/Vacation.php" />
+   <install as="ingo/lib/Script/Sieve/Base.php" name="lib/Script/Sieve/Base.php" />
+   <install as="ingo/lib/Script/Sieve/Comment.php" name="lib/Script/Sieve/Comment.php" />
+   <install as="ingo/lib/Script/Sieve/Else.php" name="lib/Script/Sieve/Else.php" />
+   <install as="ingo/lib/Script/Sieve/Elsif.php" name="lib/Script/Sieve/Elsif.php" />
+   <install as="ingo/lib/Script/Sieve/If.php" name="lib/Script/Sieve/If.php" />
+   <install as="ingo/lib/Script/Sieve/Require.php" name="lib/Script/Sieve/Require.php" />
+   <install as="ingo/lib/Script/Sieve/Test.php" name="lib/Script/Sieve/Test.php" />
    <install as="ingo/lib/Script/Sieve/Test/Address.php" name="lib/Script/Sieve/Test/Address.php" />
    <install as="ingo/lib/Script/Sieve/Test/Allof.php" name="lib/Script/Sieve/Test/Allof.php" />
    <install as="ingo/lib/Script/Sieve/Test/Anyof.php" name="lib/Script/Sieve/Test/Anyof.php" />
@@ -823,13 +814,18 @@
    <install as="ingo/lib/Script/Sieve/Test/Relational.php" name="lib/Script/Sieve/Test/Relational.php" />
    <install as="ingo/lib/Script/Sieve/Test/Size.php" name="lib/Script/Sieve/Test/Size.php" />
    <install as="ingo/lib/Script/Sieve/Test/True.php" name="lib/Script/Sieve/Test/True.php" />
+   <install as="ingo/lib/Script/String.php" name="lib/Script/String.php" />
+   <install as="ingo/lib/Session.php" name="lib/Session.php" />
+   <install as="ingo/lib/Smartmobile.php" name="lib/Smartmobile.php" />
+   <install as="ingo/lib/Storage.php" name="lib/Storage.php" />
    <install as="ingo/lib/Storage/FilterIterator.php" name="lib/Storage/FilterIterator.php" />
+   <install as="ingo/lib/Storage/FilterIterator/Match.php" name="lib/Storage/FilterIterator/Match.php" />
+   <install as="ingo/lib/Storage/FilterIterator/Skip.php" name="lib/Storage/FilterIterator/Skip.php" />
    <install as="ingo/lib/Storage/Memory.php" name="lib/Storage/Memory.php" />
    <install as="ingo/lib/Storage/Mongo.php" name="lib/Storage/Mongo.php" />
    <install as="ingo/lib/Storage/Prefs.php" name="lib/Storage/Prefs.php" />
    <install as="ingo/lib/Storage/Sql.php" name="lib/Storage/Sql.php" />
-   <install as="ingo/lib/Storage/FilterIterator/Match.php" name="lib/Storage/FilterIterator/Match.php" />
-   <install as="ingo/lib/Storage/FilterIterator/Skip.php" name="lib/Storage/FilterIterator/Skip.php" />
+   <install as="ingo/lib/Test.php" name="lib/Test.php" />
    <install as="ingo/lib/Transport/Base.php" name="lib/Transport/Base.php" />
    <install as="ingo/lib/Transport/Ispconfig.php" name="lib/Transport/Ispconfig.php" />
    <install as="ingo/lib/Transport/Ldap.php" name="lib/Transport/Ldap.php" />
@@ -839,8 +835,8 @@
    <install as="ingo/lib/Transport/Timsieved.php" name="lib/Transport/Timsieved.php" />
    <install as="ingo/lib/Transport/Vfs.php" name="lib/Transport/Vfs.php" />
    <install as="ingo/lib/Ui/VarRenderer/Ingo.php" name="lib/Ui/VarRenderer/Ingo.php" />
+   <install as="LICENSE" name="LICENSE" />
    <install as="ingo/locale/.htaccess" name="locale/.htaccess" />
-   <install as="ingo/locale/ingo.pot" name="locale/ingo.pot" />
    <install as="ingo/locale/ca/help.xml" name="locale/ca/help.xml" />
    <install as="ingo/locale/ca/LC_MESSAGES/ingo.mo" name="locale/ca/LC_MESSAGES/ingo.mo" />
    <install as="ingo/locale/ca/LC_MESSAGES/ingo.po" name="locale/ca/LC_MESSAGES/ingo.po" />
@@ -875,6 +871,7 @@
    <install as="ingo/locale/hr/LC_MESSAGES/ingo.po" name="locale/hr/LC_MESSAGES/ingo.po" />
    <install as="ingo/locale/hu/LC_MESSAGES/ingo.mo" name="locale/hu/LC_MESSAGES/ingo.mo" />
    <install as="ingo/locale/hu/LC_MESSAGES/ingo.po" name="locale/hu/LC_MESSAGES/ingo.po" />
+   <install as="ingo/locale/ingo.pot" name="locale/ingo.pot" />
    <install as="ingo/locale/it/LC_MESSAGES/ingo.mo" name="locale/it/LC_MESSAGES/ingo.mo" />
    <install as="ingo/locale/it/LC_MESSAGES/ingo.po" name="locale/it/LC_MESSAGES/ingo.po" />
    <install as="ingo/locale/ja/LC_MESSAGES/ingo.mo" name="locale/ja/LC_MESSAGES/ingo.mo" />
@@ -921,6 +918,8 @@
    <install as="ingo/migration/5_ingo_upgrade_sqlnghierarchical.php" name="migration/5_ingo_upgrade_sqlnghierarchical.php" />
    <install as="ingo/migration/6_ingo_upgrade_parents.php" name="migration/6_ingo_upgrade_parents.php" />
    <install as="ingo/migration/7_ingo_fix_rule_order.php" name="migration/7_ingo_fix_rule_order.php" />
+   <install as="README.rst" name="README.rst" />
+   <install as="ingo/smartmobile.php" name="smartmobile.php" />
    <install as="ingo/templates/.htaccess" name="templates/.htaccess" />
    <install as="ingo/templates/basic/blacklist/blacklist.html.php" name="templates/basic/blacklist/blacklist.html.php" />
    <install as="ingo/templates/basic/filters/filters.html.php" name="templates/basic/filters/filters.html.php" />
@@ -936,7 +935,6 @@
    <install as="Ingo/AllTests.php" name="test/Ingo/AllTests.php" />
    <install as="Ingo/Autoload.php" name="test/Ingo/Autoload.php" />
    <install as="Ingo/bootstrap.php" name="test/Ingo/bootstrap.php" />
-   <install as="Ingo/phpunit.xml" name="test/Ingo/phpunit.xml" />
    <install as="Ingo/fixtures/from_spammer" name="test/Ingo/fixtures/from_spammer" />
    <install as="Ingo/fixtures/not_from_spammer" name="test/Ingo/fixtures/not_from_spammer" />
    <install as="Ingo/Unit/MaildropTest.php" name="test/Ingo/Unit/MaildropTest.php" />
@@ -944,7 +942,6 @@
    <install as="Ingo/Unit/ScriptTest.php" name="test/Ingo/Unit/ScriptTest.php" />
    <install as="Ingo/Unit/SieveTest.php" name="test/Ingo/Unit/SieveTest.php" />
    <install as="Ingo/Unit/TestBase.php" name="test/Ingo/Unit/TestBase.php" />
-   <install as="ingo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ingo/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="ingo/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
    <install as="ingo/themes/default/graphics/copy.png" name="themes/default/graphics/copy.png" />
@@ -957,6 +954,7 @@
    <install as="ingo/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
    <install as="ingo/themes/default/graphics/vacation.png" name="themes/default/graphics/vacation.png" />
    <install as="ingo/themes/default/graphics/whitelist.png" name="themes/default/graphics/whitelist.png" />
+   <install as="ingo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ingo/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
   </filelist>
  </phprelease>
@@ -1783,7 +1781,7 @@
    </notes>
   </release>
   <release>
-   <date>2017-10-17</date>
+   <date>2017-10-20</date>
    <version>
     <release>4.0.0</release>
     <api>4.0.0</api>
