@@ -16,6 +16,13 @@ v4.0.0-git
 
 
 -------
+v3.2.16
+-------
+
+[jan] Officially support PHP 7.
+
+
+-------
 v3.2.15
 -------
 
@@ -169,6 +176,11 @@ v3.2.1
 ------
 v3.2.0
 ------
+
+
+---------
+v3.2.0RC2
+---------
 
 [mms] Fix mailbox selection on Spam page (Bug #13298).
 [mms] Fix regression in deactivating scripts (Bug #13297).
@@ -343,6 +355,13 @@ v3.0.1
 v3.0.0
 ------
 
+First stable release for Horde 5.
+
+
+---------
+v3.0.0RC1
+---------
+
 [mms] Add 'euser' option to 'transport_auth' hook allowing the effective user
       to be provided for the timsieved transport driver.
 
@@ -371,6 +390,7 @@ v3.0.0beta1
 v3.0.0alpha1
 ------------
 
+First alpha release for Horde 5.
 [mms] When adding to blacklist/whitelist, remove added addresses from the
       other list.
 [jan] Allow to use placeholder variables in vacation messages (Request #10316).
@@ -381,6 +401,7 @@ v3.0.0alpha1
 -------
 v2.0.10
 -------
+
 [mms] Correctly reindex existing rules when deleting a rule and using the SQL
       filters storage driver.
 [mms] Don't allow a user to save a rule with no matching conditions.
@@ -469,7 +490,56 @@ v2.0.1
 ------
 
 [mms] Fix folder selection (Bug #9907).
-[mms] Fix filtering using the IMAP driver (Bug #9859).
+[mms] Fix IMAP filtering using envelope data (Bug #9859).
+
+
+------
+v2.0.0
+------
+
+First stable release for Horde 4.
+[jan] Fix application-specific permission checks (Bug #9786).
+[jan] Correctly escape vacation subjects with quote characters in Maildrop
+      driver (Bug #9156).
+[jan] Catch all PEAR errors in Sieve driver.
+[jan] Allow script drivers to provide additional scripts to upload (Bug #8110).
+[jan] Change default Sieve port to 4190 (Request #9791).
+[jan] Fix reading default forward rule from preferences.
+[jan] Fix removing flags with Sieve driver (Vilius Sumskas <vilius@lnk.lt>,
+      Bug #9785).
+[mjr] Datatree share to SQL upgrade script refactored for Horde 4.
+[jan] Move all executable scripts to bin/ and prefix with ingo-.
+
+
+---------
+v2.0.0RC2
+---------
+
+Second release candidate for Horde 4.
+[jan] Fix updating forward rules in SQL driver (Bug #9699).
+
+
+---------
+v2.0.0RC1
+---------
+
+First release candidate for Horde 4.
+[jan] Fix instantiation of VFS transport driver (Bug #9605).
+[jan] Fix moving rules with the SQL driver (Bug #9672).
+
+
+-----------
+v2.0.0beta1
+-----------
+
+Fix creating new rules with PostgreSQL (Bug #9638).
+
+
+------------
+v2.0.0alpha1
+------------
+
+First alpha release for Horde 4.
 
 
 ----
@@ -546,11 +616,11 @@ v1.2.4
 
 [jan] Correctly escape addresses in procmail driver (Bug #8875).
 [jan] Fix procmail scripts when using composite headers (Bug #8804).
-[jan] Support some non-standard Date: headers in Sieve vacation rules
-      (Request #8783).
+[jan] Support some non-standard Date: headers in Sieve vacation rules (Request
+      #8783).
 [jan] Support composite header rules with IMAP backends (Request #7343).
-[jan] Fix unconditional debug output with Net_Sieve earlier than 1.2.0
-      (Bug #8794).
+[jan] Fix unconditional debug output with Net_Sieve earlier than 1.2.0 (Bug
+      #8794).
 [jan] Add Sieve configuration to use UTF-8 encoded folder names (for Dovecot)
       (Request #7391).
 
@@ -579,8 +649,8 @@ v1.2.2
       config/prefs.php in the SQL storage driver.
 [jan] No longer try to read spam folder from IMP's preferences.
 [jan] Fix maildrop rules without conditions (almarin@um.es, Bug #8103).
-[cjh] Fix checks for the forward_file and forward_script procmail parameters
-      in the VFS driver (Bug #7811).
+[cjh] Fix checks for the forward_file and forward_script procmail parameters in
+      the VFS driver (Bug #7811).
 [cjh] Add %d (domain) as a replaceable variable in the vfs_path parameter
       (dev@stean.ch, Request #7503).
 [jan] Make it easier to select the "Create new folder" entry for target folders
@@ -588,8 +658,8 @@ v1.2.2
 [cjh] Fix reading the current script in the VFS driver (rsalmon@mbpgroup.com,
       Bug #7610).
 [cjh] Maildrop vacation rule: don't reply to bulk/list messages, add start/end
-      times, better character support in the message, allow subsequent rules
-      to execute (rsalmon@mbpgroup.com, Bug #7140).
+      times, better character support in the message, allow subsequent rules to
+      execute (rsalmon@mbpgroup.com, Bug #7140).
 [cjh] Fix compound header tests in the procmail and maildrop drivers
       (rsalmon@mbpgroup.com, Bugs #7117, #7611).
 [jan] Change group field in shares table to work with LDAP groups (Bug #6883).
@@ -605,8 +675,8 @@ v1.2.1
 [jan] Add Basque translation (Euskal Herriko Unibertsitatea EHU/UPV
       <xabier.arrieta@ehu.es>).
 [jan] Fix saving spam rules in the preference backend (Bug #7033).
-[jan] Correctly catch dates before the 10th of a month in Sieve timed
-      vacations (Bug #7023).
+[jan] Correctly catch dates before the 10th of a month in Sieve timed vacations
+      (Bug #7023).
 [mas] Fix vacation with procmail driver (Bugs #6509, #7052).
 [jan] Fix moving to INBOX with the maildrop driver.
 [jan] Disable drop down entries with informational purpose only.
@@ -618,8 +688,8 @@ v1.2.1
 v1.2
 ----
 
-[cjh] Improve resource usage in datatree_to_sql share migration script
-      (Bug #6740).
+[cjh] Improve resource usage in datatree_to_sql share migration script (Bug
+      #6740).
 
 
 --------
@@ -628,15 +698,15 @@ v1.2-RC3
 
 [cjh] Apply fix for http://dev.rubyonrails.org/ticket/11473 to prototype.js
       (Request #6590).
-[cjh] Procmail driver: make the directory in which vacation files are
-      generated configurable (jas@cse.yorku.ca, Request #6643).
+[cjh] Procmail driver: make the directory in which vacation files are generated
+      configurable (jas@cse.yorku.ca, Request #6643).
 [cjh] Add an upgrade script for the new SQL share driver (Request #6109).
-[cjh] Procmail driver: include the original email subject in vacation
-      replies (Michael.Redinger@uibk.ac.at, Request #6432).
-[cjh] Make the procmail delivery agent configurable, allow configuring a
-      prefix for mailboxes (+ is needed for dmail, for example), don't
-      generate empty VFS files, write a .forward file if needed to pass
-      mail to procmail (Michael.Redinger@uibk.ac.at, Request #6433).
+[cjh] Procmail driver: include the original email subject in vacation replies
+      (Michael.Redinger@uibk.ac.at, Request #6432).
+[cjh] Make the procmail delivery agent configurable, allow configuring a prefix
+      for mailboxes (+ is needed for dmail, for example), don't generate empty
+      VFS files, write a .forward file if needed to pass mail to procmail
+      (Michael.Redinger@uibk.ac.at, Request #6433).
 [jan] Add Slovak translation (Martin Matuška <martin@matuska.org>).
 [cjh] Make the command line utilities called from procmail configurable
       (Michael.Redinger@uibk.ac.at, Request #6431).
@@ -657,8 +727,8 @@ v1.2-RC2
       (duck@obala.net).
 [mas] Fix procmail metacharacter quoting. (Bug #5581)
 [cjh] Fix procmail vacation recipe (Volker Then <horde32@volkerthen.com>).
-[cjh] Fix position of closing quote in maildrop driver (laxis@magex.hu,
-      Bug #6020).
+[cjh] Fix position of closing quote in maildrop driver (laxis@magex.hu, Bug
+      #6020).
 [jan] Fix paths in the script for converting to SQL storage (Bug #5957).
 
 
@@ -668,23 +738,23 @@ v1.2-RC1
 
 [cjh] Allow specifying permissions to set in the VFS for uploaded scripts
       (steinkel@ctinetworks.com, Request #5871).
-[cjh] Add spam filter actions and numeric comparisons to the Maildrop
-      script driver (Request #5843).
-[cjh] Maildrop driver improvements: make INBOX-stripping configurable;
-      fix REJECT action; and add is, not is, not contain, not begins
-      with, not ends with, matches, not matches, exists, and not
-      exists rules (horde@nospam.obeliks.de, Request #5816).
+[cjh] Add spam filter actions and numeric comparisons to the Maildrop script
+      driver (Request #5843).
+[cjh] Maildrop driver improvements: make INBOX-stripping configurable; fix
+      REJECT action; and add is, not is, not contain, not begins with, not ends
+      with, matches, not matches, exists, and not exists rules
+      (horde@nospam.obeliks.de, Request #5816).
 [jan] Add Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
 [jan] Improve forward rule generation with sieve scripts (Request #5746).
 [jan] Move all Ingo-specific hook examples from Horde's config/ directory.
-[cjh] Only expunge messages that we have moved or deleted completely when
-      using IMAP filters (Bug #4749).
+[cjh] Only expunge messages that we have moved or deleted completely when using
+      IMAP filters (Bug #4749).
 [cjh] Fix behavior of IMAP stop-script rules (Bug #5539).
 [cjh] Shouldn't show an input field for exists or not exists tests (Bug #5659).
 [cjh] Don't let users save rules with empty conditions (Bug #5641).
 [cjh] Match email addresses exactly for procmail vacation rules, and include
-      the Cc: and Bcc: fields in checks for which address the message was
-      sent to (Bug #4333).
+      the Cc: and Bcc: fields in checks for which address the message was sent
+      to (Bug #4333).
 [cjh] Ingo now provides a Postfix policy daemon that can be used to enforce
       blacklist and whitelist rules at delivery time (Request #4904).
 [cjh] Autocreate VFS paths when saving rules (stevekwok@hotmail.com>).
@@ -715,13 +785,13 @@ v1.2-ALPHA
       (Request #4080)
 [mas] Check sieve quota before uploading a script. (gergely@risko.hu, Request
       #4278)
-[jmf] Blacklist and whitelist for imap scripts now work consistently with
-      sieve scripts -- must match full address.
-[ben] Add body test for procmail (horde@coursimault.com,
-      Requests #3874, #4035).
+[jmf] Blacklist and whitelist for imap scripts now work consistently with sieve
+      scripts -- must match full address.
+[ben] Add body test for procmail (horde@coursimault.com, Requests #3874,
+      #4035).
 [cjh] Add ssh2 to the supported VFS backends (Cliff Green <green@umdnj.edu>).
-[cjh] Add checks to avoid mail loops in the procmail forwards code
-      (Request #3502).
+[cjh] Add checks to avoid mail loops in the procmail forwards code (Request
+      #3502).
 [jan] Use Horde_Form API to generate special rule forms.
 [jan] Add multidomain support for Kolab servers (tokoe@kde.org, Request #3579).
 [jan] Add support for changing other users' filter rules.
@@ -841,12 +911,12 @@ v1.0.2-RC1
 [jan] Fix regular expression rules that contain commas (Bug #1904).
 [mas] Allow the disabling of blacklist, whitelist, vacation, and forward
       (Request #1164).
-[jan] Allow message flags with all sieve rules that keep the message
-      (Bug #1292).
+[jan] Allow message flags with all sieve rules that keep the message (Bug
+      #1292).
 [jan] Add Norwegian Bokmaal translation (Trond Bjørstad <trb@ndn.no>, Thomas
       Chr. Dahl <tcd@ndn.no>).
-[jan] Change whitelist rule for Sieve to not apply any further rules
-      (Bug #1378).
+[jan] Change whitelist rule for Sieve to not apply any further rules (Bug
+      #1378).
 [jan] Add shortcut icon (favicon.ico).
 [ben] Fix procmail forwarding. (hager (at) fh-rosenheim (dot) de, Bug #1125)
 [jan] Allow to specify multiple values with "Begins/Ends With" tests (Todd
@@ -908,24 +978,24 @@ v1.0-ALPHA
 [mms] Allow user-defined filters for the procmail driver (Ben Chavet
       <ben@chavet.net>).
 [mms] Allow user-specified Headers to be used for filtering.
-[mms] The storage system has been abstracted out to allow for multiple
-      backend storage drivers.
-[mms] Removed all 'show_*' preferences - all available actions will be
-      shown on the menu by default.
+[mms] The storage system has been abstracted out to allow for multiple backend
+      storage drivers.
+[mms] Removed all 'show_*' preferences - all available actions will be shown on
+      the menu by default.
 [mms] Added the forward action (Todd Merritt <tmerritt@email.arizona.edu>).
 [mms] On demand filters can now apply to exclusively seen or unseen messages.
 [mms] Rules can now be disabled (Todd Merritt <tmerritt@email.arizona.edu>).
-[mms] Added relational, regex, and matches tests to Sieve script
-      (Todd Merritt <tmerritt@email.arizona.edu>).
+[mms] Added relational, regex, and matches tests to Sieve script (Todd Merritt
+      <tmerritt@email.arizona.edu>).
 [mms] Honor other module's handling of blacklist/whitelist.
-[mms] Don't show script options if the underlying Ingo_Script:: driver
-      doesn't use them.
-[mms] Case sensitive searches only allowed for Ingo_Script:: drivers that
-      can handle them.
+[mms] Don't show script options if the underlying Ingo_Script:: driver doesn't
+      use them.
+[mms] Case sensitive searches only allowed for Ingo_Script:: drivers that can
+      handle them.
 [mms] 'blacklist_folder' preference now handled inside the 'blacklist'
       preference.
-[mms] Added 'show_filter_msg' preference - for use with Horde_Script::
-      backends that support on demand filtering.
+[mms] Added 'show_filter_msg' preference - for use with Horde_Script:: backends
+      that support on demand filtering.
 [mms] Added the 'mail/canApplyFilters' API call.
 [mms] Ingo_Storage:: now handles all session caching.
 [mms] Added IMAP client side Ingo_Script:: driver.
@@ -946,15 +1016,14 @@ v0.1
 [bjn] Add whitelist functions.
 [jan] Add German translation.
 [mms] Blacklisted addresses now stored in the storage backend in array format.
-[mms] Added Ingo_Storage:: driver to allow for storage of rules in
-      various backends.
+[mms] Added Ingo_Storage:: driver to allow for storage of rules in various
+      backends.
 [bjn] Abstract Script class, and procmail script support.
 [jan] Add Polish translation (Przemyslaw "Primo" Witek <primo@npl.pl>).
 [jan] Add Romanian translation (Eugen Hoanca <eugenh@urban-grafx.ro>).
 [jan] Let the users select what should happen to emails from blacklisted
       addresses.
-[jan] Add Traditional Chinese translation (David Chang
-      <david@thbuo.gov.tw>).
+[jan] Add Traditional Chinese translation (David Chang <david@thbuo.gov.tw>).
 [jan] Add French translation (Florent Aide <faide@alphacent.com>).
 [jan] Add an API for Ingo.
 [mac] Add a user preference to automatically update the script after a change.
