@@ -18,12 +18,22 @@
     [mms] Rule code has been separated from the storage backend drivers.
     [jan] Use Horde\ManageSieve instead of Net_Sieve.
     [mms] Rearrange the default order of filter rules.
+3.2.17:
+  api: 3.2.0
+  state:
+    release: stable
+    api: stable
+  date: 2017-09-19
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes:
 3.2.16:
   api: 3.2.0
   state:
     release: stable
     api: stable
-  date: 2017-05-03
+  date: 2017-09-19
   license:
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
