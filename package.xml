@@ -1803,5 +1803,18 @@
 * [mms] Rearrange the default order of filter rules.
    </notes>
   </release>
+  <release>
+   <version>
+    <release>3.2.17</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2017-09-19</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
+   </notes>
+  </release>
  </changelog>
 </package>
