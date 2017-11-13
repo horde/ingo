@@ -2,7 +2,7 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>ingo</name>
  <channel>pear.horde.org</channel>
- <summary>An email filter rules manager</summary>
+ <summary>Email filter rules manager application</summary>
  <description>Ingo is an email-filter management application. It is fully internationalized, integrated with Horde and the IMP Webmail client, and supports both server-side (Sieve, Procmail, Maildrop) and client-side (IMAP) message filtering.</description>
  <lead>
   <name>Jan Schneider</name>
@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-10-20</date>
+ <date>2017-11-11</date>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -1781,7 +1781,7 @@
    </notes>
   </release>
   <release>
-   <date>2017-10-20</date>
+   <date>2017-11-11</date>
    <version>
     <release>4.0.0</release>
     <api>4.0.0</api>
