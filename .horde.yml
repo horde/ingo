@@ -21,7 +21,7 @@ authors:
     name: Michael Slusarz
     user: slusarz
     email: slusarz@horde.org
-    active: true
+    active: false
     role: lead
   -
     name: Chuck Hagenbuch
