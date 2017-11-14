@@ -493,7 +493,6 @@
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
      <file name="bootstrap.php" role="test" />
-     <file name="phpunit.xml" role="test" />
     </dir> <!-- /test/Ingo -->
    </dir> <!-- /test -->
    <dir name="themes">
@@ -885,7 +884,6 @@
    <install as="Ingo/AllTests.php" name="test/Ingo/AllTests.php" />
    <install as="Ingo/Autoload.php" name="test/Ingo/Autoload.php" />
    <install as="Ingo/bootstrap.php" name="test/Ingo/bootstrap.php" />
-   <install as="Ingo/phpunit.xml" name="test/Ingo/phpunit.xml" />
    <install as="Ingo/fixtures/from_spammer" name="test/Ingo/fixtures/from_spammer" />
    <install as="Ingo/fixtures/not_from_spammer" name="test/Ingo/fixtures/not_from_spammer" />
    <install as="Ingo/Unit/MaildropTest.php" name="test/Ingo/Unit/MaildropTest.php" />
