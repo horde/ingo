@@ -1,8 +1,8 @@
 {
     "name": "horde/ingo",
-    "description": "An email filter rules manager",
-    "type": "library",
-    "homepage": "https://pear.horde.org",
+    "description": "Email filter rules manager application",
+    "type": "project",
+    "homepage": "https://www.horde.org/apps/ingo",
     "license": "ASL",
     "authors": [
         {
@@ -22,7 +22,7 @@
         }
     ],
     "version": "3.2.17",
-    "time": "2017-09-19",
+    "time": "2017-11-14",
     "repositories": [
         {
             "type": "pear",

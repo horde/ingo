@@ -2,7 +2,7 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>ingo</name>
  <channel>pear.horde.org</channel>
- <summary>An email filter rules manager</summary>
+ <summary>Email filter rules manager application</summary>
  <description>Ingo is an email-filter management application. It is fully internationalized, integrated with Horde and the IMP Webmail client, and supports both server-side (Sieve, Procmail, Maildrop) and client-side (IMAP) message filtering.</description>
  <lead>
   <name>Jan Schneider</name>
@@ -14,7 +14,7 @@
   <name>Michael Slusarz</name>
   <user>slusarz</user>
   <email>slusarz@horde.org</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
  <lead>
   <name>Chuck Hagenbuch</name>
@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2017-09-19</date>
+ <date>2017-11-14</date>
  <version>
   <release>3.2.17</release>
   <api>3.2.0</api>
@@ -644,6 +644,8 @@
     <name>Net_Sieve</name>
     <channel>pear.php.net</channel>
     <min>1.3.1</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Net_Socket</name>
@@ -1741,7 +1743,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2017-09-19</date>
+   <date>2017-11-14</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * 
