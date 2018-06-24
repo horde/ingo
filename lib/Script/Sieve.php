@@ -290,7 +290,7 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             }
 
             if (count($wildcards) == 5) {
-                $wildcards_todo[] = $temp;
+                $wildcards_todo[] = $wildcards;
                 $wildcards = array();
             }
         }
