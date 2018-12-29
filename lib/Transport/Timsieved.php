@@ -124,7 +124,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
     /**
      * Returns the content of the currently active script.
      *
-     * @return string  The complete ruleset of the specified user.
+     * @return array  Keys 'name' (string) the active script, 'script' (string)  The complete ruleset of the specified user.
      * @throws Ingo_Exception
      * @throws Horde_Exception_NotFound
      */
