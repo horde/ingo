@@ -135,7 +135,7 @@ class Ingo_Script_Imap extends Ingo_Script_Base
 
                 /* If list is empty, move on. */
                 if (empty($addr)) {
-                    continue;
+                    break;
                 }
 
                 $addr = new Horde_Mail_Rfc822_List($addr);
@@ -153,7 +153,7 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                 $indices = $api->search($query);
 
                 if (!$msgs = $api->fetchEnvelope($indices)) {
-                    continue;
+                    break;
                 }
 
                 /* Remove any indices that got in there by way of partial
@@ -265,7 +265,7 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                         /* We need to grab the envelope first. */
                         if ($this->_params['show_filter_msg'] &&
                             !($fetch = $api->fetchEnvelope($indices))) {
-                            continue;
+                            break;
                         }
 
                         $mbox = new Horde_Imap_Client_Mailbox($rule['action-value']);
@@ -293,7 +293,7 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                         /* We need to grab the envelope first. */
                         if ($this->_params['show_filter_msg'] &&
                             !($fetch = $api->fetchEnvelope($indices))) {
-                            continue;
+                            break;
                         }
 
                         /* Delete the messages now. */
@@ -321,7 +321,7 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                         /* Display notification message(s). */
                         if ($this->_params['show_filter_msg']) {
                             if (!($fetch = $api->fetchEnvelope($indices))) {
-                                continue;
+                               break;
                             }
                             foreach ($fetch as $msg) {
                                 $envelope = $msg->getEnvelope();
