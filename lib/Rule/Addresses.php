@@ -20,8 +20,9 @@
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  *
- * @property-read array $addresses  The list of addresses.
- * @property-write mixed $addresses  The list of addresses (array or string).
+ * @property-read string[] $addresses                  The list of addresses.
+ * @property-read Horde_Mail_Rfc822_List $addressList  The list of addresses.
+ * @property-write string[]|string $addresses          A list of addresses.
  */
 class Ingo_Rule_Addresses
 extends Ingo_Rule
@@ -55,6 +56,8 @@ implements Countable
         switch ($name) {
         case 'addresses':
             return $this->_addr->bare_addresses;
+        case 'addressList':
+            return $this->_addr;
         }
     }
 
@@ -68,6 +71,12 @@ implements Countable
             $this->addAddresses(
                 is_array($data) ? $data : preg_split("/\s+/", $data)
             );
+            break;
+        case 'addressList':
+            if (!($data instanceof Horde_Mail_Rfc822_List)) {
+                throw new InvalidArgumentException('Value for addressList is not a Horde_Mail_Rfc822_List object');
+            }
+            $this->_addr = $data;
             break;
         }
     }

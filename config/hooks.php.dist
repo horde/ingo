@@ -20,7 +20,7 @@ class Ingo_Hooks
      * @param string $driver  The driver name (array key from backends.php).
      *
      * @return mixed  If non-array, uses Horde authentication credentials
-                      (DEFAULT). Otherwise, an array with the following keys
+     *                (DEFAULT). Otherwise, an array with the following keys
      *                (non-existent keys will use default values):
      *  - euser: (string; SIEVE ONLY) For the sieve driver, the effective
      *           user to use (authorization ID).
@@ -69,6 +69,43 @@ class Ingo_Hooks
 //        return is_array($value) && count($value)
 //            ? $value
 //            : array($user . '@example.com', $user . '@foobar.com');
+//    }
+
+    /**
+     * Verifies and modifies the list for addresses that the user wants to
+     * forward his messages to.
+     *
+     * @param Horde_Mail_Rfc822_List $addresses  The forward destinations.
+     *
+     * @throws Ingo_Exception if an address is rejected.
+     * @return Horde_Mail_Rfc822_List  The modified destinations.
+     */
+//    public function verify_forward_addresses($addresses)
+//    {
+//        // Example #1: Correcting a common typo.
+//        foreach ($addresses as $address) {
+//            if ($address->mailbox == 'johny') {
+//                $address->mailbox = 'johnny';
+//            }
+//        }
+//
+//        // Example #2: Deny domains not matching a whitelist.
+//        $whitelist = array(
+//            'example.com',
+//            'example.net',
+//            'mycompany.com'
+//        );
+//        foreach ($addresses as $address) {
+//            if (!in_array($address->host, $whitelist)) {
+//                throw new Ingo_Exception(sprintf(
+//                    '%s does not contain a valid domain. Allowed domains: %s',
+//                    $address,
+//                    implode(', ', $whitelist)
+//                ));
+//            }
+//        }
+//
+//        return $addresses;
 //    }
 
 }

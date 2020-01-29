@@ -49,6 +49,13 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
             $forward->keep = ($this->vars->keep_copy == 'on');
 
             try {
+                try {
+                    $forward->addressList = $injector->getInstance('Horde_Core_Hooks')
+                                                     ->callHook('verify_forward_addresses', 'ingo', array($forward->addressList));
+                    $this->vars->addresses = implode("\n", $forward->addresses);
+                } catch (Horde_Exception_HookNotSet $e) {
+                }
+
                 if ($this->vars->submitbutton == _("Save and Enable")) {
                     $forward->disable = true;
                     $notify = _("Rule Enabled");
