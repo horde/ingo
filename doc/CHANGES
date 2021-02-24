@@ -1,7 +1,8 @@
-----------
-v4.0.0-git
-----------
+------------
+v4.0.0alpha1
+------------
 
+[jan] Add verify_forward_addresses() hook.
 [jan] Add support for boolean spam headers (Adam James
       <adam.james@transitiv.co.uk>).
 [jan] Allow to specify time limits for vacation messages if supported.

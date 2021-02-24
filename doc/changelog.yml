@@ -1,6 +1,6 @@
 ---
-4.0.0:
-  api: 4.0.0
+4.0.0alpha1:
+  api: 4.0.0alpha1
   state:
     release: beta
     api: beta
@@ -28,7 +28,7 @@
   license:
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
-  notes:
+  notes: ~
 3.2.16:
   api: 3.2.0
   state:
@@ -246,7 +246,7 @@
   license:
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
-  notes:
+  notes: ~
 3.2.0RC2:
   api: 3.2.0
   state:
