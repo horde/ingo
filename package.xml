@@ -24,7 +24,7 @@
  </lead>
  <date>2021-02-24</date>
  <version>
-  <release>4.0.0alpha1</release>
+  <release>4.0.0alpha2</release>
   <api>4.0.0alpha1</api>
  </version>
  <stability>
@@ -33,16 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Add verify_forward_addresses() hook.
-* [jan] Add support for boolean spam headers (Adam James &lt;adam.james@transitiv.co.uk&gt;).
-* [jan] Allow to specify time limits for vacation messages if supported.
-* [jan] Allow to set vaction with only start or end date, if supported.
-* [jan] Add support for Sieve date extension to vacation messages (Request #12520).
-* [mjr] Export active vacation messages via the timeObjects API (Request #10885).
-* [mms] Added a NoSQL (MongoDB) driver for the storage backend.
-* [mms] Rule code has been separated from the storage backend drivers.
-* [jan] Use Horde\ManageSieve instead of Net_Sieve.
-* [mms] Rearrange the default order of filter rules.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -839,6 +830,88 @@
   </filelist>
  </phprelease>
  <changelog>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
   <release>
    <version>
     <release>0.1.0</release>
@@ -2333,10 +2406,10 @@
     <api>4.0.0alpha1</api>
    </version>
    <stability>
-    <release>alpha</release>
-    <api>alpha</api>
+    <release>beta</release>
+    <api>beta</api>
    </stability>
-   <date>2017-10-20</date>
+   <date>2021-02-24</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add verify_forward_addresses() hook.
@@ -2349,6 +2422,21 @@
 * [mms] Rule code has been separated from the storage backend drivers.
 * [jan] Use Horde\ManageSieve instead of Net_Sieve.
 * [mms] Rearrange the default order of filter rules.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0alpha2</release>
+    <api>4.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2021-02-24</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
