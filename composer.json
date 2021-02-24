@@ -56,9 +56,6 @@
     "autoload": {
         "psr-0": {
             "Ingo": "lib/"
-        },
-        "psr-4": {
-            "Horde\\Ingo\\": "src/"
         }
     },
     "bin": [
