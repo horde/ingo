@@ -1,4 +1,15 @@
 ---
+4.0.0alpha3:
+  api: 4.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2021-02-24
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes: |+
+    
 4.0.0alpha2:
   api: 4.0.0alpha1
   state:
@@ -754,15 +765,15 @@
     [jan] Update installation and upgrade instructions.
     [jan] Fix instantiation of VFS transport driver (Bug #9605).
     [jan] Fix moving rules with the SQL driver (Bug #9672).
+2.0-BETA1:
+  notes: |
+    [jan] Fix creating new rules with PostgreSQL (Bug #9638).
 2.0-ALPHA1:
   notes: |
     [jan] Provide default configuration files instead of .dist versions.
     [jan] Rename 'driver' configuration and classes to 'transport' to avoid confusion with script and storage drivers.
     [mms] Use IMP API for IMAP actions.
     [mms] Convert to Horde 4 standards.
-2.0-BETA1:
-  notes: |
-    [jan] Fix creating new rules with PostgreSQL (Bug #9638).
 1.2.6:
   notes: |
     [mms] Fix encoding of vacation message in maildrop driver (Bug #9532).
