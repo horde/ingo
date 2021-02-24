@@ -40,26 +40,26 @@ license:
   uri: http://www.horde.org/licenses/apache
 dependencies:
   required:
-    php: ^5.3 || ^7
-    pear:
-      pear.horde.org/horde: ^5
-      pear.horde.org/Horde_Auth: ^2
-      pear.horde.org/Horde_Autoloader: ^2
-      pear.horde.org/Horde_Core: ^2.12
-      pear.horde.org/Horde_Exception: ^2
-      pear.horde.org/Horde_Group: ^2
-      pear.horde.org/Horde_Form: ^2
-      pear.horde.org/Horde_Imap_Client: ^2
-      pear.horde.org/Horde_Mime: ^2.5
-      pear.horde.org/Horde_Perms: ^2
-      pear.horde.org/Horde_Share: ^2
-      pear.horde.org/Horde_Util: ^2
-      pear.horde.org/Horde_View: ^2
+    php: ^7
+    composer:
+      horde/horde: ^6
+      horde/auth: ^3
+      horde/autoloader: ^3
+      horde/core: ^3
+      horde/exception: ^3
+      horde/group: ^3
+      horde/form: ^3
+      horde/imap_client: ^3
+      horde/mime: ^3
+      horde/perms: ^3
+      horde/share: ^3
+      horde/util: ^3
+      horde/view: ^3
     ext:
       gettext: '*'
   optional:
-    pear:
-      pear.horde.org/Horde_ListHeaders: ^1
-      pear.horde.org/Horde_ManageSieve: ^1
-      pear.horde.org/Horde_Mongo: ^1
-      pear.horde.org/Horde_Vfs: ^2
+    composer:
+      horde/listheaders: ^2
+      horde/managesieve: ^2
+      horde/mongo: ^2
+      horde/vfs: ^3
