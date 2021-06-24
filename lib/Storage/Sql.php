@@ -482,18 +482,19 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 try {
                     if ($action === self::STORE_ADD) {
                         $query = sprintf(
-                            'UPDATE %s SET spam_level = ?, ' .
-                            'spam_folder = ? WHERE spam_owner = ?',
-                            $this->_params['table_spam']
-                        );
-                        $this->_params['db']->update($query, $values);
-                    } else {
-                        $query = sprintf(
                             'INSERT INTO %s (spam_level, spam_folder, ' .
                             'spam_owner) VALUES (?, ?, ?)',
                                 $this->_params['table_spam']
                         );
                         $this->_params['db']->insert($query, $values);
+
+                    } else {
+                        $query = sprintf(
+                            'UPDATE %s SET spam_level = ?, ' .
+                            'spam_folder = ? WHERE spam_owner = ?',
+                            $this->_params['table_spam']
+                        );
+                        $this->_params['db']->update($query, $values);
                     }
                 } catch (Horde_Db_Exception $e) {
                     throw new Ingo_Exception($e);
