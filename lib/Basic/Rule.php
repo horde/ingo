@@ -62,7 +62,12 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         $ingo_script = $ingo_script_factory->create(Ingo::RULE_FILTER);
 
         /* Redirect if no rules are available. */
-        $availActions = $ingo_script->availableActions();
+        // TODO: Ugly! This should rather be injected
+        global $session;
+        // Filter Redirect and RedirectKeep actions
+        // TODO: This should not be the duty of UI related code but should be delegated
+        $availActions = array_intersect($ingo_script->availableActions(), $session->get('ingo', 'script_categories'));
+
         if (empty($availActions)) {
             $notification->push(
                 _("Individual rules are not supported in the current filtering driver."),

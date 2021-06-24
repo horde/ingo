@@ -49,14 +49,16 @@ class Ingo_Session
         }
 
         /* Disable categories as specified in preferences */
-        $locked_prefs = array(
-            'blacklist' => 'Ingo_Storage_System_Blacklist',
-            'forward' => 'Ingo_Storage_System_Forward',
-            'spam' => 'Ingo_Storage_System_Spam',
-            'vacation' => 'Ingo_Storage_System_Vacation',
-            'whitelist' => 'Ingo_Storage_System_Whitelist'
-        );
-        $locked = array();
+        $locked_prefs = [
+            'blacklist' => 'Ingo_Rule_System_Blacklist',
+            'forward' => 'Ingo_Rule_System_Forward',
+            'spam' => 'Ingo_Rule_System_Spam',
+            'vacation' => 'Ingo_Rule_System_Vacation',
+            'whitelist' => 'Ingo_Rule_System_Whitelist',
+            'redirect' => 'Ingo_Rule_User_Redirect',
+            'redirectkeep' => 'Ingo_Rule_User_RedirectKeep'
+        ];
+        $locked = [];
         foreach ($locked_prefs as $key => $val) {
             if ($prefs->isLocked($key)) {
                 $locked[] = $val;

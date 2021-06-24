@@ -57,6 +57,7 @@ $_prefs['filter_seen'] = array(
 
 
 // The following preference are only used if using the 'prefs' storage driver.
+// Locking them allows to disable functionality.
 
 // Filter rules.
 $_prefs['rules'] = array();
@@ -91,4 +92,17 @@ $_prefs['spam'] = array(
     'locked' => false
 );
 
+// Redirect rule - this is similar to FORWARD, but conditional.
+$_prefs['redirect'] = array(
+    // Lock this preference to disable the Redirect rule.
+    'locked' => false
+);
+
+// RedirectKeep rule - this is similar to FORWARD, but conditional.
+$_prefs['redirectkeep'] = array(
+    // Lock this preference to disable the RedirectKeep rule.
+    'locked' => false
+);
+
 // End preferences storage driver entries
+
