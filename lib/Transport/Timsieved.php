@@ -12,7 +12,8 @@
  * @package  Ingo
  */
 
-use \Horde\ManageSieve;
+use \Horde\ManageSieve\Client as ManageSieve;
+use \Horde\ManageSieve\Exception as ManageSieveException;
 
 /**
  * Ingo_Transport_Timsieved implements an Ingo transport driver to allow
@@ -29,7 +30,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
     /**
      * The ManageSieve object.
      *
-     * @var \Horde\ManageSieve
+     * @var \Horde\ManageSieve\Client
      */
     protected $_sieve;
 
@@ -84,7 +85,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
                     ? $injector->getInstance('Horde_Log_Logger')
                     : null,
             ));
-        } catch (ManageSieve\Exception $e) {
+        } catch (ManageSieveException $e) {
             throw new Ingo_Exception($e);
         }
     }
@@ -116,7 +117,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
             $this->_sieve->installScript(
                 $script['name'], $script['script'], true
             );
-        } catch (ManageSieve\Exception $e) {
+        } catch (ManageSieveException $e) {
             throw new Ingo_Exception($e);
         }
     }
@@ -140,7 +141,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
                 'name' => $active,
                 'script' => $this->_sieve->getScript($active)
             );
-        } catch (ManageSieve\Exception $e) {
+        } catch (ManageSieveException $e) {
             throw new Ingo_Exception($e);
         }
     }

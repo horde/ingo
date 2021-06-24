@@ -13,8 +13,8 @@
  * @package  Ingo
  */
 
-use \Horde\ManageSieve;
-
+use \Horde\ManageSieve\Client as ManageSieve;
+use \Horde\ManageSieve\Exception as ManageSieveException;
 /**
  * Ingo_Transport_Sivtest implements an Ingo transport driver to allow scripts
  * to be installed and set active via the Cyrus sivtest command line utility.
@@ -73,7 +73,7 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
                 'bypassauth' => true,
                 'usetls'     => $this->_params['usetls']
             ));
-        } catch (ManageSieve\Exception $e) {
+        } catch (ManageSieveException $e) {
             throw new Ingo_Exception($e);
         }
     }
