@@ -2,7 +2,9 @@
 v4.0.0alpha6
 ------------
 
-
+[rla] Make managesieve dependency mandatory as sieve is a primary use case and
+      breakage is non-obvious to administrators.
+|+
 
 
 ------------

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2021-07-04</date>
+ <date>2021-10-08</date>
  <version>
   <release>4.0.0alpha6</release>
   <api>4.0.0alpha1</api>
@@ -33,10 +33,16 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [rla] Make managesieve dependency mandatory as sieve is a primary use case and breakage is non-obvious to administrators.
+* |+
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name=".github">
+    <dir name="workflows">
+     <file name="update-satis.yml" role="horde" />
+    </dir> <!-- /.github/workflows -->
+   </dir> <!-- /.github -->
    <dir name="bin">
     <file name="ingo-admin-upgrade" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
@@ -545,9 +551,9 @@
  <dependencies>
   <required>
    <php>
-    <min>7.0.0</min>
-    <max>8.0.0alpha1</max>
-    <exclude>8.0.0alpha1</exclude>
+    <min>7.4.0</min>
+    <max>9.0.0alpha1</max>
+    <exclude>9.0.0alpha1</exclude>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -564,6 +570,7 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="ingo/.github/workflows/update-satis.yml" name=".github/workflows/update-satis.yml" />
    <install as="ingo/basic.php" name="basic.php" />
    <install as="ingo-admin-upgrade" name="bin/ingo-admin-upgrade" />
    <install as="ingo-convert-prefs-to-sql" name="bin/ingo-convert-prefs-to-sql" />
@@ -830,92 +837,6 @@
   </filelist>
  </phprelease>
  <changelog>
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
   <release>
    <version>
     <release>0.1.0</release>
@@ -2500,7 +2421,8 @@
    <date>2021-07-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [rla] Make managesieve dependency mandatory as sieve is a primary use case and breakage is non-obvious to administrators.
+* |+
    </notes>
   </release>
  </changelog>

@@ -1,5 +1,4 @@
 {
-    "minimum-stability": "dev",
     "name": "horde/ingo",
     "description": "Email filter rules manager application",
     "type": "horde-application",
@@ -22,7 +21,7 @@
             "role": "lead"
         }
     ],
-    "time": "2021-07-04",
+    "time": "2021-10-08",
     "repositories": [
         {
             "type": "composer",
@@ -30,33 +29,38 @@
         }
     ],
     "require": {
-        "horde/horde-installer-plugin": "dev-FRAMEWORK_6_0 || *",
-        "php": "^7",
-        "horde/horde": "^6 || dev-FRAMEWORK_6_0",
-        "horde/auth": "^3 || dev-FRAMEWORK_6_0",
-        "horde/autoloader": "^3 || dev-FRAMEWORK_6_0",
-        "horde/core": "^3 || dev-FRAMEWORK_6_0",
-        "horde/exception": "^3 || dev-FRAMEWORK_6_0",
-        "horde/group": "^3 || dev-FRAMEWORK_6_0",
-        "horde/form": "^3 || dev-FRAMEWORK_6_0",
-        "horde/imap_client": "^3 || dev-FRAMEWORK_6_0",
-        "horde/mime": "^3 || dev-FRAMEWORK_6_0",
-        "horde/perms": "^3 || dev-FRAMEWORK_6_0",
-        "horde/share": "^3 || dev-FRAMEWORK_6_0",
-        "horde/util": "^3 || dev-FRAMEWORK_6_0",
-        "horde/view": "^3 || dev-FRAMEWORK_6_0",
+        "horde/horde-installer-plugin": "*",
+        "php": "^7.4 || ^8",
+        "horde/horde": "^6",
+        "horde/auth": "^3",
+        "horde/autoloader": "^3",
+        "horde/core": "^3",
+        "horde/exception": "^3",
+        "horde/group": "^3",
+        "horde/form": "^3",
+        "horde/imap_client": "^3",
+        "horde/managesieve": "^2",
+        "horde/mime": "^3",
+        "horde/perms": "^3",
+        "horde/share": "^3",
+        "horde/util": "^3",
+        "horde/view": "^3",
         "ext-gettext": "*"
     },
     "require-dev": {},
     "suggest": {
-        "horde/listheaders": "^2 || dev-FRAMEWORK_6_0",
-        "horde/managesieve": "^2 || dev-FRAMEWORK_6_0",
-        "horde/mongo": "^2 || dev-FRAMEWORK_6_0",
-        "horde/vfs": "^3 || dev-FRAMEWORK_6_0"
+        "horde/listheaders": "^2",
+        "horde/mongo": "^2",
+        "horde/vfs": "^3"
     },
     "autoload": {
         "psr-0": {
             "Ingo": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Horde\\Ingo\\Test\\": "test/"
         }
     },
     "bin": [
