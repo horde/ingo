@@ -40,7 +40,7 @@ license:
   uri: http://www.horde.org/licenses/apache
 dependencies:
   required:
-    php: ^7
+    php: ^7.4 || ^8
     composer:
       horde/horde: ^6
       horde/auth: ^3
@@ -50,6 +50,7 @@ dependencies:
       horde/group: ^3
       horde/form: ^3
       horde/imap_client: ^3
+      horde/managesieve: ^2
       horde/mime: ^3
       horde/perms: ^3
       horde/share: ^3
@@ -60,6 +61,5 @@ dependencies:
   optional:
     composer:
       horde/listheaders: ^2
-      horde/managesieve: ^2
       horde/mongo: ^2
       horde/vfs: ^3

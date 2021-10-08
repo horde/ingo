@@ -4,12 +4,13 @@
   state:
     release: alpha
     api: alpha
-  date: 2021-07-04
+  date: 2021-10-08
   license:
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
-  notes: |+
-    
+  notes: |
+    [rla] Make managesieve dependency mandatory as sieve is a primary use case and breakage is non-obvious to administrators.
+    |+
 4.0.0alpha5:
   api: 4.0.0alpha1
   state:
