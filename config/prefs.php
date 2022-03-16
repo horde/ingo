@@ -1,4 +1,5 @@
 <?php
+
 /**
  * See horde/config/prefs.php for documentation on the structure of this file.
  *
@@ -10,24 +11,24 @@
 
 // This preference group will only be displayed if the configured script
 // driver can create script files.
-$prefGroups['script'] = array(
+$prefGroups['script'] = [
     'column' => _("Other Preferences"),
     'label' => _("Script Updating"),
     'desc' => _("Preferences about script updating."),
-    'members' => array('auto_update'),
-    'suppress' => function() {
+    'members' => ['auto_update'],
+    'suppress' => function () {
         return !$GLOBALS['injector']->getInstance('Ingo_Factory_Script')
             ->hasFeature('script_file');
     }
-);
+];
 
 // Automatically update the script?
-$_prefs['auto_update'] = array(
+$_prefs['auto_update'] = [
     'value' => 1,
     'locked' => false,
     'type' => 'checkbox',
     'desc' => _("Automatically activate the script after each change?")
-);
+];
 
 // End script preferences
 
@@ -38,19 +39,19 @@ $_prefs['auto_update'] = array(
 
 // Show detailed filter status messages?
 // a value of 0 = no, 1 = yes
-$_prefs['show_filter_msg'] = array(
+$_prefs['show_filter_msg'] = [
     'value' => 1,
     'locked' => false,
     'type' => 'implicit'
-);
+];
 
 // Only filter [un]seen messages?
 // Values: 0, Ingo::FILTER_UNSEEN, Ingo::FILTER_SEEN
-$_prefs['filter_seen'] = array(
+$_prefs['filter_seen'] = [
     'value' => 0,
     'locked' => false,
     'type' => 'implicit'
-);
+];
 
 // End on-demand filtering preferences
 
@@ -60,49 +61,48 @@ $_prefs['filter_seen'] = array(
 // Locking them allows to disable functionality.
 
 // Filter rules.
-$_prefs['rules'] = array();
+$_prefs['rules'] = [];
 
 // Blacklist.
-$_prefs['blacklist'] = array(
+$_prefs['blacklist'] = [
     // Lock this preference to disable blacklists.
     'locked' => false
-);
+];
 
 // Whitelist.
-$_prefs['whitelist'] = array(
+$_prefs['whitelist'] = [
     // Lock this preference to disable whitelists.
     'locked' => false
-);
+];
 
 // Vacation notices.
-$_prefs['vacation'] = array(
+$_prefs['vacation'] = [
     // Lock this preference to disable vacation notices.
     'locked' => false
-);
+];
 
 // Forwarding.
-$_prefs['forward'] = array(
+$_prefs['forward'] = [
     // Lock this preference to disable forwarding.
     'locked' => false
-);
+];
 
 // Spam rule.
-$_prefs['spam'] = array(
+$_prefs['spam'] = [
     // Lock this preference to disable the spam rule.
     'locked' => false
-);
+];
 
 // Redirect rule - this is similar to FORWARD, but conditional.
-$_prefs['redirect'] = array(
+$_prefs['redirect'] = [
     // Lock this preference to disable the Redirect rule.
     'locked' => false
-);
+];
 
 // RedirectKeep rule - this is similar to FORWARD, but conditional.
-$_prefs['redirectkeep'] = array(
+$_prefs['redirectkeep'] = [
     // Lock this preference to disable the RedirectKeep rule.
     'locked' => false
-);
+];
 
 // End preferences storage driver entries
-
