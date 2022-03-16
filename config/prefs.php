@@ -61,7 +61,11 @@ $_prefs['filter_seen'] = [
 // Locking them allows to disable functionality.
 
 // Filter rules.
-$_prefs['rules'] = [];
+$_prefs['rules'] = [
+    'value' => [],
+    'locked' => false,
+    'type' => 'implicit',
+];
 
 // Blacklist.
 $_prefs['blacklist'] = [
