@@ -80,7 +80,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
                 'port'       => $this->_params['port'],
                 'authmethod' => $this->_params['logintype'],
                 'euser'      => $this->_params['euser'],
-                'usetls'     => $this->_params['usetls'],
+                'secure'     => $this->_params['usetls'],
                 'logger'     => $this->_params['debug']
                     ? $injector->getInstance('Horde_Log_Logger')
                     : null,
