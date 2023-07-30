@@ -12,7 +12,7 @@
 
 class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->markTestIncomplete('TODO');
     }

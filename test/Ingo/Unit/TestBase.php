@@ -25,32 +25,32 @@
  * @subpackage UnitTests
  */
 
-class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
+class Ingo_Unit_TestBase extends Horde_Test_Case
 {
     protected $script;
     protected $storage;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $injector = $this->getMock('Horde_Injector', array(), array(), '', false);
+        $injector = $this->getMockBuilder('Horde_Injector')->disableOriginalConstructor()->getMock();
         $injector->expects($this->any())
             ->method('getInstance')
             ->will($this->returnCallback(array($this, '_injectorGetInstance')));
         $GLOBALS['injector'] = $injector;
 
-        $prefs = $this->getMock('Horde_Prefs', array(), array(), '', false);
+        $prefs = $this->getMockBuilder('Horde_Prefs')->disableOriginalConstructor()->getMock();
         $prefs->expects($this->any())
             ->method('getValue')
             ->will($this->returnValue(false));
         $GLOBALS['prefs'] = $prefs;
 
-        $registry = $this->getMock('Horde_Registry', array(), array(), '', false);
+        $registry = $this->getMockBuilder('Horde_Registry')->disableOriginalConstructor()->getMock();
         $registry->expects($this->any())
             ->method('hasMethod')
             ->will($this->returnValue(true));
         $GLOBALS['registry'] = $registry;
 
-        $GLOBALS['session'] = $this->getMock('Horde_Session');
+        $GLOBALS['session'] = $this->getMockBuilder('Horde_Session')->getMock();
 
         if (!defined('INGO_BASE')) {
             define('INGO_BASE', realpath(__DIR__ . '/../../..'));
@@ -72,7 +72,7 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
     {
         switch ($interface) {
         case 'Horde_Core_Factory_Identity':
-            $identity = $this->getMock('Horde_Core_Prefs_Identity', array(), array(), '', false);
+            $identity = $this->getMockBuilder('Horde_Core_Prefs_Identity')->disableOriginalConstructor()->getMock();
             $identity->expects($this->any())
                 ->method('getName')
                 ->will($this->returnValue('Foo'));
@@ -83,7 +83,7 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
                 ->method('getValue')
                 ->will($this->returnValue('XYZ'));
 
-            $factory = $this->getMock($interface, array(), array(), '', false);
+            $factory = $this->getMockBuilder($interface)->disableOriginalConstructor()->getMock();
             $factory->expects($this->any())
                 ->method('create')
                 ->will($this->returnValue($identity));
@@ -91,7 +91,7 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
             return $factory;
 
         case 'Horde_Core_Perms':
-            $perms = $this->getMock('Horde_Core_Perms', array(), array(), '', false);
+            $perms = $this->getMockBuilder('Horde_Core_Perms')->disableOriginalConstructor()->getMock();
             $perms->method('hasAppPermission')->will($this->returnValue(true));
             return $perms;
         }

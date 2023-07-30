@@ -256,7 +256,7 @@ abstract class Ingo_Script_Base
                 ? $item['rule']
                 : Ingo::RULE_ALL;
             $name = '';
-            if (strlen($item['name'])) {
+            if (strlen(is_null($item['name']) ? "" : $item['name'])) {
                 $name = $item['name'];
             } elseif (isset($this->_params['transport'][$rule]['params']['filename'])) {
                 $name = $this->_params['transport'][$rule]['params']['filename'];

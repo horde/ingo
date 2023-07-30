@@ -27,7 +27,7 @@
 
 class Ingo_Unit_SieveTest extends Ingo_Unit_TestBase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->script = new Ingo_Script_Sieve(array(

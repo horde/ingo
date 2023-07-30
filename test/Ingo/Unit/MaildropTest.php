@@ -27,7 +27,7 @@
 
 class Ingo_Unit_MaildropTest extends Ingo_Unit_TestBase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

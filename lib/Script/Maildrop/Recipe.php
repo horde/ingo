@@ -236,7 +236,7 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
 
         $match = (isset($condition['match'])) ? $condition['match'] : null;
         // negate tests starting with 'not ', except 'not equals', which simply uses the != operator
-        if ($match != 'not equal' && substr($match, 0, 4) == 'not ') {
+        if ($match != 'not equal' && substr(is_null($match)? "" : $match, 0, 4) == 'not ') {
             $string .= '! ';
         }
 
