@@ -24,37 +24,31 @@
     "version": "4.0.0",
     "time": "2017-11-11",
     "repositories": [
-        {
-            "type": "pear",
-            "url": "https://pear.horde.org"
-        }
     ],
     "require": {
         "php": "^5.3 || ^7",
-        "pear-pear.horde.org/horde": "^5",
-        "pear-pear.horde.org/Horde_Auth": "^2",
-        "pear-pear.horde.org/Horde_Autoloader": "^2",
-        "pear-pear.horde.org/Horde_Core": "^2.12",
-        "pear-pear.horde.org/Horde_Exception": "^2",
-        "pear-pear.horde.org/Horde_Group": "^2",
-        "pear-pear.horde.org/Horde_Form": "^2",
-        "pear-pear.horde.org/Horde_Imap_Client": "^2",
-        "pear-pear.horde.org/Horde_Mime": "^2.5",
-        "pear-pear.horde.org/Horde_Perms": "^2",
-        "pear-pear.horde.org/Horde_Share": "^2",
-        "pear-pear.horde.org/Horde_Util": "^2",
-        "pear-pear.horde.org/Horde_View": "^2",
+        "horde/horde": "^5",
+        "horde/auth": "^2",
+        "horde/autoloader": "^2",
+        "horde/core": "^2.12",
+        "horde/exception": "^2",
+        "horde/group": "^2",
+        "horde/form": "^2",
+        "horde/imap_client": "^2",
+        "horde/mime": "^2.5",
+        "horde/perms": "^2",
+        "horde/share": "^2",
+        "horde/util": "^2",
+        "horde/view": "^2",
         "ext-gettext": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_ListHeaders": "^1",
-        "pear-pear.horde.org/Horde_ManageSieve": "^1",
-        "pear-pear.horde.org/Horde_Mongo": "^1",
-        "pear-pear.horde.org/Horde_Vfs": "^2"
+        "horde/listheaders": "^1",
+        "horde/managesieve": "^1",
+        "horde/mongo": "^1",
+        "horde/vfs": "^2"
     },
     "replace": {
-        "pear-pear.horde.org/ingo": "4.*",
-        "pear-horde/ingo": "4.*"
     },
     "autoload": {
         "psr-0": {
