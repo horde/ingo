@@ -2,7 +2,7 @@
 v4.0.0alpha7
 ------------
 
-
+[mpa] Add transport_params hook to for changing transport params based on current user or other factors
 
 
 ------------
