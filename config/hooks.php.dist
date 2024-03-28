@@ -51,6 +51,29 @@ class Ingo_Hooks
 //        return true;
 //    }
 
+    /**
+     * A hook to override the transport params based on the driver and the current params
+     * @param string $driver        The driver name (array key from backends.php).
+     * @param array $currentParams  The currently used params
+     * 
+     * @return array|null           The params that should be overriden for this transport driver.
+     *                              If the return value is not an array nothing will be overriden.                           
+     */
+//    public function transport_params($driver, $currentParams)
+//    {
+//        // in this example we use a different sieve server for certain users based on the domin in their username
+//        // we also increase the port by one. This might not be a very realistic example, but it shows that you are very flexible with this hook
+//        $params = [];
+//        switch ($driver) {
+//        case 'timsieved':
+//            $userDomain = $GLOBALS['registry']->getAuth('domain');
+//            if ($userDomain === 'new-server.localhost') {
+//                 $params['hostspec'] = 'mail.new-server.localhost';
+//                 $params['port'] = $currentParams['port'] + 1;
+//            }
+//        }
+//        return $params;
+//    }
 
     /**
      * Set the default addresses used for the vacation module.

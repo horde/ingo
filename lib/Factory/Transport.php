@@ -35,16 +35,19 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
     {
         global $registry;
 
+        $coreHooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
+        $transportDriver = $transport['driver'];
+        $transportParams = $transport['params'];
+
         /* Get authentication parameters. */
         try {
-            $auth = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
-                ->callHook('transport_auth', 'ingo', array($transport['driver']));
+            $auth = $coreHooks->callHook('transport_auth', 'ingo', [$transportDriver]);
         } catch (Horde_Exception_HookNotSet $e) {
             $auth = null;
         }
 
         if (!is_array($auth)) {
-            $auth = array();
+            $auth = [];
         }
 
         if (!isset($auth['password'])) {
@@ -57,9 +60,19 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
             $auth['euser'] = Ingo::getUser(false);
         }
 
-        $class = 'Ingo_Transport_' . ucfirst($transport['driver']);
+        // Get transport parameters. 
+        try {
+            $customParams = $coreHooks->callHook('transport_params', 'ingo', [$transportDriver, $transportParams]);
+        } catch (Horde_Exception_HookNotSet $e) {
+            $customParams = null;
+        }
+        if (is_array($customParams)){
+            $transportParams = array_merge($transportParams, $customParams);
+        }
+
+        $class = 'Ingo_Transport_' . ucfirst($transportDriver);
         if (class_exists($class)) {
-            return new $class(array_merge($auth, $transport['params']));
+            return new $class(array_merge($auth, $transportParams));
         }
 
         throw new Ingo_Exception(sprintf(_("Unable to load the transport driver \"%s\"."), $class));
