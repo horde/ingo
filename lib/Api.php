@@ -98,12 +98,19 @@ class Ingo_Api extends Horde_Registry_Api
         }
 
         try {
-            $injector->getInstance('Ingo_Factory_Storage')->create()
-                ->getSystemRule('Ingo_Rule_System_Blacklist')
-                ->addAddresses($addresses);
+            $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+            $bl = $ingo_storage->getSystemRule('Ingo_Rule_System_Blacklist');
+            $bl->addAddresses($addresses);
+            $ingo_storage->updateRule($bl);
             $injector->getInstance('Ingo_Factory_Script')->activateAll(false);
-            foreach ($addresses as $from) {
-                $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
+            if (is_iterable($addresses))
+            {
+                foreach ($addresses as $from) {
+                    $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
+                }
+            }
+            else {
+                $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $addresses));
             }
         } catch (Ingo_Exception $e) {
             $notification->push($e);
