@@ -55,7 +55,7 @@ while (!feof(STDIN)) {
     $registry->setAuth($user, array());
     $session->set('ingo', 'current_share', ':' . $user);
 
-    foreach ($p_storage as $val) {
+    foreach ($prefs_storage as $val) {
         $val->uid = ($val instanceof Ingo_System_Rule)
             ? $sql_storage->getSystemRule(get_class($val))
             : '';
