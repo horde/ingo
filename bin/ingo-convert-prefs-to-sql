@@ -35,7 +35,7 @@ Horde_Registry::appInit('ingo', array('cli' => true));
 if ($conf['storage']['driver'] != 'sql') {
     $cli->fatal('You need to configure an SQL storage backend in Ingo\'s configuration', __FILE__, __LINE__);
 }
-$p_storage = $injector->getInstance('Ingo_Factory_Storage')->create('Prefs');
+$prefs_storage = $injector->getInstance('Ingo_Factory_Storage')->create('Prefs');
 $sql_storage = $injector->getInstance('Ingo_Factory_Storage')->create('Sql');
 
 /* Update each user. */
