@@ -276,7 +276,7 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                         /* We need to grab the envelope first. */
                         if ($this->_params['show_filter_msg'] &&
                             !($fetch = $api->fetchEnvelope($indices))) {
-                            continue 2;
+                            break;
                         }
 
                         $mbox = new Horde_Imap_Client_Mailbox($rule->value);
