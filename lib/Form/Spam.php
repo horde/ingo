@@ -101,7 +101,7 @@ class Horde_Form_Type_ingo_folders extends Horde_Form_Type
     var $_folder;
     var $newFolderSet;
 
-    function isValid(&$var, &$vars, $value, &$message)
+    function isValid($var, $vars, $value, $message)
     {
         if ($this->newFolderSet || strlen($value)) {
             return true;

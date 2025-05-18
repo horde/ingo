@@ -25,7 +25,7 @@ class Ingo_Form_Type_Longemail extends Horde_Form_Type_longtext
 {
     /**
      */
-    public function isValid(&$var, &$vars, $value, &$message)
+    public function isValid($var, $vars, $value, $message)
     {
         $value = trim($value);
 
