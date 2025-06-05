@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2007 Liam Hoekenga <liamr@umich.edu>
@@ -13,8 +14,9 @@
  * @package  Ingo
  */
 
-use \Horde\ManageSieve\Client as ManageSieve;
-use \Horde\ManageSieve\Exception as ManageSieveException;
+use Horde\ManageSieve\Client as ManageSieve;
+use Horde\ManageSieve\Exception as ManageSieveException;
+
 /**
  * Ingo_Transport_Sivtest implements an Ingo transport driver to allow scripts
  * to be installed and set active via the Cyrus sivtest command line utility.
@@ -30,9 +32,9 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
     /**
      * Constructor.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
-        $default_params = array(
+        $default_params = [
             'hostspec'   => 'localhost',
             'logintype'  => '',
             'port'       => 4190,
@@ -41,7 +43,7 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
             'usetls'     => true,
             'command'    => '',
             'socket'     => '',
-        );
+        ];
 
         $this->_supportShares = false;
 
@@ -62,17 +64,18 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
         $this->sivtestSocket(
             $this->_params['username'],
             $this->_params['password'],
-            $this->_params['hostspec']);
+            $this->_params['hostspec']
+        );
 
         try {
-            $this->_sieve = new ManageSieve(array(
+            $this->_sieve = new ManageSieve([
                 'user'       => $this->_params['username'],
                 'password'   => $this->_params['password'],
                 'host'       => 'unix://' . $this->_params['socket'],
                 'port'       => null,
                 'bypassauth' => true,
-                'usetls'     => $this->_params['usetls']
-            ));
+                'usetls'     => $this->_params['usetls'],
+            ]);
         } catch (ManageSieveException $e) {
             throw new Ingo_Exception($e);
         }
@@ -155,8 +158,11 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
         }
         $socket->close();
 
-        if (preg_match('|^bye \(referral "(sieve://)?([^"]+)|i',
-                       $result, $matches)) {
+        if (preg_match(
+            '|^bye \(referral "(sieve://)?([^"]+)|i',
+            $result,
+            $matches
+        )) {
             $this->sivtestSocket($username, $password, $matches[2]);
         } else {
             exec($command . ' > /dev/null 2>&1');

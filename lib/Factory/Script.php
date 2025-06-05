@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -40,19 +41,19 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
             'backend/script',
             Horde_Session::TYPE_ARRAY
         );
-        $skip = array();
+        $skip = [];
 
         if (($rule != Ingo::RULE_ALL) && isset($scripts[$rule])) {
             $script = $scripts[$rule];
 
-            $map = array(
+            $map = [
                 Ingo::RULE_FILTER => 'Ingo_Rule_User',
                 Ingo::RULE_BLACKLIST => 'Ingo_Rule_System_Blacklist',
                 Ingo::RULE_FORWARD => 'Ingo_Rule_System_Forward',
                 Ingo::RULE_SPAM => 'Ingo_Rule_System_Spam',
                 Ingo::RULE_VACATION => 'Ingo_Rule_System_Vacation',
-                Ingo::RULE_WHITELIST => 'Ingo_Rule_System_Whitelist'
-            );
+                Ingo::RULE_WHITELIST => 'Ingo_Rule_System_Whitelist',
+            ];
 
             foreach ($map as $key => $val) {
                 if ($rule != $key) {
@@ -90,27 +91,27 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
         }
 
         switch ($driver) {
-        case 'Imap':
-            $params['filter_seen'] = $prefs->getValue('filter_seen');
-            $params['mailbox'] = 'INBOX';
-            $params['notification'] = $notification;
-            $params['registry'] = $registry;
-            $params['show_filter_msg'] = $prefs->getValue('show_filter_msg');
-            $params['api'] = new Ingo_Script_Imap_Live($params);
-            break;
+            case 'Imap':
+                $params['filter_seen'] = $prefs->getValue('filter_seen');
+                $params['mailbox'] = 'INBOX';
+                $params['notification'] = $notification;
+                $params['registry'] = $registry;
+                $params['show_filter_msg'] = $prefs->getValue('show_filter_msg');
+                $params['api'] = new Ingo_Script_Imap_Live($params);
+                break;
 
-        case 'Sieve':
-            if (!isset($params['date_format'])) {
-                $params['date_format'] = $prefs->getValue('date_format');
-            }
-            if (!isset($params['time_format'])) {
-                // %R and %r don't work on Windows, but who runs a Sieve
-                // backend on a Windows server?
-                $params['time_format'] = $prefs->getValue('twentyFour')
-                    ? '%R'
-                    : '%r';
-            }
-            break;
+            case 'Sieve':
+                if (!isset($params['date_format'])) {
+                    $params['date_format'] = $prefs->getValue('date_format');
+                }
+                if (!isset($params['time_format'])) {
+                    // %R and %r don't work on Windows, but who runs a Sieve
+                    // backend on a Windows server?
+                    $params['time_format'] = $prefs->getValue('twentyFour')
+                        ? '%R'
+                        : '%r';
+                }
+                break;
         }
 
         $class = 'Ingo_Script_' . $driver;
@@ -134,7 +135,7 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
     {
         $scripts = $GLOBALS['session']
             ->get('ingo', 'backend/script', Horde_Session::TYPE_ARRAY);
-        $instances = array();
+        $instances = [];
         foreach (array_keys($scripts) as $rule) {
             $instances[$rule] = $this->create($rule);
         }

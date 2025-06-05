@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -32,17 +33,17 @@ abstract class Ingo_Script_Sieve_Action_Flag extends Ingo_Script_Sieve_Action
      *   - flags: (integer) The mask of flags to set.
      *   - imapflags: (boolean) If set, use imapflags instead of imap4flags.
      */
-    public function __construct($vars = array())
+    public function __construct($vars = [])
     {
-        $this->_vars['flags'] = array();
+        $this->_vars['flags'] = [];
 
         if (isset($vars['flags'])) {
-            $flag_map = array(
+            $flag_map = [
                 Ingo_Rule_User::FLAG_ANSWERED => '\Answered',
                 Ingo_Rule_User::FLAG_DELETED => '\Deleted',
                 Ingo_Rule_User::FLAG_FLAGGED => '\Flagged',
-                Ingo_Rule_User::FLAG_SEEN => '\Seen'
-            );
+                Ingo_Rule_User::FLAG_SEEN => '\Seen',
+            ];
 
             foreach ($flag_map as $key => $val) {
                 if ($vars['flags'] & $key) {
@@ -69,7 +70,7 @@ abstract class Ingo_Script_Sieve_Action_Flag extends Ingo_Script_Sieve_Action
             return '';
         }
 
-        $flist = array();
+        $flist = [];
         foreach ($this->_vars['flags'] as $flag) {
             $flist[] = '"' . Ingo_Script_Sieve::escapeString($flag) . '"';
         }
@@ -99,8 +100,8 @@ abstract class Ingo_Script_Sieve_Action_Flag extends Ingo_Script_Sieve_Action
     public function requires()
     {
         return $this->_vars['imapflags']
-            ? array('imapflags')
-            : array('imap4flags');
+            ? ['imapflags']
+            : ['imap4flags'];
     }
 
 }

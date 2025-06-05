@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -21,25 +22,18 @@
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
-class Ingo_Storage_Memory
-extends Ingo_Storage
+class Ingo_Storage_Memory extends Ingo_Storage
 {
     /**
      */
-    protected function _loadFromBackend()
-    {
-    }
+    protected function _loadFromBackend() {}
 
     /**
      */
-    protected function _removeUserData($user)
-    {
-    }
+    protected function _removeUserData($user) {}
 
     /**
      */
-    protected function _storeBackend($action, $ob)
-    {
-    }
+    protected function _storeBackend($action, $ob) {}
 
 }

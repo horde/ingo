@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
@@ -33,7 +34,7 @@ class Ingo_Script_Procmail_Default implements Ingo_Script_Item
      *                       'delivery_agent' and optionally
      *                       'delivery_mailbox_prefix'.
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $this->_params = $params;
     }

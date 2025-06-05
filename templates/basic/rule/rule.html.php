@@ -25,11 +25,11 @@
 
   <div class="ruleCondition">
    <span>
-    <?php echo $this->radioButtonTag('combine', Ingo_Rule_User::COMBINE_ALL, $this->rule->combine == Ingo_Rule_User::COMBINE_ALL, array('id' => 'all')) ?>
+    <?php echo $this->radioButtonTag('combine', Ingo_Rule_User::COMBINE_ALL, $this->rule->combine == Ingo_Rule_User::COMBINE_ALL, ['id' => 'all']) ?>
     <?php echo $this->hordeLabel('all', _("ALL of the following")) ?>
    </span>
    <span>
-    <?php echo $this->radioButtonTag('combine', Ingo_Rule_User::COMBINE_ANY, $this->rule->combine == Ingo_Rule_User::COMBINE_ANY, array('id' => 'any')) ?>
+    <?php echo $this->radioButtonTag('combine', Ingo_Rule_User::COMBINE_ANY, $this->rule->combine == Ingo_Rule_User::COMBINE_ANY, ['id' => 'any']) ?>
     <?php echo $this->hordeLabel('any', _("ANY of the following")) ?>
    </span>
   </div>
@@ -89,7 +89,7 @@
       <input id="value_<?php echo $f['cond_num'] ?>" name="value[<?php echo $f['cond_num'] ?>]" size="40" value="<?php echo $this->h($f['match_value']) ?>" />
 <?php endif; ?>
 <?php if (isset($f['case_sensitive'])): ?>
-      <?php echo $this->checkBoxTag('case[' . $f['cond_num'] . ']', 1, (bool)$f['case_sensitive'], array('class' => 'caseSensitive', 'id' => 'case_' . $f['cond_num'])) ?>
+      <?php echo $this->checkBoxTag('case[' . $f['cond_num'] . ']', 1, (bool) $f['case_sensitive'], ['class' => 'caseSensitive', 'id' => 'case_' . $f['cond_num']]) ?>
       <?php echo $this->hordeLabel('case_' . $f['cond_num'], _("Case Sensitive")) ?>
 <?php endif; ?>
      </div>
@@ -129,19 +129,19 @@
 
   <ul>
    <li>
-    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_SEEN, (bool)(Ingo_Rule_User::FLAG_SEEN & $this->rule->flags), array('id' => 'seen')) ?>
+    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_SEEN, (bool) (Ingo_Rule_User::FLAG_SEEN & $this->rule->flags), ['id' => 'seen']) ?>
     <?php echo $this->hordeLabel('seen', _("Seen")) ?>
    </li>
    <li>
-    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_FLAGGED, (bool)(Ingo_Rule_User::FLAG_FLAGGED & $this->rule->flags), array('id' => 'flagged')) ?>
+    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_FLAGGED, (bool) (Ingo_Rule_User::FLAG_FLAGGED & $this->rule->flags), ['id' => 'flagged']) ?>
     <?php echo $this->hordeLabel('flagged', _("Flagged")) ?>
    </li>
    <li>
-    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_ANSWERED, (bool)(Ingo_Rule_User::FLAG_ANSWERED & $this->rule->flags), array('id' => 'answered')) ?>
+    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_ANSWERED, (bool) (Ingo_Rule_User::FLAG_ANSWERED & $this->rule->flags), ['id' => 'answered']) ?>
     <?php echo $this->hordeLabel('answered', _("Answered")) ?>
    </li>
    <li>
-    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_DELETED, (bool)(Ingo_Rule_User::FLAG_DELETED & $this->rule->flags), array('id' => 'deleted')) ?>
+    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_DELETED, (bool) (Ingo_Rule_User::FLAG_DELETED & $this->rule->flags), ['id' => 'deleted']) ?>
     <?php echo $this->hordeLabel('deleted', _("Deleted")) ?>
    </li>
   </ul>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *

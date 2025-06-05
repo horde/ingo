@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
@@ -28,10 +29,10 @@ abstract class Ingo_Transport_Base
      *
      * @var array
      */
-    protected $_params = array(
+    protected $_params = [
         'password' => null,
-        'username' => null
-    );
+        'username' => null,
+    ];
 
     /**
      * Whether this driver allows managing other users' rules.
@@ -45,7 +46,7 @@ abstract class Ingo_Transport_Base
      *
      * @param array $params  Configuration parameters.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         $this->_params = array_merge($this->_params, $params);
     }
@@ -60,9 +61,7 @@ abstract class Ingo_Transport_Base
      *
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script)
-    {
-    }
+    public function setScriptActive($script) {}
 
     /**
      * Returns whether the driver supports managing other users' rules.

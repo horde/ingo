@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
@@ -19,6 +20,4 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Exception extends Horde_Exception_Wrapped
-{
-}
+class Ingo_Exception extends Horde_Exception_Wrapped {}

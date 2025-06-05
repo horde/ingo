@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
@@ -43,9 +44,9 @@ class Ingo_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $features = array(
-        'smartmobileView' => true
-    );
+    public $features = [
+        'smartmobileView' => true,
+    ];
 
     /**
      */
@@ -225,13 +226,13 @@ class Ingo_Application extends Horde_Registry_Application
                             . '/services/shares/edit.php',
                         true
                     ),
-                    array(
-                        'params' => array(
+                    [
+                        'params' => [
                             'app' => 'ingo',
-                            'share' => $share
-                        ),
-                        'urlencode' => true
-                    )
+                            'share' => $share,
+                        ],
+                        'urlencode' => true,
+                    ]
                 ) . 'return false;'
             );
         }
@@ -246,7 +247,7 @@ class Ingo_Application extends Horde_Registry_Application
     {
         global $injector, $session;
 
-        $actions = array();
+        $actions = [];
         foreach ($injector->getInstance('Ingo_Factory_Script')->createAll() as $script) {
             $actions = array_merge($actions, $script->availableActions());
         }
@@ -261,20 +262,20 @@ class Ingo_Application extends Horde_Registry_Application
             $url = Ingo_Basic_Filters::url();
             $current = $session->get('ingo', 'current_share');
 
-            $sidebar->containers['rulesets'] = array(
-                'header' => array(
+            $sidebar->containers['rulesets'] = [
+                'header' => [
                     'id' => 'ingo-toggle-rules',
                     'label' => _("Ruleset"),
                     'collapsed' => false,
-                ),
-            );
+                ],
+            ];
             foreach ($all_rulesets as $id => $ruleset) {
-                $row = array(
+                $row = [
                     'selected' => ($current == $id),
                     'url' => $url->add('ruleset', $id),
                     'label' => $ruleset->get('name'),
                     'type' => 'radiobox',
-                );
+                ];
                 $sidebar->addRow($row, 'rulesets');
             }
         }
@@ -289,7 +290,7 @@ class Ingo_Application extends Horde_Registry_Application
 
     /**
      */
-    public function hasPermission($permission, $allowed, $opts = array())
+    public function hasPermission($permission, $allowed, $opts = [])
     {
         return $GLOBALS['injector']->getInstance('Ingo_Perms')->hasPermission($permission, $allowed, $opts);
     }
@@ -332,10 +333,10 @@ class Ingo_Application extends Horde_Registry_Application
             /* Get a list of all shares this user owns and has perms to delete
              * and remove them. */
             try {
-                $shares = $ingo_shares->listShares($user, array(
+                $shares = $ingo_shares->listShares($user, [
                     'attributes' => $user,
-                    'perm' => Horde_Perms::DELETE
-                ));
+                    'perm' => Horde_Perms::DELETE,
+                ]);
             } catch (Horde_Share_Exception $e) {
                 Horde::log($e, 'ERR');
                 throw new Ingo_Exception($e);
@@ -360,7 +361,7 @@ class Ingo_Application extends Horde_Registry_Application
             return $this->_rulesets;
         }
 
-        $this->_rulesets = array();
+        $this->_rulesets = [];
 
         try {
             if (!($share = $injector->getInstance('Ingo_Shares'))) {
@@ -369,7 +370,7 @@ class Ingo_Application extends Horde_Registry_Application
 
             $tmp = $share->listShares(
                 $registry->getAuth(),
-                array('perm' => Horde_Perms::SHOW)
+                ['perm' => Horde_Perms::SHOW]
             );
         } catch (Horde_Share_Exception $e) {
             Horde::log($e, 'ERR');
@@ -380,7 +381,7 @@ class Ingo_Application extends Horde_Registry_Application
         $backends = Ingo::loadBackends();
 
         foreach ($tmp as $id => $ruleset) {
-            list($backend) = explode(':', $id);
+            [$backend] = explode(':', $id);
             if (isset($backends[$backend])) {
                 $this->_rulesets[$id] = $ruleset;
             }
@@ -400,8 +401,8 @@ class Ingo_Application extends Horde_Registry_Application
         $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 
         return ($storage instanceof Ingo_Storage_Mongo)
-            ? array($storage)
-            : array();
+            ? [$storage]
+            : [];
     }
 
 }

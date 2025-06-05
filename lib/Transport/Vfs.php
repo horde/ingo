@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
@@ -28,16 +29,16 @@ class Ingo_Transport_Vfs extends Ingo_Transport_Base
      *
      * @param array $params  A hash containing driver parameters.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
-        $default_params = array(
+        $default_params = [
             'hostspec' => 'localhost',
             'port'     => 21,
             'filename' => '.ingo_filter',
             'vfstype'  => 'ftp',
             'vfs_path' => '',
             'vfs_forward_path' => '',
-        );
+        ];
 
         $this->_supportShares = true;
 
@@ -93,10 +94,10 @@ class Ingo_Transport_Vfs extends Ingo_Transport_Base
             if (!$this->_vfs->exists($this->_params['vfs_path'], $this->_params['filename'])) {
                 throw new Horde_Exception_NotFound();
             }
-            return array(
+            return [
                 'name' => $this->_params['filename'],
-                'script' => $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename'])
-            );
+                'script' => $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename']),
+            ];
         } catch (Horde_Vfs_Exception $e) {
             throw new Ingo_Exception($e);
         }
@@ -112,9 +113,10 @@ class Ingo_Transport_Vfs extends Ingo_Transport_Base
         /* Do variable substitution. */
         if (!empty($this->_params['vfs_path'])) {
             $this->_params['vfs_path'] = str_replace(
-                array('%u_full', '%u', '%d', '%U'),
-                array(Ingo::getUser(true), Ingo::getUser(), Ingo::getDomain(), $this->_params['username']),
-                $this->_params['vfs_path']);
+                ['%u_full', '%u', '%d', '%U'],
+                [Ingo::getUser(true), Ingo::getUser(), Ingo::getDomain(), $this->_params['username']],
+                $this->_params['vfs_path']
+            );
         }
 
         if (!empty($this->_vfs)) {
@@ -124,8 +126,8 @@ class Ingo_Transport_Vfs extends Ingo_Transport_Base
         try {
             $this->_vfs = $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Vfs')
-                ->create('ingo', array('type'   => $this->_params['vfstype'],
-                                       'params' => $this->_params));
+                ->create('ingo', ['type'   => $this->_params['vfstype'],
+                    'params' => $this->_params]);
         } catch (Horde_Exception $e) {
             throw new Ingo_Exception($e);
         }

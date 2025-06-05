@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2014 Horde LLC (http://www.horde.org/)
  *
@@ -29,6 +30,6 @@ abstract class Ingo_Script_Sieve_Base implements Ingo_Script_Item
      */
     public function requires()
     {
-        return array();
+        return [];
     }
 }

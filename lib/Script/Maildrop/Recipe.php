@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *
@@ -25,11 +26,11 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
 {
     /**
      */
-    protected $_action = array();
+    protected $_action = [];
 
     /**
      */
-    protected $_conditions = array();
+    protected $_conditions = [];
 
     /**
      */
@@ -41,7 +42,7 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
 
     /**
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      */
@@ -53,14 +54,14 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
 
     /**
      */
-    protected $_operators = array(
+    protected $_operators = [
         'less than'                => '<',
         'less than or equal to'    => '<=',
         'equal'                    => '==',
         'not equal'                => '!=',
         'greater than'             => '>',
         'greater than or equal to' => '>=',
-    );
+    ];
 
     /**
      * Constructs a new maildrop recipe.
@@ -76,132 +77,133 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
      * @param array $scriptparams  Array of parameters passed to
      *                             Ingo_Script_Maildrop::.
      */
-    public function __construct($params = array(), $scriptparams = array())
+    public function __construct($params = [], $scriptparams = [])
     {
         $this->_disable = !empty($params['disable']);
         $this->_params = $scriptparams;
         $this->_action[] = 'exception {';
 
         switch ($params['action']) {
-        case 'Ingo_Rule_User_Keep':
-            $this->_action[] = '   to "${DEFAULT}"';
-            break;
+            case 'Ingo_Rule_User_Keep':
+                $this->_action[] = '   to "${DEFAULT}"';
+                break;
 
-        case 'Ingo_Rule_User_Move':
-            $this->_action[] = '   to ' . $this->maildropPath($params['action-value']);
-            break;
+            case 'Ingo_Rule_User_Move':
+                $this->_action[] = '   to ' . $this->maildropPath($params['action-value']);
+                break;
 
-        case 'Ingo_Rule_User_Discard':
-            $this->_action[] = '   exit';
-            break;
+            case 'Ingo_Rule_User_Discard':
+                $this->_action[] = '   exit';
+                break;
 
-        case 'Ingo_Rule_User_Redirect':
-            $this->_action[] = '   to "! ' . $params['action-value'] . '"';
-            break;
+            case 'Ingo_Rule_User_Redirect':
+                $this->_action[] = '   to "! ' . $params['action-value'] . '"';
+                break;
 
-        case 'Ingo_Rule_User_RedirectKeep':
-            $this->_action[] = '   cc "! ' . $params['action-value'] . '"';
-            $this->_action[] = '   to "${DEFAULT}"';
-            break;
+            case 'Ingo_Rule_User_RedirectKeep':
+                $this->_action[] = '   cc "! ' . $params['action-value'] . '"';
+                $this->_action[] = '   to "${DEFAULT}"';
+                break;
 
-        case 'Ingo_Rule_User_Reject':
-            // EX_NOPERM (permanent failure)
-            $this->_action[] = '   EXITCODE=77';
-            $this->_action[] = '   echo "5.7.1 ' . $params['action-value'] . '"';
-            $this->_action[] = '   exit';
-            break;
+            case 'Ingo_Rule_User_Reject':
+                // EX_NOPERM (permanent failure)
+                $this->_action[] = '   EXITCODE=77';
+                $this->_action[] = '   echo "5.7.1 ' . $params['action-value'] . '"';
+                $this->_action[] = '   exit';
+                break;
 
-        case 'Ingo_Rule_System_Vacation':
-            $from = reset($params['action-value']['addresses']);
+            case 'Ingo_Rule_System_Vacation':
+                $from = reset($params['action-value']['addresses']);
 
-            /* Exclusion of addresses from vacation */
-            if ($params['action-value']['excludes']) {
-                $exclude = implode('|', $params['action-value']['excludes']);
-                // Disable wildcard until officially supported.
-                // $exclude = str_replace('*', '(.*)', $exclude);
-                $this->addCondition(array('match' => 'filter',
-                                          'field' => '',
-                                          'value' => '! /^From:.*(' . $exclude . ')/'));
-            }
-
-            $start = strftime($params['action-value']['start']);
-            if ($start === false) {
-                $start = 0;
-            }
-            $end = strftime($params['action-value']['end']);
-            if ($end === false) {
-                $end = 0;
-            }
-
-            // Rule : Do not send responses to bulk or list messages
-            if ($params['action-value']['ignorelist'] == 1) {
-                $params['combine'] = Ingo_Rule_User::COMBINE_ALL;
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Precedence: (bulk|list|junk)/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Return-Path:.*<#@\[\]>/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Return-Path:.*<>/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^From:.*MAILER-DAEMON/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^X-ClamAV-Notice-Flag: *YES/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Content-Type:.*message\/delivery-status/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Delivery Status Notification/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Undelivered Mail Returned to Sender/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Delivery failure/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Message delay/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Mail Delivery Subsystem/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Mail System Error.*Returned Mail/'));
-                $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^X-Spam-Flag: YES/ '));
-            } else {
-                $this->addCondition(array('field' => 'From', 'value' => ''));
-            }
-
-            // Rule : Start/End of vacation
-            if ($start != 0 || $end != 0) {
-                $this->_action[] = '  flock "$HOME/vacationprocess.lock" {';
-                $this->_action[] = '    current_time=time';
-                $this->_action[] = '      if ( \ ';
-                if ($start != 0) {
-                    $this->_action[] = '        ($current_time >= ' . $start
-                        . ($end != 0 ? ') && \ ' : ') ');
+                /* Exclusion of addresses from vacation */
+                if ($params['action-value']['excludes']) {
+                    $exclude = implode('|', $params['action-value']['excludes']);
+                    // Disable wildcard until officially supported.
+                    // $exclude = str_replace('*', '(.*)', $exclude);
+                    $this->addCondition(['match' => 'filter',
+                        'field' => '',
+                        'value' => '! /^From:.*(' . $exclude . ')/']);
                 }
-                if ($end != 0) {
-                    $this->_action[] = '        ($current_time <= ' . $end . ')) ';
+
+                $start = strftime($params['action-value']['start']);
+                if ($start === false) {
+                    $start = 0;
                 }
-                $this->_action[] = '      {';
-            }
-            $this->_action[] = '  cc "' . str_replace('"', '\\"', sprintf(
-                '| mailbot %s -D %d -c \'UTF-8\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t -f %s',
-                $this->_params['mailbotargs'],
-                $params['action-value']['days'] ?: 9999,
-                escapeshellarg('From: ' . $from),
-                escapeshellarg(Horde_Mime::encode($params['action-value']['subject'])),
-                escapeshellarg($from)))
-                . '"';
-            if (($start != 0) && ($end !== 0)) {
-                $this->_action[] = '      }';
-                $this->_action[] = '  }';
-            }
-
-            break;
-
-        case 'Ingo_Rule_System_Forward':
-        case Ingo_Script_Maildrop::MAILDROP_STORAGE_ACTION_STOREANDFORWARD:
-            foreach ($params['action-value'] as $address) {
-                if (!empty($address)) {
-                    $this->_action[] = '  cc "! ' . $address . '"';
+                $end = strftime($params['action-value']['end']);
+                if ($end === false) {
+                    $end = 0;
                 }
-            }
 
-            /* The 'to' must be the last action, because maildrop
-             * stops processing after it. */
-            if ($params['action'] == Ingo_Script_Maildrop::MAILDROP_STORAGE_ACTION_STOREANDFORWARD) {
-                $this->_action[] = ' to "${DEFAULT}"';
-            } else {
-                $this->_action[] = ' exit';
-            }
-            break;
+                // Rule : Do not send responses to bulk or list messages
+                if ($params['action-value']['ignorelist'] == 1) {
+                    $params['combine'] = Ingo_Rule_User::COMBINE_ALL;
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^Precedence: (bulk|list|junk)/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^Return-Path:.*<#@\[\]>/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^Return-Path:.*<>/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^From:.*MAILER-DAEMON/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^X-ClamAV-Notice-Flag: *YES/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^Content-Type:.*message\/delivery-status/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Delivery Status Notification/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Undelivered Mail Returned to Sender/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Delivery failure/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Message delay/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Mail Delivery Subsystem/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^Subject:.*Mail System Error.*Returned Mail/']);
+                    $this->addCondition(['match' => 'filter', 'field' => '', 'value' => '! /^X-Spam-Flag: YES/ ']);
+                } else {
+                    $this->addCondition(['field' => 'From', 'value' => '']);
+                }
 
-        default:
-            $this->_valid = false;
-            break;
+                // Rule : Start/End of vacation
+                if ($start != 0 || $end != 0) {
+                    $this->_action[] = '  flock "$HOME/vacationprocess.lock" {';
+                    $this->_action[] = '    current_time=time';
+                    $this->_action[] = '      if ( \ ';
+                    if ($start != 0) {
+                        $this->_action[] = '        ($current_time >= ' . $start
+                            . ($end != 0 ? ') && \ ' : ') ');
+                    }
+                    if ($end != 0) {
+                        $this->_action[] = '        ($current_time <= ' . $end . ')) ';
+                    }
+                    $this->_action[] = '      {';
+                }
+                $this->_action[] = '  cc "' . str_replace('"', '\\"', sprintf(
+                    '| mailbot %s -D %d -c \'UTF-8\' -t $HOME/vacation.msg -d $HOME/vacation -A %s -s %s /usr/sbin/sendmail -t -f %s',
+                    $this->_params['mailbotargs'],
+                    $params['action-value']['days'] ?: 9999,
+                    escapeshellarg('From: ' . $from),
+                    escapeshellarg(Horde_Mime::encode($params['action-value']['subject'])),
+                    escapeshellarg($from)
+                ))
+                    . '"';
+                if (($start != 0) && ($end !== 0)) {
+                    $this->_action[] = '      }';
+                    $this->_action[] = '  }';
+                }
+
+                break;
+
+            case 'Ingo_Rule_System_Forward':
+            case Ingo_Script_Maildrop::MAILDROP_STORAGE_ACTION_STOREANDFORWARD:
+                foreach ($params['action-value'] as $address) {
+                    if (!empty($address)) {
+                        $this->_action[] = '  cc "! ' . $address . '"';
+                    }
+                }
+
+                /* The 'to' must be the last action, because maildrop
+                 * stops processing after it. */
+                if ($params['action'] == Ingo_Script_Maildrop::MAILDROP_STORAGE_ACTION_STOREANDFORWARD) {
+                    $this->_action[] = ' to "${DEFAULT}"';
+                } else {
+                    $this->_action[] = ' exit';
+                }
+                break;
+
+            default:
+                $this->_valid = false;
+                break;
         }
 
         $this->_action[] = '}';
@@ -231,7 +233,7 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
      *                                  are 'field' and 'value'. 'case' is
      *                                  an optional keys.
      */
-    public function addCondition($condition = array())
+    public function addCondition($condition = [])
     {
         $flag = (!empty($condition['case'])) ? 'D' : '';
         if (empty($this->_conditions)) {
@@ -255,59 +257,59 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
         }
 
         switch ($match) {
-        case 'not regex':
-        case 'regex':
-            $string .= $condition['value'] . '/:h';
-            break;
+            case 'not regex':
+            case 'regex':
+                $string .= $condition['value'] . '/:h';
+                break;
 
-        case 'filter':
-            $string = $condition['value'];
-            break;
+            case 'filter':
+                $string = $condition['value'];
+                break;
 
-        case 'exists':
-        case 'not exist':
-            // Just run a match for the header name
-            $string .= '/:h';
-            break;
+            case 'exists':
+            case 'not exist':
+                // Just run a match for the header name
+                $string .= '/:h';
+                break;
 
-        case 'less than or equal to':
-        case 'less than':
-        case 'equal':
-        case 'not equal':
-        case 'greater than or equal to':
-        case 'greater than':
-            $string .= '(\d+(\.\d+)?)/:h';
-            $extra = ' && $MATCH1 ' . $this->_operators[$match] . ' ' . (int)$condition['value'];
-            break;
+            case 'less than or equal to':
+            case 'less than':
+            case 'equal':
+            case 'not equal':
+            case 'greater than or equal to':
+            case 'greater than':
+                $string .= '(\d+(\.\d+)?)/:h';
+                $extra = ' && $MATCH1 ' . $this->_operators[$match] . ' ' . (int) $condition['value'];
+                break;
 
-        case 'begins with':
-        case 'not begins with':
-            $string .= preg_quote($condition['value'], '/') . '/:h';
-            break;
+            case 'begins with':
+            case 'not begins with':
+                $string .= preg_quote($condition['value'], '/') . '/:h';
+                break;
 
-        case 'ends with':
-        case 'not ends with':
-            $string .= '.*' . preg_quote($condition['value'], '/') . '$/:h';
-            break;
+            case 'ends with':
+            case 'not ends with':
+                $string .= '.*' . preg_quote($condition['value'], '/') . '$/:h';
+                break;
 
-        case 'is':
-        case 'not is':
-            $string .= preg_quote($condition['value'], '/') . '$/:h';
-            break;
+            case 'is':
+            case 'not is':
+                $string .= preg_quote($condition['value'], '/') . '$/:h';
+                break;
 
-        case 'matches':
-        case 'not matches':
-            $string .= str_replace(array('\\*', '\\?'), array('.*', '.'), preg_quote($condition['value'], '/') . '$') . '/:h';
-            break;
+            case 'matches':
+            case 'not matches':
+                $string .= str_replace(['\\*', '\\?'], ['.*', '.'], preg_quote($condition['value'], '/') . '$') . '/:h';
+                break;
 
-        case 'contains':
-        case 'not contain':
-        default:
-            $string .= '.*' . preg_quote($condition['value'], '/') . '/:h';
-            break;
+            case 'contains':
+            case 'not contain':
+            default:
+                $string .= '.*' . preg_quote($condition['value'], '/') . '/:h';
+                break;
         }
 
-        $this->_conditions[] = array('condition' => $string, 'flags' => $flag, 'extra' => $extra);
+        $this->_conditions[] = ['condition' => $string, 'flags' => $flag, 'extra' => $extra];
     }
 
     /**
@@ -317,7 +319,7 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
      */
     public function generate()
     {
-        $text = array();
+        $text = [];
 
         if (!$this->_valid) {
             return '';

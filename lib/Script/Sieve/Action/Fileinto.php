@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -28,11 +29,10 @@ class Ingo_Script_Sieve_Action_Fileinto extends Ingo_Script_Sieve_Action
      *
      * @param array $vars  Any required parameters.
      */
-    public function __construct($vars = array())
+    public function __construct($vars = [])
     {
-        $this->_vars['folder'] = isset($vars['folder'])
-            ? $vars['folder']
-            : '';
+        $this->_vars['folder'] = $vars['folder']
+            ?? '';
 
         if (empty($vars['utf8'])) {
             $mbox = new Horde_Imap_Client_Mailbox($this->_vars['folder']);
@@ -71,6 +71,6 @@ class Ingo_Script_Sieve_Action_Fileinto extends Ingo_Script_Sieve_Action
      */
     public function requires()
     {
-        return array('fileinto');
+        return ['fileinto'];
     }
 }

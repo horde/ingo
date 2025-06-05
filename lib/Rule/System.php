@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -20,6 +21,4 @@
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
-interface Ingo_Rule_System
-{
-}
+interface Ingo_Rule_System {}

@@ -19,7 +19,7 @@ $prefGroups['script'] = [
     'suppress' => function () {
         return !$GLOBALS['injector']->getInstance('Ingo_Factory_Script')
             ->hasFeature('script_file');
-    }
+    },
 ];
 
 // Automatically update the script?
@@ -27,7 +27,7 @@ $_prefs['auto_update'] = [
     'value' => 1,
     'locked' => false,
     'type' => 'checkbox',
-    'desc' => _("Automatically activate the script after each change?")
+    'desc' => _("Automatically activate the script after each change?"),
 ];
 
 // End script preferences
@@ -42,7 +42,7 @@ $_prefs['auto_update'] = [
 $_prefs['show_filter_msg'] = [
     'value' => 1,
     'locked' => false,
-    'type' => 'implicit'
+    'type' => 'implicit',
 ];
 
 // Only filter [un]seen messages?
@@ -50,7 +50,7 @@ $_prefs['show_filter_msg'] = [
 $_prefs['filter_seen'] = [
     'value' => 0,
     'locked' => false,
-    'type' => 'implicit'
+    'type' => 'implicit',
 ];
 
 // End on-demand filtering preferences
@@ -70,43 +70,43 @@ $_prefs['rules'] = [
 // Blacklist.
 $_prefs['blacklist'] = [
     // Lock this preference to disable blacklists.
-    'locked' => false
+    'locked' => false,
 ];
 
 // Whitelist.
 $_prefs['whitelist'] = [
     // Lock this preference to disable whitelists.
-    'locked' => false
+    'locked' => false,
 ];
 
 // Vacation notices.
 $_prefs['vacation'] = [
     // Lock this preference to disable vacation notices.
-    'locked' => false
+    'locked' => false,
 ];
 
 // Forwarding.
 $_prefs['forward'] = [
     // Lock this preference to disable forwarding.
-    'locked' => false
+    'locked' => false,
 ];
 
 // Spam rule.
 $_prefs['spam'] = [
     // Lock this preference to disable the spam rule.
-    'locked' => false
+    'locked' => false,
 ];
 
 // Redirect rule - this is similar to FORWARD, but conditional.
 $_prefs['redirect'] = [
     // Lock this preference to disable the Redirect rule.
-    'locked' => false
+    'locked' => false,
 ];
 
 // RedirectKeep rule - this is similar to FORWARD, but conditional.
 $_prefs['redirectkeep'] = [
     // Lock this preference to disable the RedirectKeep rule.
-    'locked' => false
+    'locked' => false,
 ];
 
 // End preferences storage driver entries

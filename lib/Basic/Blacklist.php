@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
@@ -37,43 +38,43 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
         $flagonly = ($ingo_script && in_array('Ingo_Rule_User_FlagOnly', $ingo_script->availableActions()));
 
         /* Token checking & perform requested actions. */
-        switch ($this->_checkToken(array('rule_update'))) {
-        case 'rule_update':
-            switch ($this->vars->action) {
-            case 'delete':
-                $folder = '';
-                break;
+        switch ($this->_checkToken(['rule_update'])) {
+            case 'rule_update':
+                switch ($this->vars->action) {
+                    case 'delete':
+                        $folder = '';
+                        break;
 
-            case 'mark':
-                $folder = Ingo_Rule_System_Blacklist::DELETE_MARKER;
-                break;
+                    case 'mark':
+                        $folder = Ingo_Rule_System_Blacklist::DELETE_MARKER;
+                        break;
 
-            case 'folder':
-                $folder = $this->validateMbox('actionvalue');
-                break;
+                    case 'folder':
+                        $folder = $this->validateMbox('actionvalue');
+                        break;
 
-            default:
-                $folder = null;
-                break;
-            }
-
-            if (!$flagonly &&
-                ($folder == Ingo_Rule_System_Blacklist::DELETE_MARKER)) {
-                $notification->push("Not supported by this script generator.", 'horde.error');
-            } else {
-                try {
-                    $bl = $ingo_storage->getSystemRule('Ingo_Rule_System_Blacklist');
-                    $bl->addresses = $this->vars->blacklist;
-                    $bl->mailbox = $folder;
-                    $ingo_storage->updateRule($bl);
-                    $notification->push(_("Changes saved."), 'horde.success');
-
-                    $ingo_script_factory->activateAll();
-                } catch (Ingo_Exception $e) {
-                    $notification->push($e, $e->getCode());
+                    default:
+                        $folder = null;
+                        break;
                 }
-            }
-            break;
+
+                if (!$flagonly &&
+                    ($folder == Ingo_Rule_System_Blacklist::DELETE_MARKER)) {
+                    $notification->push("Not supported by this script generator.", 'horde.error');
+                } else {
+                    try {
+                        $bl = $ingo_storage->getSystemRule('Ingo_Rule_System_Blacklist');
+                        $bl->addresses = $this->vars->blacklist;
+                        $bl->mailbox = $folder;
+                        $ingo_storage->updateRule($bl);
+                        $notification->push(_("Changes saved."), 'horde.success');
+
+                        $ingo_script_factory->activateAll();
+                    } catch (Ingo_Exception $e) {
+                        $notification->push($e, $e->getCode());
+                    }
+                }
+                break;
         }
 
         /* Get the blacklist object. */
@@ -83,9 +84,9 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
         $folder_list = Ingo_Flist::select($bl->mailbox, 'actionvalue');
 
         /* Prepare the view. */
-        $view = new Horde_View(array(
-            'templatePath' => INGO_TEMPLATES . '/basic/blacklist'
-        ));
+        $view = new Horde_View([
+            'templatePath' => INGO_TEMPLATES . '/basic/blacklist',
+        ]);
         $view->addHelper('Horde_Core_View_Helper_Help');
         $view->addHelper('Horde_Core_View_Helper_Label');
         $view->addHelper('FormTag');
@@ -100,9 +101,9 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
         $view->formurl = $this->_addToken(self::url());
 
         $page_output->addScriptFile('blacklist.js');
-        $page_output->addInlineJsVars(array(
-            'IngoBlacklist.filtersurl' => strval(Ingo_Basic_Filters::url()->setRaw(true))
-        ));
+        $page_output->addInlineJsVars([
+            'IngoBlacklist.filtersurl' => strval(Ingo_Basic_Filters::url()->setRaw(true)),
+        ]);
 
         $this->header = _("Blacklist Edit");
         $this->output = $view->render('blacklist');
@@ -110,7 +111,7 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
 
     /**
      */
-    public static function url(array $opts = array())
+    public static function url(array $opts = [])
     {
         return Horde::url('basic.php')->add('page', 'blacklist');
     }

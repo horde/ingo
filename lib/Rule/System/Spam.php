@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -23,9 +24,7 @@
  * @property float $level  Spam level.
  * @property string $mailbox  Spam mailbox.
  */
-class Ingo_Rule_System_Spam
-extends Ingo_Rule
-implements Ingo_Rule_System
+class Ingo_Rule_System_Spam extends Ingo_Rule implements Ingo_Rule_System
 {
     /**
      * Spam level.
@@ -54,11 +53,11 @@ implements Ingo_Rule_System
     public function __get($name)
     {
         switch ($name) {
-        case 'level':
-            return $this->_level;
+            case 'level':
+                return $this->_level;
 
-        case 'mailbox':
-            return $this->_mailbox;
+            case 'mailbox':
+                return $this->_mailbox;
         }
     }
 
@@ -67,13 +66,13 @@ implements Ingo_Rule_System
     public function __set($name, $data)
     {
         switch ($name) {
-        case 'level':
-            $this->_level = floatval($data);
-            break;
+            case 'level':
+                $this->_level = floatval($data);
+                break;
 
-        case 'mailbox':
-            $this->_mailbox = $data;
-            break;
+            case 'mailbox':
+                $this->_mailbox = $data;
+                break;
         }
     }
 

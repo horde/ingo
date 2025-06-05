@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -21,12 +22,13 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
+ * @coversNothing
  */
 class Ingo_Script_Sieve_Test_Not extends Ingo_Script_Sieve_Test
 {
     /**
      */
-    protected $_test = array();
+    protected $_test = [];
 
     /**
      * Constructor.

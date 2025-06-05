@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
@@ -22,7 +23,7 @@
  */
 class Horde_Core_Ui_VarRenderer_Ingo extends Horde_Core_Ui_VarRenderer_Html
 {
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         parent::__construct($params);
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -22,8 +23,7 @@
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
-class Ingo_Storage_Prefs
-extends Ingo_Storage
+class Ingo_Storage_Prefs extends Ingo_Storage
 {
     /**
      */
@@ -46,11 +46,11 @@ extends Ingo_Storage
     protected function _storeBackend($action, $rule)
     {
         switch ($action) {
-        case self::STORE_ADD:
-            if (!strlen($rule->uid)) {
-                $rule->uid = strval(new Horde_Support_Randomid());
-            }
-            break;
+            case self::STORE_ADD:
+                if (!strlen($rule->uid)) {
+                    $rule->uid = strval(new Horde_Support_Randomid());
+                }
+                break;
         }
 
         $this->_prefs()->setValue('rules', serialize($this->_rules));
@@ -67,10 +67,10 @@ extends Ingo_Storage
     {
         global $injector;
 
-        return $injector->getInstance('Horde_Core_Factory_Prefs')->create('ingo', array(
+        return $injector->getInstance('Horde_Core_Factory_Prefs')->create('ingo', [
             'cache' => false,
-            'user' => is_null($user) ? Ingo::getUser() : $user
-        ));
+            'user' => is_null($user) ? Ingo::getUser() : $user,
+        ]);
     }
 
 }

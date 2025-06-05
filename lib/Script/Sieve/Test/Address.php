@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -21,6 +22,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
+ * @coversNothing
  */
 class Ingo_Script_Sieve_Test_Address extends Ingo_Script_Sieve_Test
 {
@@ -31,21 +33,16 @@ class Ingo_Script_Sieve_Test_Address extends Ingo_Script_Sieve_Test
      */
     public function __construct($vars)
     {
-        $this->_vars['headers'] = isset($vars['headers'])
-            ? $vars['headers']
-            : '';
-        $this->_vars['comparator'] = isset($vars['comparator'])
-            ? $vars['comparator']
-            : 'i;ascii-casemap';
-        $this->_vars['match-type'] = isset($vars['match-type'])
-            ? $vars['match-type']
-            : ':is';
-        $this->_vars['address-part'] = isset($vars['address-part'])
-            ? $vars['address-part']
-            : ':all';
-        $this->_vars['addresses'] = isset($vars['addresses'])
-            ? $vars['addresses']
-            : '';
+        $this->_vars['headers'] = $vars['headers']
+            ?? '';
+        $this->_vars['comparator'] = $vars['comparator']
+            ?? 'i;ascii-casemap';
+        $this->_vars['match-type'] = $vars['match-type']
+            ?? ':is';
+        $this->_vars['address-part'] = $vars['address-part']
+            ?? ':all';
+        $this->_vars['addresses'] = $vars['addresses']
+            ?? '';
     }
 
     /**
@@ -122,7 +119,7 @@ class Ingo_Script_Sieve_Test_Address extends Ingo_Script_Sieve_Test
     public function requires()
     {
         return ($this->_vars['match-type'] == ':regex')
-            ? array('regex')
-            : array();
+            ? ['regex']
+            : [];
     }
 }

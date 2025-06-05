@@ -1,5 +1,5 @@
 <div id="rule" data-role="page">
- <?php echo $this->smartmobileHeader(array('backlink' => array('#rules', _("Rules")), 'logout' => true, 'title' => _("View Rule"))) ?>
+ <?php echo $this->smartmobileHeader(['backlink' => ['#rules', _("Rules")], 'logout' => true, 'title' => _("View Rule")]) ?>
 
  <div data-role="content">
   <dl>

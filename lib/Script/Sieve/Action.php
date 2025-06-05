@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -30,7 +31,7 @@ abstract class Ingo_Script_Sieve_Action extends Ingo_Script_Sieve_Base
      *
      * @var array
      */
-    protected $_vars = array();
+    protected $_vars = [];
 
     /**
      * Checks if the rule parameters are valid.

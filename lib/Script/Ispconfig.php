@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -25,7 +26,7 @@ class Ingo_Script_Ispconfig extends Ingo_Script_Base
      *
      * @var array
      */
-    protected $_features = array(
+    protected $_features = [
         /* Can tests be case sensitive? */
         'case_sensitive' => false,
         /* Does the driver support setting IMAP flags? */
@@ -38,20 +39,20 @@ class Ingo_Script_Ispconfig extends Ingo_Script_Base
         'stop_script' => false,
         /* Does the driver support vacation start and end on time level? */
         'vacation_time' => false,
-    );
+    ];
 
     /**
      * The categories of filtering allowed.
      *
      * @var array
      */
-    protected $_categories = array(
-        'Ingo_Rule_System_Vacation'
-    );
+    protected $_categories = [
+        'Ingo_Rule_System_Vacation',
+    ];
 
-    protected $_categoryFeatures = array(
-        'Ingo_Rule_System_Vacation' => array('period', 'reason'),
-    );
+    protected $_categoryFeatures = [
+        'Ingo_Rule_System_Vacation' => ['period', 'reason'],
+    ];
 
     /**
      * Generates the script to do the filtering specified in the rules.
@@ -65,14 +66,14 @@ class Ingo_Script_Ispconfig extends Ingo_Script_Base
 
         foreach ($filters as $rule) {
             switch (get_class($rule)) {
-            case 'Ingo_Rule_System_Vacation':
-                $this->_addItem(
-                    Ingo::RULE_VACATION,
-                    new Ingo_Script_Ispconfig_Vacation(array(
-                        'vacation' => $rule
-                    ))
-                );
-                break;
+                case 'Ingo_Rule_System_Vacation':
+                    $this->_addItem(
+                        Ingo::RULE_VACATION,
+                        new Ingo_Script_Ispconfig_Vacation([
+                            'vacation' => $rule,
+                        ])
+                    );
+                    break;
             }
         }
     }

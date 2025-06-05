@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
@@ -23,6 +24,7 @@
  * @license    http://www.horde.org/licenses/apache ASL
  * @package    Ingo
  * @subpackage UnitTests
+ * @coversNothing
  */
 
 class Ingo_Unit_ProcmailTest extends Ingo_Unit_TestBase
@@ -31,19 +33,19 @@ class Ingo_Unit_ProcmailTest extends Ingo_Unit_TestBase
     {
         parent::setUp();
 
-        $this->script = new Ingo_Script_Procmail(array(
+        $this->script = new Ingo_Script_Procmail([
             'path_style' => 'mbox',
-            'skip' => array(),
+            'skip' => [],
             'spam_compare' => 'string',
             'spam_header' => 'X-Spam-Level',
             'spam_char' => '*',
             'storage' => $this->storage,
-            'transport' => array(
-                Ingo::RULE_ALL => array(
-                    'driver' => 'Null'
-                )
-            )
-        ));
+            'transport' => [
+                Ingo::RULE_ALL => [
+                    'driver' => 'Null',
+                ],
+            ],
+        ]);
     }
 
     public function testForwardKeep()

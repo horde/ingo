@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -28,7 +29,7 @@ class Ingo_Script_Sieve_Else extends Ingo_Script_Sieve_Base
      *
      * @var array
      */
-    protected $_actions = array();
+    protected $_actions = [];
 
     /**
      * Constructor.
@@ -50,8 +51,8 @@ class Ingo_Script_Sieve_Else extends Ingo_Script_Sieve_Base
      *
      * @return string  A Sieve script snippet.
      */
-     public function generate()
-     {
+    public function generate()
+    {
         if (count($this->_actions) == 0) {
             return '';
         }
@@ -105,7 +106,7 @@ class Ingo_Script_Sieve_Else extends Ingo_Script_Sieve_Base
      */
     public function requires()
     {
-        $requires = array();
+        $requires = [];
 
         foreach ($this->_actions as $action) {
             $requires = array_merge($requires, $action->requires());

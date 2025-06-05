@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2017-2018 Horde LLC (http://www.horde.org/)
  *
@@ -30,9 +31,9 @@ class Ingo_Transport_Sieveconnect extends Ingo_Transport_Base
     /**
      * Constructor.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
-        parent::__construct(array_merge(array(
+        parent::__construct(array_merge([
             'admin'      => '',
             'debug'      => false,
             'euser'      => '',
@@ -42,8 +43,8 @@ class Ingo_Transport_Sieveconnect extends Ingo_Transport_Base
             'scriptname' => 'ingo',
             'usetls'     => true,
             'script'     => '/usr/bin/sieve-connect',
-            'tmpdir'     => $GLOBALS['conf']['tmpdir']
-        ), $params));
+            'tmpdir'     => $GLOBALS['conf']['tmpdir'],
+        ], $params));
     }
 
     /**
@@ -60,7 +61,8 @@ class Ingo_Transport_Sieveconnect extends Ingo_Transport_Base
     {
         $scriptFile = $this->_params['tmpdir'] . '/transport' . md5($this->_params['username'] . $script['name']);
         file_put_contents($scriptFile, $script['script']);
-        $cmd = sprintf("echo '%s' | %s -s %s -p %s -u %s --upload  --localsieve %s --remotesieve %s ; echo '%s' | %s -s %s -p %s -u %s --activate --remotesieve %s",
+        $cmd = sprintf(
+            "echo '%s' | %s -s %s -p %s -u %s --upload  --localsieve %s --remotesieve %s ; echo '%s' | %s -s %s -p %s -u %s --activate --remotesieve %s",
             $this->_params['password'],
             $this->_params['script'],
             $this->_params['hostspec'],
@@ -91,7 +93,8 @@ class Ingo_Transport_Sieveconnect extends Ingo_Transport_Base
      */
     public function getScript()
     {
-        $cmdList = sprintf("echo '%s' | %s -s %s -p %s -u %s --list | grep ACTIVE",
+        $cmdList = sprintf(
+            "echo '%s' | %s -s %s -p %s -u %s --list | grep ACTIVE",
             $this->_params['password'],
             $this->_params['script'],
             $this->_params['hostspec'],
@@ -99,8 +102,9 @@ class Ingo_Transport_Sieveconnect extends Ingo_Transport_Base
             $this->_params['username']
         );
         $files = shell_exec($cmdList);
-        list(, $name,) = explode('"', $files, 3);
-        $cmdDownload = sprintf("echo '%s' | %s -s %s -p %s -u %s --download  --localsieve - --remotesieve %s",
+        [, $name, ] = explode('"', $files, 3);
+        $cmdDownload = sprintf(
+            "echo '%s' | %s -s %s -p %s -u %s --download  --localsieve - --remotesieve %s",
             $this->_params['password'],
             $this->_params['script'],
             $this->_params['hostspec'],
@@ -110,6 +114,6 @@ class Ingo_Transport_Sieveconnect extends Ingo_Transport_Base
         );
         $rules = shell_exec($cmdDownload);
 
-        return array('name' => $name, 'script' => $rules);
+        return ['name' => $name, 'script' => $rules];
     }
 }

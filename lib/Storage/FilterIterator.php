@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -20,15 +21,14 @@
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
-abstract class Ingo_Storage_FilterIterator
-extends FilterIterator
+abstract class Ingo_Storage_FilterIterator extends FilterIterator
 {
     /**
      * Filter list.
      *
      * @var array
      */
-    protected $_filters = array();
+    protected $_filters = [];
 
     /**
      * Create a filter iterator.
@@ -39,9 +39,9 @@ extends FilterIterator
      * @return Ingo_Storage_FilterIterator  Filtered iterator.
      */
     public static function create(
-        Ingo_Storage $storage, array $filter = array()
-    )
-    {
+        Ingo_Storage $storage,
+        array $filter = []
+    ) {
         $iterator =  new static($storage->getIterator());
         $iterator->setFilter($filter);
 
@@ -53,7 +53,7 @@ extends FilterIterator
      *
      * @param array $filter  Filters list.
      */
-    public function setFilter(array $filter = array())
+    public function setFilter(array $filter = [])
     {
         $this->_filters = $filter;
     }

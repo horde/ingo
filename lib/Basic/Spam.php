@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
@@ -42,10 +43,10 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
 
         /* Build form. */
         $form = new Ingo_Form_Spam($this->vars);
-        $renderer = new Horde_Form_Renderer(array(
+        $renderer = new Horde_Form_Renderer([
             'encode_title' => false,
-            'varrenderer_driver' => array('ingo', 'ingo')
-        ));
+            'varrenderer_driver' => ['ingo', 'ingo'],
+        ]);
 
         /* Perform requested actions. Ingo_Form_Spam does token checking for
          * us .*/
@@ -103,18 +104,18 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
 
         Horde::startBuffer();
         Horde_Util::pformInput();
-        $form->renderActive($renderer, $this->vars, self::url(array('append_session' => -1)), 'post');
+        $form->renderActive($renderer, $this->vars, self::url(['append_session' => -1]), 'post');
         $this->output = Horde::endBuffer();
     }
 
     /**
      */
-    public static function url(array $opts = array())
+    public static function url(array $opts = [])
     {
         if (empty($opts['append_session'])) {
             $opts['append_session'] = 0;
         }
-        return Horde::url('basic.php', true, array('append_session' => $opts['append_session']))->add('page', 'spam');
+        return Horde::url('basic.php', true, ['append_session' => $opts['append_session']])->add('page', 'spam');
     }
 
 }

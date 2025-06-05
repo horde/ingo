@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -20,6 +21,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
+ * @coversNothing
  */
 class Ingo_Script_Sieve_Test_Relational extends Ingo_Script_Sieve_Test
 {
@@ -28,17 +30,14 @@ class Ingo_Script_Sieve_Test_Relational extends Ingo_Script_Sieve_Test
      *
      * @param array $vars  Any required parameters.
      */
-    public function __construct($vars = array())
+    public function __construct($vars = [])
     {
-        $this->_vars['comparison'] = isset($vars['comparison'])
-            ? $vars['comparison']
-            : '';
-        $this->_vars['headers'] = isset($vars['headers'])
-            ? $vars['headers']
-            : '';
-        $this->_vars['value'] = isset($vars['value'])
-            ? $vars['value']
-            : 0;
+        $this->_vars['comparison'] = $vars['comparison']
+            ?? '';
+        $this->_vars['headers'] = $vars['headers']
+            ?? '';
+        $this->_vars['value'] = $vars['value']
+            ?? 0;
     }
 
     /**
@@ -77,20 +76,20 @@ class Ingo_Script_Sieve_Test_Relational extends Ingo_Script_Sieve_Test
         // value is positive. Sieve doesn't support comparisons of negative
         // numbers at all so this is the best we can do.
         switch ($this->_vars['comparison']) {
-        case 'gt':
-        case 'ge':
-        case 'eq':
-            // Greater than, greater or equal, equal: number must be
-            // non-negative.
-            return 'allof ( not header :comparator "i;ascii-casemap" :contains "'
-                . $headerstr . '" "-", ' . $code . ' )';
+            case 'gt':
+            case 'ge':
+            case 'eq':
+                // Greater than, greater or equal, equal: number must be
+                // non-negative.
+                return 'allof ( not header :comparator "i;ascii-casemap" :contains "'
+                    . $headerstr . '" "-", ' . $code . ' )';
 
-        case 'lt':
-        case 'le':
-        case 'ne':
-            // Less than, less or equal, nonequal: also match negative numbers
-            return 'anyof ( header :comparator "i;ascii-casemap" :contains "'
-                . $headerstr . '" "-", ' . $code . ' )';
+            case 'lt':
+            case 'le':
+            case 'ne':
+                // Less than, less or equal, nonequal: also match negative numbers
+                return 'anyof ( header :comparator "i;ascii-casemap" :contains "'
+                    . $headerstr . '" "-", ' . $code . ' )';
         }
     }
 
@@ -114,6 +113,6 @@ class Ingo_Script_Sieve_Test_Relational extends Ingo_Script_Sieve_Test
      */
     public function requires()
     {
-        return array('relational', 'comparator-i;ascii-numeric');
+        return ['relational', 'comparator-i;ascii-numeric'];
     }
 }

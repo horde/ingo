@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -22,12 +23,13 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
+ * @coversNothing
  */
 class Ingo_Script_Sieve_Test_Allof extends Ingo_Script_Sieve_Test
 {
     /**
      */
-    protected $_tests = array();
+    protected $_tests = [];
 
     /**
      * Constructor.
@@ -108,7 +110,7 @@ class Ingo_Script_Sieve_Test_Allof extends Ingo_Script_Sieve_Test
      */
     public function requires()
     {
-        $requires = array();
+        $requires = [];
 
         foreach ($this->_tests as $test) {
             $requires = array_merge($requires, $test->requires());

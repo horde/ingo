@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
@@ -36,7 +37,7 @@ class IngoFixRuleOrder extends Horde_Db_Migration_Base
                 $order = 0;
             }
             if ($row['rule_order'] != $order++) {
-                $this->update($update, array($order - 1, $owner, $row['rule_id']));
+                $this->update($update, [$order - 1, $owner, $row['rule_id']]);
             }
         }
     }
@@ -44,8 +45,6 @@ class IngoFixRuleOrder extends Horde_Db_Migration_Base
     /**
      * Downgrade
      */
-    public function down()
-    {
-    }
+    public function down() {}
 
 }

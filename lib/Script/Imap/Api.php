@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
@@ -31,7 +32,7 @@ abstract class Ingo_Script_Imap_Api
     /**
      * TODO
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $this->_params = $params;
     }
@@ -85,8 +86,6 @@ abstract class Ingo_Script_Imap_Api
     /**
      * TODO
      */
-    public function storeCache($timestamp)
-    {
-    }
+    public function storeCache($timestamp) {}
 
 }

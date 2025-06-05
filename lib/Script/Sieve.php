@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
@@ -28,7 +29,7 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
      *
      * @var array
      */
-    protected $_features = array(
+    protected $_features = [
         /* Can tests be case sensitive? */
         'case_sensitive' => true,
         /* Does the driver support setting IMAP flags? */
@@ -41,14 +42,14 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
         'stop_script' => true,
         /* Does the driver support vacation start and end on time level? */
         'vacation_time' => false,
-    );
+    ];
 
     /**
      * The list of actions allowed (implemented) for this driver.
      *
      * @var array
      */
-    protected $_actions = array(
+    protected $_actions = [
         'Ingo_Rule_User_Discard',
         'Ingo_Rule_User_FlagOnly',
         'Ingo_Rule_User_Keep',
@@ -57,29 +58,29 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
         'Ingo_Rule_User_Notify',
         'Ingo_Rule_User_Redirect',
         'Ingo_Rule_User_RedirectKeep',
-        'Ingo_Rule_User_Reject'
-    );
+        'Ingo_Rule_User_Reject',
+    ];
 
     /**
      * The categories of filtering allowed.
      *
      * @var array
      */
-    protected $_categories = array(
+    protected $_categories = [
         'Ingo_Rule_System_Blacklist',
         'Ingo_Rule_System_Forward',
         'Ingo_Rule_System_Spam',
         'Ingo_Rule_System_Vacation',
-        'Ingo_Rule_System_Whitelist'
-    );
+        'Ingo_Rule_System_Whitelist',
+    ];
 
     /**
      * Which form fields are supported in each category by this driver?
      *
      * @var array
      */
-    protected $_categoryFeatures = array(
-        'Ingo_Rule_System_Vacation' => array(
+    protected $_categoryFeatures = [
+        'Ingo_Rule_System_Vacation' => [
             'period',
             'subject',
             'reason',
@@ -87,15 +88,15 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             'excludes',
             'ignorelist',
             'days',
-        )
-    );
+        ],
+    ];
 
     /**
      * The list of tests allowed (implemented) for this driver.
      *
      * @var array
      */
-    protected $_tests = array(
+    protected $_tests = [
         'contains',
         'not contain',
         'is',
@@ -115,33 +116,33 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
         'regex',
         'not regex',
         'matches',
-        'not matches'
-    );
+        'not matches',
+    ];
 
     /**
      * The types of tests allowed (implemented) for this driver.
      *
      * @var array
      */
-    protected $_types = array(
+    protected $_types = [
         Ingo_Rule_User::TEST_HEADER,
         Ingo_Rule_User::TEST_SIZE,
-        Ingo_Rule_User::TEST_BODY
-    );
+        Ingo_Rule_User::TEST_BODY,
+    ];
 
     /**
      * The blocks that have to appear at the end of the code.
      *
      * @var array
      */
-    protected $_endBlocks = array();
+    protected $_endBlocks = [];
 
     /**
      * Constructor.
      *
      * @param array $params  A hash containing parameters needed.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         parent::__construct($params);
         if (!empty($this->_params['date'])) {
@@ -165,7 +166,7 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
 
         return $regexmode
             ? str_replace('"', addslashes('"'), $string)
-            : str_replace(array('\\', '"'), array(addslashes('\\'), addslashes('"')), $string);
+            : str_replace(['\\', '"'], [addslashes('\\'), addslashes('"')], $string);
     }
 
     /**
@@ -197,11 +198,11 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             return;
         }
 
-        $action = array();
+        $action = [];
         foreach ($rule->addresses as $addr) {
-            $action[] = new Ingo_Script_Sieve_Action_Redirect(array(
-                'address' => $addr
-            ));
+            $action[] = new Ingo_Script_Sieve_Action_Redirect([
+                'address' => $addr,
+            ]);
         }
 
         if (count($action)) {
@@ -212,10 +213,10 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                 $if = new Ingo_Script_Sieve_If(
                     new Ingo_Script_Sieve_Test_True()
                 );
-                $if->setActions(array(
+                $if->setActions([
                     new Ingo_Script_Sieve_Action_Keep(),
-                    new Ingo_Script_Sieve_Action_Stop()
-                ));
+                    new Ingo_Script_Sieve_Action_Stop(),
+                ]);
                 $this->_endBlocks[] = $if;
             } else {
                 $action[] = new Ingo_Script_Sieve_Action_Stop();
@@ -244,25 +245,25 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             return;
         }
 
-        $action = array();
+        $action = [];
         $folder = $rule->mailbox;
 
         if (!strlen($folder)) {
             $action[] = new Ingo_Script_Sieve_Action_Discard();
         } elseif ($folder == Ingo_Rule_System_Blacklist::DELETE_MARKER) {
-            $action[] = new Ingo_Script_Sieve_Action_Addflag(array(
+            $action[] = new Ingo_Script_Sieve_Action_Addflag([
                 'flags' => Ingo_Rule_User::FLAG_DELETED,
-                'imapflags' => !empty($this->_params['imapflags'])
-            ));
+                'imapflags' => !empty($this->_params['imapflags']),
+            ]);
             $action[] = new Ingo_Script_Sieve_Action_Keep();
-            $action[] = new Ingo_Script_Sieve_Action_Removeflag(array(
+            $action[] = new Ingo_Script_Sieve_Action_Removeflag([
                 'flags' => Ingo_Rule_User::FLAG_DELETED,
-                'imapflags' => !empty($this->_params['imapflags'])
-            ));
+                'imapflags' => !empty($this->_params['imapflags']),
+            ]);
         } else {
             $action[] = new Ingo_Script_Sieve_Action_Fileinto(array_merge(
                 $this->_params,
-                array('folder' => $folder)
+                ['folder' => $folder]
             ));
         }
 
@@ -274,8 +275,8 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
         );
 
         /* Split the test up to only do 5 addresses at a time. */
-        $temp = $temp_todo = array();
-        $wildcards = $wildcards_todo = array();
+        $temp = $temp_todo = [];
+        $wildcards = $wildcards_todo = [];
         foreach ($rule->addresses as $address) {
             if ((strstr($address, '*') !== false) ||
                 (strstr($address, '?') !== false)) {
@@ -286,12 +287,12 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
 
             if (count($temp) == 5) {
                 $temp_todo[] = $temp;
-                $temp = array();
+                $temp = [];
             }
 
             if (count($wildcards) == 5) {
                 $wildcards_todo[] = $wildcards;
-                $wildcards = array();
+                $wildcards = [];
             }
         }
 
@@ -299,10 +300,10 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             $temp_todo[] = $temp;
         }
         foreach ($temp_todo as $val) {
-            $test = new Ingo_Script_Sieve_Test_Address(array(
+            $test = new Ingo_Script_Sieve_Test_Address([
                 'headers' => "From\nSender\nResent-From",
-                'addresses' => implode("\n", $val)
-            ));
+                'addresses' => implode("\n", $val),
+            ]);
             $if = new Ingo_Script_Sieve_If($test);
             $if->setActions($action);
             $this->_addItem(Ingo::RULE_BLACKLIST, $if);
@@ -312,11 +313,11 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             $wildcards_todo[] = $wildcards;
         }
         foreach ($wildcards_todo as $val) {
-            $test = new Ingo_Script_Sieve_Test_Address(array(
+            $test = new Ingo_Script_Sieve_Test_Address([
                 'headers' => "From\nSender\nResent-From",
                 'match-type' => ':matches',
-                'addresses' => implode("\n", $val)
-            ));
+                'addresses' => implode("\n", $val),
+            ]);
             $if = new Ingo_Script_Sieve_If($test);
             $if->setActions($action);
             $this->_addItem(Ingo::RULE_BLACKLIST, $if);
@@ -339,14 +340,14 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             new Ingo_Script_Sieve_Comment(_("Whitelisted Addresses"))
         );
 
-        $action = array(
+        $action = [
             new Ingo_Script_Sieve_Action_Keep(),
-            new Ingo_Script_Sieve_Action_Stop()
-        );
-        $test = new Ingo_Script_Sieve_Test_Address(array(
+            new Ingo_Script_Sieve_Action_Stop(),
+        ];
+        $test = new Ingo_Script_Sieve_Test_Address([
             'headers' => "From\nSender\nResent-From",
-            'addresses' => implode("\n", $rule->addresses)
-        ));
+            'addresses' => implode("\n", $rule->addresses),
+        ]);
         $if = new Ingo_Script_Sieve_If($test);
         $if->setActions($action);
         $this->_addItem(Ingo::RULE_WHITELIST, $if);
@@ -363,9 +364,9 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             return;
         }
 
-        $action = $tests = array();
+        $action = $tests = [];
 
-        $action[] = new Ingo_Script_Sieve_Action_Vacation(array(
+        $action[] = new Ingo_Script_Sieve_Action_Vacation([
             'subject' => $rule->subject,
             'days' => $rule->days,
             'addresses' => $rule->addresses,
@@ -379,7 +380,7 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             'end_day' => $rule->end_day,
             'reason' => $rule->reason,
             'date' => !empty($this->_params['date']),
-        ));
+        ]);
 
         if ($rule->ignore_list) {
             $lheaders = new Horde_ListHeaders();
@@ -387,34 +388,34 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             $headers['Mailing-List'] = null;
             foreach (array_keys($headers) as $h) {
                 $tests[] = new Ingo_Script_Sieve_Test_Not(
-                    new Ingo_Script_Sieve_Test_Exists(array('headers' => $h))
+                    new Ingo_Script_Sieve_Test_Exists(['headers' => $h])
                 );
             }
             $tests[] = new Ingo_Script_Sieve_Test_Not(
-                new Ingo_Script_Sieve_Test_Header(array(
+                new Ingo_Script_Sieve_Test_Header([
                     'headers' => 'Precedence',
                     'match-type' => ':is',
                     'strings' => "list\nbulk\njunk",
-                    'comparator' => 'i;ascii-casemap'
-                ))
+                    'comparator' => 'i;ascii-casemap',
+                ])
             );
 
             $tests[] = new Ingo_Script_Sieve_Test_Not(
-                new Ingo_Script_Sieve_Test_Header(array(
+                new Ingo_Script_Sieve_Test_Header([
                     'headers' => 'To',
                     'match-type' => ':matches',
                     'strings' => 'Multiple recipients of*',
-                    'comparator' => 'i;ascii-casemap'
-                ))
+                    'comparator' => 'i;ascii-casemap',
+                ])
             );
         }
 
         if (count($rule->exclude)) {
             $tests[] = new Ingo_Script_Sieve_Test_Not(
-                new Ingo_Script_Sieve_Test_Address(array(
+                new Ingo_Script_Sieve_Test_Address([
                     'headers' => "From\nSender\nResent-From",
-                    'addresses' => implode("\n", $rule->exclude)
-                ))
+                    'addresses' => implode("\n", $rule->exclude),
+                ])
             );
         }
 
@@ -445,35 +446,39 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             new Ingo_Script_Sieve_Comment(_("Spam Filter"))
         );
 
-        $actions = array();
-        $actions[] = new Ingo_Script_Sieve_Action_Fileinto(array_merge(
-            $this->_params,
-            array('folder' => $rule->mailbox))
+        $actions = [];
+        $actions[] = new Ingo_Script_Sieve_Action_Fileinto(
+            array_merge(
+                $this->_params,
+                ['folder' => $rule->mailbox]
+            )
         );
 
         if ($this->_params['spam_compare'] == 'numeric') {
-            $vals = array(
+            $vals = [
                 'headers' => $this->_params['spam_header'],
                 'comparison' => 'ge',
-                'value' => $rule->level
-            );
+                'value' => $rule->level,
+            ];
             $test = new Ingo_Script_Sieve_Test_Relational($vals);
         } elseif ($this->_params['spam_compare'] == 'string') {
-            $vals = array(
+            $vals = [
                 'headers' => $this->_params['spam_header'],
                 'match-type' => ':contains',
-                'strings' => str_repeat($this->_params['spam_char'],
-                                        $rule->level),
+                'strings' => str_repeat(
+                    $this->_params['spam_char'],
+                    $rule->level
+                ),
                 'comparator' => 'i;ascii-casemap',
-            );
+            ];
             $test = new Ingo_Script_Sieve_Test_Header($vals);
         } elseif ($this->_params['spam_compare'] == 'boolean') {
-            $vals = array(
+            $vals = [
                 'headers' => $this->_params['spam_header'],
                 'match-type' => ':is',
                 'strings' => $this->_params['spam_value'],
                 'comparator' => 'i;ascii-casemap',
-            );
+            ];
             $test = new Ingo_Script_Sieve_Test_Header($vals);
         }
 
@@ -497,16 +502,18 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
         }
 
         /* Build a list of required sieve extensions. */
-        $requires = array();
+        $requires = [];
         foreach ($this->_recipes as $item) {
             $rule = isset($this->_params['transport'][$item['rule']])
                 ? $item['rule']
                 : Ingo::RULE_ALL;
             if (!isset($requires[$rule])) {
-                $requires[$rule] = array();
+                $requires[$rule] = [];
             }
-            $requires[$rule] = array_merge($requires[$rule],
-                                           $item['object']->requires());
+            $requires[$rule] = array_merge(
+                $requires[$rule],
+                $item['object']->requires()
+            );
         }
         foreach ($requires as $rule => $require) {
             $this->_insertItem(
@@ -543,149 +550,149 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                 continue;
             }
 
-            $action = array();
+            $action = [];
             switch (get_class($rule)) {
-            case 'Ingo_Rule_User_Keep':
-                if ($rule->has_flags) {
-                    $action[] = new Ingo_Script_Sieve_Action_Addflag(array(
-                        'flags' => $rule->flags,
-                        'imapflags' => !empty($this->_params['imapflags'])
+                case 'Ingo_Rule_User_Keep':
+                    if ($rule->has_flags) {
+                        $action[] = new Ingo_Script_Sieve_Action_Addflag([
+                            'flags' => $rule->flags,
+                            'imapflags' => !empty($this->_params['imapflags']),
+                        ]);
+                    }
+
+                    $action[] = new Ingo_Script_Sieve_Action_Keep();
+
+                    if ($rule->has_flags) {
+                        $action[] = new Ingo_Script_Sieve_Action_Removeflag([
+                            'flags' => $rule->flags,
+                            'imapflags' => !empty($this->_params['imapflags']),
+                        ]);
+                    }
+                    break;
+
+                case 'Ingo_Rule_User_Discard':
+                    $action[] = new Ingo_Script_Sieve_Action_Discard();
+                    break;
+
+                case 'Ingo_Rule_User_Move':
+                    if ($rule->has_flags) {
+                        $action[] = new Ingo_Script_Sieve_Action_Addflag([
+                            'flags' => $rule->flags,
+                            'imapflags' => !empty($this->_params['imapflags']),
+                        ]);
+                    }
+
+                    $action[] = new Ingo_Script_Sieve_Action_Fileinto(array_merge(
+                        $this->_params,
+                        ['folder' => $rule->value]
                     ));
-                }
 
-                $action[] = new Ingo_Script_Sieve_Action_Keep();
+                    if ($rule->has_flags) {
+                        $action[] = new Ingo_Script_Sieve_Action_Removeflag([
+                            'flags' => $rule->flags,
+                            'imapflags' => !empty($this->_params['imapflags']),
+                        ]);
+                    }
+                    break;
 
-                if ($rule->has_flags) {
-                    $action[] = new Ingo_Script_Sieve_Action_Removeflag(array(
-                        'flags' => $rule->flags,
-                        'imapflags' => !empty($this->_params['imapflags'])
+                case 'Ingo_Rule_User_Reject':
+                    $action[] = new Ingo_Script_Sieve_Action_Reject([
+                        'reason' => $rule->value,
+                    ]);
+                    break;
+
+                case 'Ingo_Rule_User_Redirect':
+                    $parser = new Horde_Mail_Rfc822();
+                    foreach ($parser->parseAddressList($rule->value) as $address) {
+                        $action[] = new Ingo_Script_Sieve_Action_Redirect([
+                            'address' => $address,
+                        ]);
+                    }
+                    break;
+
+                case 'Ingo_Rule_User_RedirectKeep':
+                    if ($rule->has_flags) {
+                        $action[] = new Ingo_Script_Sieve_Action_Addflag([
+                            'flags' => $rule->flags,
+                            'imapflags' => !empty($this->_params['imapflags']),
+                        ]);
+                    }
+
+                    $parser = new Horde_Mail_Rfc822();
+                    foreach ($parser->parseAddressList($rule->value) as $address) {
+                        $action[] = new Ingo_Script_Sieve_Action_Redirect([
+                            'address' => $address,
+                        ]);
+                    }
+
+                    $action[] = new Ingo_Script_Sieve_Action_Keep();
+
+                    if ($rule->has_flags) {
+                        $action[] = new Ingo_Script_Sieve_Action_Removeflag([
+                            'flags' => $rule->flags,
+                            'imapflags' => !empty($this->_params['imapflags']),
+                        ]);
+                    }
+                    break;
+
+                case 'Ingo_Rule_User_MoveKeep':
+                    if ($rule->has_flags) {
+                        $action[] = new Ingo_Script_Sieve_Action_Addflag([
+                            'flags' => $rule->flags,
+                            'imapflags' => !empty($this->_params['imapflags']),
+                        ]);
+                    }
+
+                    $action[] = new Ingo_Script_Sieve_Action_Keep();
+                    $action[] = new Ingo_Script_Sieve_Action_Fileinto(array_merge(
+                        $this->_params,
+                        ['folder' => $rule->value]
                     ));
-                }
-                break;
 
-            case 'Ingo_Rule_User_Discard':
-                $action[] = new Ingo_Script_Sieve_Action_Discard();
-                break;
+                    if ($rule->has_flags) {
+                        $action[] = new Ingo_Script_Sieve_Action_Removeflag([
+                            'flags' => $rule->flags,
+                            'imapflags' => !empty($this->_params['imapflags']),
+                        ]);
+                    }
+                    break;
 
-            case 'Ingo_Rule_User_Move':
-                if ($rule->has_flags) {
-                    $action[] = new Ingo_Script_Sieve_Action_Addflag(array(
-                        'flags' => $rule->flags,
-                        'imapflags' => !empty($this->_params['imapflags'])
-                    ));
-                }
+                case 'Ingo_Rule_User_FlagOnly':
+                    if ($rule->has_flags) {
+                        $action[] = new Ingo_Script_Sieve_Action_Addflag([
+                            'flags' => $rule->flags,
+                            'imapflags' => !empty($this->_params['imapflags']),
+                        ]);
+                    }
+                    break;
 
-                $action[] = new Ingo_Script_Sieve_Action_Fileinto(array_merge(
-                    $this->_params,
-                    array('folder' => $rule->value)
-                ));
+                case 'Ingo_Rule_User_Notify':
+                    $action[] = new Ingo_Script_Sieve_Action_Notify([
+                        'address' => $rule->value,
+                        'name' => $rule->name,
+                        'notify' => !empty($this->_params['notify']),
+                    ]);
+                    break;
 
-                if ($rule->has_flags) {
-                    $action[] = new Ingo_Script_Sieve_Action_Removeflag(array(
-                        'flags' => $rule->flags,
-                        'imapflags' => !empty($this->_params['imapflags'])
-                    ));
-                }
-                break;
+                case 'Ingo_Rule_System_Whitelist':
+                    $this->_addWhitelistBlocks($rule);
+                    continue 2;
 
-            case 'Ingo_Rule_User_Reject':
-                $action[] = new Ingo_Script_Sieve_Action_Reject(array(
-                    'reason' => $rule->value
-                ));
-                break;
+                case 'Ingo_Rule_System_Blacklist':
+                    $this->_addBlacklistBlocks($rule);
+                    continue 2;
 
-            case 'Ingo_Rule_User_Redirect':
-                $parser = new Horde_Mail_Rfc822();
-                foreach ($parser->parseAddressList($rule->value) as $address) {
-                    $action[] = new Ingo_Script_Sieve_Action_Redirect(array(
-                        'address' => $address
-                    ));
-                }
-                break;
+                case 'Ingo_Rule_System_Vacation':
+                    $this->_addVacationBlocks($rule);
+                    continue 2;
 
-            case 'Ingo_Rule_User_RedirectKeep':
-                if ($rule->has_flags) {
-                    $action[] = new Ingo_Script_Sieve_Action_Addflag(array(
-                        'flags' => $rule->flags,
-                        'imapflags' => !empty($this->_params['imapflags'])
-                    ));
-                }
+                case 'Ingo_Rule_System_Forward':
+                    $this->_addForwardBlocks($rule);
+                    continue 2;
 
-                $parser = new Horde_Mail_Rfc822();
-                foreach ($parser->parseAddressList($rule->value) as $address) {
-                    $action[] = new Ingo_Script_Sieve_Action_Redirect(array(
-                        'address' => $address
-                    ));
-                }
-
-                $action[] = new Ingo_Script_Sieve_Action_Keep();
-
-                if ($rule->has_flags) {
-                    $action[] = new Ingo_Script_Sieve_Action_Removeflag(array(
-                        'flags' => $rule->flags,
-                        'imapflags' => !empty($this->_params['imapflags'])
-                    ));
-                }
-                break;
-
-            case 'Ingo_Rule_User_MoveKeep':
-                if ($rule->has_flags) {
-                    $action[] = new Ingo_Script_Sieve_Action_Addflag(array(
-                        'flags' => $rule->flags,
-                        'imapflags' => !empty($this->_params['imapflags'])
-                    ));
-                }
-
-                $action[] = new Ingo_Script_Sieve_Action_Keep();
-                $action[] = new Ingo_Script_Sieve_Action_Fileinto(array_merge(
-                    $this->_params,
-                    array('folder' => $rule->value)
-                ));
-
-                if ($rule->has_flags) {
-                    $action[] = new Ingo_Script_Sieve_Action_Removeflag(array(
-                        'flags' => $rule->flags,
-                        'imapflags' => !empty($this->_params['imapflags'])
-                    ));
-                }
-                break;
-
-            case 'Ingo_Rule_User_FlagOnly':
-                if ($rule->has_flags) {
-                    $action[] = new Ingo_Script_Sieve_Action_Addflag(array(
-                        'flags' => $rule->flags,
-                        'imapflags' => !empty($this->_params['imapflags'])
-                    ));
-                }
-                break;
-
-            case 'Ingo_Rule_User_Notify':
-                $action[] = new Ingo_Script_Sieve_Action_Notify(array(
-                    'address' => $rule->value,
-                    'name' => $rule->name,
-                    'notify' => !empty($this->_params['notify'])
-                ));
-                break;
-
-            case 'Ingo_Rule_System_Whitelist':
-                $this->_addWhitelistBlocks($rule);
-                continue 2;
-
-            case 'Ingo_Rule_System_Blacklist':
-                $this->_addBlacklistBlocks($rule);
-                continue 2;
-
-            case 'Ingo_Rule_System_Vacation':
-                $this->_addVacationBlocks($rule);
-                continue 2;
-
-            case 'Ingo_Rule_System_Forward':
-                $this->_addForwardBlocks($rule);
-                 continue 2;
-
-            case 'Ingo_Rule_System_Spam':
-                $this->_addSpamBlocks($rule);
-                continue 2;
+                case 'Ingo_Rule_System_Spam':
+                    $this->_addSpamBlocks($rule);
+                    continue 2;
             }
 
             $this->_addItem(
@@ -704,313 +711,317 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             foreach ($rule->conditions as $condition) {
                 $tmp = '';
                 switch ($condition['match']) {
-                case 'equal':
-                    $tmp = new Ingo_Script_Sieve_Test_Relational(array('comparison' => 'eq', 'headers' => $condition['field'], 'value' => $condition['value']));
-                    $test->addTest($tmp);
-                    break;
+                    case 'equal':
+                        $tmp = new Ingo_Script_Sieve_Test_Relational(['comparison' => 'eq', 'headers' => $condition['field'], 'value' => $condition['value']]);
+                        $test->addTest($tmp);
+                        break;
 
-                case 'not equal':
-                    $tmp = new Ingo_Script_Sieve_Test_Relational(array('comparison' => 'ne', 'headers' => $condition['field'], 'value' => $condition['value']));
-                    $test->addTest($tmp);
-                    break;
+                    case 'not equal':
+                        $tmp = new Ingo_Script_Sieve_Test_Relational(['comparison' => 'ne', 'headers' => $condition['field'], 'value' => $condition['value']]);
+                        $test->addTest($tmp);
+                        break;
 
-                case 'less than':
-                    if ($condition['field'] == 'Size') {
-                        /* Message Size Test. */
-                        $tmp = new Ingo_Script_Sieve_Test_Size(array('comparison' => ':under', 'size' => $condition['value']));
-                    } else {
-                        /* Relational Test. */
-                        $tmp = new Ingo_Script_Sieve_Test_Relational(array('comparison' => 'lt', 'headers' => $condition['field'], 'value' => $condition['value']));
-                    }
-                    $test->addTest($tmp);
-                    break;
+                    case 'less than':
+                        if ($condition['field'] == 'Size') {
+                            /* Message Size Test. */
+                            $tmp = new Ingo_Script_Sieve_Test_Size(['comparison' => ':under', 'size' => $condition['value']]);
+                        } else {
+                            /* Relational Test. */
+                            $tmp = new Ingo_Script_Sieve_Test_Relational(['comparison' => 'lt', 'headers' => $condition['field'], 'value' => $condition['value']]);
+                        }
+                        $test->addTest($tmp);
+                        break;
 
-                case 'less than or equal to':
-                    $tmp = new Ingo_Script_Sieve_Test_Relational(array('comparison' => 'le', 'headers' => $condition['field'], 'value' => $condition['value']));
-                    $test->addTest($tmp);
-                    break;
+                    case 'less than or equal to':
+                        $tmp = new Ingo_Script_Sieve_Test_Relational(['comparison' => 'le', 'headers' => $condition['field'], 'value' => $condition['value']]);
+                        $test->addTest($tmp);
+                        break;
 
-                case 'greater than':
-                    if ($condition['field'] == 'Size') {
-                        /* Message Size Test. */
-                        $tmp = new Ingo_Script_Sieve_Test_Size(array('comparison' => ':over', 'size' => $condition['value']));
-                    } else {
-                        /* Relational Test. */
-                        $tmp = new Ingo_Script_Sieve_Test_Relational(array('comparison' => 'gt', 'headers' => $condition['field'], 'value' => $condition['value']));
-                    }
-                    $test->addTest($tmp);
-                    break;
+                    case 'greater than':
+                        if ($condition['field'] == 'Size') {
+                            /* Message Size Test. */
+                            $tmp = new Ingo_Script_Sieve_Test_Size(['comparison' => ':over', 'size' => $condition['value']]);
+                        } else {
+                            /* Relational Test. */
+                            $tmp = new Ingo_Script_Sieve_Test_Relational(['comparison' => 'gt', 'headers' => $condition['field'], 'value' => $condition['value']]);
+                        }
+                        $test->addTest($tmp);
+                        break;
 
-                case 'greater than or equal to':
-                    $tmp = new Ingo_Script_Sieve_Test_Relational(array('comparison' => 'ge', 'headers' => $condition['field'], 'value' => $condition['value']));
-                    $test->addTest($tmp);
-                    break;
+                    case 'greater than or equal to':
+                        $tmp = new Ingo_Script_Sieve_Test_Relational(['comparison' => 'ge', 'headers' => $condition['field'], 'value' => $condition['value']]);
+                        $test->addTest($tmp);
+                        break;
 
-                case 'exists':
-                    $tmp = new Ingo_Script_Sieve_Test_Exists(array('headers' => $condition['field']));
-                    $test->addTest($tmp);
-                    break;
+                    case 'exists':
+                        $tmp = new Ingo_Script_Sieve_Test_Exists(['headers' => $condition['field']]);
+                        $test->addTest($tmp);
+                        break;
 
-                case 'not exist':
-                    $tmp = new Ingo_Script_Sieve_Test_Exists(array('headers' => $condition['field']));
-                    $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
-                    break;
+                    case 'not exist':
+                        $tmp = new Ingo_Script_Sieve_Test_Exists(['headers' => $condition['field']]);
+                        $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
+                        break;
 
-                case 'contains':
-                case 'not contain':
-                case 'is':
-                case 'not is':
-                case 'begins with':
-                case 'not begins with':
-                case 'ends with':
-                case 'not ends with':
-                case 'regex':
-                case 'not regex':
-                case 'matches':
-                case 'not matches':
-                    $comparator = (isset($condition['case']) &&
-                                   $condition['case'])
-                        ? 'i;octet'
-                        : 'i;ascii-casemap';
-                    $vals = array('headers' => preg_replace('/(.)(?<!\\\)\,(.)/',
-                                                            "$1\n$2",
-                                                            $condition['field']),
-                                  'comparator' => $comparator);
-                    $use_address_test = false;
-
-                    if ($condition['match'] != 'regex' &&
-                        $condition['field'] != 'Body') {
-                        $condition['value'] = preg_replace('/(.)(?<!\\\)\,(.)/',
-                                                           "$1\n$2",
-                                                           $condition['value']);
-                    }
-
-                    /* Do 'smarter' searching for fields where we know we have
-                     * e-mail addresses. */
-                    if (preg_match('/^(From|To|Cc|Bcc)/', $condition['field'])) {
-                        $vals['addresses'] = $condition['value'];
-                        $use_address_test = true;
-                    } else {
-                        $vals['strings'] = $condition['value'];
-                    }
-
-                    switch ($condition['match']) {
                     case 'contains':
-                        $vals['match-type'] = ':contains';
-                        if ($use_address_test) {
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } elseif ($condition['field'] == 'Body') {
-                            $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                        } else {
-                            $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                        }
-                        $test->addTest($tmp);
-                        break;
-
                     case 'not contain':
-                        $vals['match-type'] = ':contains';
-                        if ($use_address_test) {
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } elseif ($condition['field'] == 'Body') {
-                            $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                        } else {
-                            $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                        }
-                        $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
-                        break;
-
                     case 'is':
-                        $vals['match-type'] = ':is';
-                        if ($use_address_test) {
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } elseif ($condition['field'] == 'Body') {
-                            $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                        } else {
-                            $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                        }
-                        $test->addTest($tmp);
-                        break;
-
                     case 'not is':
-                        $vals['match-type'] = ':is';
-                        if ($use_address_test) {
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } elseif ($condition['field'] == 'Body') {
-                            $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                        } else {
-                            $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                        }
-                        $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
-                        break;
-
                     case 'begins with':
-                        $vals['match-type'] = ':matches';
-                        if ($use_address_test) {
-                            $add_arr = preg_split('(\r\n|\n|\r)', $vals['addresses']);
-                            if (count($add_arr) > 1) {
-                                foreach ($add_arr as $k => $v) {
-                                    $add_arr[$k] = $v . '*';
-                                }
-                                $vals['addresses'] = implode("\r\n", $add_arr);
-                            } else {
-                                $vals['addresses'] .= '*';
-                            }
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } else {
-                            $add_arr = preg_split('(\r\n|\n|\r)', $vals['strings']);
-                            if (count($add_arr) > 1) {
-                                foreach ($add_arr as $k => $v) {
-                                    $add_arr[$k] = $v . '*';
-                                }
-                                $vals['strings'] = implode("\r\n", $add_arr);
-                            } else {
-                                $vals['strings'] .= '*';
-                            }
-                            if ($condition['field'] == 'Body') {
-                                $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                            } else {
-                                $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                            }
-                        }
-                        $test->addTest($tmp);
-                        break;
-
                     case 'not begins with':
-                        $vals['match-type'] = ':matches';
-                        if ($use_address_test) {
-                            $add_arr = preg_split('(\r\n|\n|\r)', $vals['addresses']);
-                            if (count($add_arr) > 1) {
-                                foreach ($add_arr as $k => $v) {
-                                    $add_arr[$k] = $v . '*';
-                                }
-                                $vals['addresses'] = implode("\r\n", $add_arr);
-                            } else {
-                                $vals['addresses'] .= '*';
-                            }
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } else {
-                            $add_arr = preg_split('(\r\n|\n|\r)', $vals['strings']);
-                            if (count($add_arr) > 1) {
-                                foreach ($add_arr as $k => $v) {
-                                    $add_arr[$k] = $v . '*';
-                                }
-                                $vals['strings'] = implode("\r\n", $add_arr);
-                            } else {
-                                $vals['strings'] .= '*';
-                            }
-                            if ($condition['field'] == 'Body') {
-                                $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                            } else {
-                                $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                            }
-                        }
-                        $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
-                        break;
-
                     case 'ends with':
-                        $vals['match-type'] = ':matches';
-                        if ($use_address_test) {
-                            $add_arr = preg_split('(\r\n|\n|\r)', $vals['addresses']);
-                            if (count($add_arr) > 1) {
-                                foreach ($add_arr as $k => $v) {
-                                    $add_arr[$k] = '*' . $v;
-                                }
-                                $vals['addresses'] = implode("\r\n", $add_arr);
-                            } else {
-                                $vals['addresses'] = '*' .  $vals['addresses'];
-                            }
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } else {
-                            $add_arr = preg_split('(\r\n|\n|\r)', $vals['strings']);
-                            if (count($add_arr) > 1) {
-                                foreach ($add_arr as $k => $v) {
-                                    $add_arr[$k] = '*' . $v;
-                                }
-                                $vals['strings'] = implode("\r\n", $add_arr);
-                            } else {
-                                $vals['strings'] = '*' .  $vals['strings'];
-                            }
-                            if ($condition['field'] == 'Body') {
-                                $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                            } else {
-                                $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                            }
-                        }
-                        $test->addTest($tmp);
-                        break;
-
                     case 'not ends with':
-                        $vals['match-type'] = ':matches';
-                        if ($use_address_test) {
-                            $add_arr = preg_split('(\r\n|\n|\r)', $vals['addresses']);
-                            if (count($add_arr) > 1) {
-                                foreach ($add_arr as $k => $v) {
-                                    $add_arr[$k] = '*' . $v;
-                                }
-                                $vals['addresses'] = implode("\r\n", $add_arr);
-                            } else {
-                                $vals['addresses'] = '*' .  $vals['addresses'];
-                            }
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } else {
-                            $add_arr = preg_split('(\r\n|\n|\r)', $vals['strings']);
-                            if (count($add_arr) > 1) {
-                                foreach ($add_arr as $k => $v) {
-                                    $add_arr[$k] = '*' . $v;
-                                }
-                                $vals['strings'] = implode("\r\n", $add_arr);
-                            } else {
-                                $vals['strings'] = '*' .  $vals['strings'];
-                            }
-                            if ($condition['field'] == 'Body') {
-                                $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                            } else {
-                                $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                            }
-                        }
-                        $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
-                        break;
-
                     case 'regex':
                     case 'not regex':
-                        $vals['match-type'] = ':regex';
-                        if ($use_address_test) {
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } elseif ($condition['field'] == 'Body') {
-                            $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                        } else {
-                            $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                        }
-                        if ($condition['match'] == 'not regex') {
-                            $tmp = new Ingo_Script_Sieve_Test_Not($tmp);
-                        }
-                        $test->addTest($tmp);
-                        break;
-
                     case 'matches':
-                        $vals['match-type'] = ':matches';
-                        if ($use_address_test) {
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } elseif ($condition['field'] == 'Body') {
-                            $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                        } else {
-                            $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                        }
-                        $test->addTest($tmp);
-                        break;
-
                     case 'not matches':
-                        $vals['match-type'] = ':matches';
-                        if ($use_address_test) {
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } elseif ($condition['field'] == 'Body') {
-                            $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                        } else {
-                            $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                        $comparator = (isset($condition['case']) &&
+                                       $condition['case'])
+                            ? 'i;octet'
+                            : 'i;ascii-casemap';
+                        $vals = ['headers' => preg_replace(
+                            '/(.)(?<!\\\)\,(.)/',
+                            "$1\n$2",
+                            $condition['field']
+                        ),
+                            'comparator' => $comparator];
+                        $use_address_test = false;
+
+                        if ($condition['match'] != 'regex' &&
+                            $condition['field'] != 'Body') {
+                            $condition['value'] = preg_replace(
+                                '/(.)(?<!\\\)\,(.)/',
+                                "$1\n$2",
+                                $condition['value']
+                            );
                         }
-                        $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
-                        break;
-                    }
+
+                        /* Do 'smarter' searching for fields where we know we have
+                         * e-mail addresses. */
+                        if (preg_match('/^(From|To|Cc|Bcc)/', $condition['field'])) {
+                            $vals['addresses'] = $condition['value'];
+                            $use_address_test = true;
+                        } else {
+                            $vals['strings'] = $condition['value'];
+                        }
+
+                        switch ($condition['match']) {
+                            case 'contains':
+                                $vals['match-type'] = ':contains';
+                                if ($use_address_test) {
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } elseif ($condition['field'] == 'Body') {
+                                    $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                } else {
+                                    $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                }
+                                $test->addTest($tmp);
+                                break;
+
+                            case 'not contain':
+                                $vals['match-type'] = ':contains';
+                                if ($use_address_test) {
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } elseif ($condition['field'] == 'Body') {
+                                    $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                } else {
+                                    $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                }
+                                $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
+                                break;
+
+                            case 'is':
+                                $vals['match-type'] = ':is';
+                                if ($use_address_test) {
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } elseif ($condition['field'] == 'Body') {
+                                    $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                } else {
+                                    $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                }
+                                $test->addTest($tmp);
+                                break;
+
+                            case 'not is':
+                                $vals['match-type'] = ':is';
+                                if ($use_address_test) {
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } elseif ($condition['field'] == 'Body') {
+                                    $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                } else {
+                                    $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                }
+                                $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
+                                break;
+
+                            case 'begins with':
+                                $vals['match-type'] = ':matches';
+                                if ($use_address_test) {
+                                    $add_arr = preg_split('(\r\n|\n|\r)', $vals['addresses']);
+                                    if (count($add_arr) > 1) {
+                                        foreach ($add_arr as $k => $v) {
+                                            $add_arr[$k] = $v . '*';
+                                        }
+                                        $vals['addresses'] = implode("\r\n", $add_arr);
+                                    } else {
+                                        $vals['addresses'] .= '*';
+                                    }
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } else {
+                                    $add_arr = preg_split('(\r\n|\n|\r)', $vals['strings']);
+                                    if (count($add_arr) > 1) {
+                                        foreach ($add_arr as $k => $v) {
+                                            $add_arr[$k] = $v . '*';
+                                        }
+                                        $vals['strings'] = implode("\r\n", $add_arr);
+                                    } else {
+                                        $vals['strings'] .= '*';
+                                    }
+                                    if ($condition['field'] == 'Body') {
+                                        $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                    } else {
+                                        $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                    }
+                                }
+                                $test->addTest($tmp);
+                                break;
+
+                            case 'not begins with':
+                                $vals['match-type'] = ':matches';
+                                if ($use_address_test) {
+                                    $add_arr = preg_split('(\r\n|\n|\r)', $vals['addresses']);
+                                    if (count($add_arr) > 1) {
+                                        foreach ($add_arr as $k => $v) {
+                                            $add_arr[$k] = $v . '*';
+                                        }
+                                        $vals['addresses'] = implode("\r\n", $add_arr);
+                                    } else {
+                                        $vals['addresses'] .= '*';
+                                    }
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } else {
+                                    $add_arr = preg_split('(\r\n|\n|\r)', $vals['strings']);
+                                    if (count($add_arr) > 1) {
+                                        foreach ($add_arr as $k => $v) {
+                                            $add_arr[$k] = $v . '*';
+                                        }
+                                        $vals['strings'] = implode("\r\n", $add_arr);
+                                    } else {
+                                        $vals['strings'] .= '*';
+                                    }
+                                    if ($condition['field'] == 'Body') {
+                                        $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                    } else {
+                                        $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                    }
+                                }
+                                $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
+                                break;
+
+                            case 'ends with':
+                                $vals['match-type'] = ':matches';
+                                if ($use_address_test) {
+                                    $add_arr = preg_split('(\r\n|\n|\r)', $vals['addresses']);
+                                    if (count($add_arr) > 1) {
+                                        foreach ($add_arr as $k => $v) {
+                                            $add_arr[$k] = '*' . $v;
+                                        }
+                                        $vals['addresses'] = implode("\r\n", $add_arr);
+                                    } else {
+                                        $vals['addresses'] = '*' . $vals['addresses'];
+                                    }
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } else {
+                                    $add_arr = preg_split('(\r\n|\n|\r)', $vals['strings']);
+                                    if (count($add_arr) > 1) {
+                                        foreach ($add_arr as $k => $v) {
+                                            $add_arr[$k] = '*' . $v;
+                                        }
+                                        $vals['strings'] = implode("\r\n", $add_arr);
+                                    } else {
+                                        $vals['strings'] = '*' . $vals['strings'];
+                                    }
+                                    if ($condition['field'] == 'Body') {
+                                        $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                    } else {
+                                        $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                    }
+                                }
+                                $test->addTest($tmp);
+                                break;
+
+                            case 'not ends with':
+                                $vals['match-type'] = ':matches';
+                                if ($use_address_test) {
+                                    $add_arr = preg_split('(\r\n|\n|\r)', $vals['addresses']);
+                                    if (count($add_arr) > 1) {
+                                        foreach ($add_arr as $k => $v) {
+                                            $add_arr[$k] = '*' . $v;
+                                        }
+                                        $vals['addresses'] = implode("\r\n", $add_arr);
+                                    } else {
+                                        $vals['addresses'] = '*' . $vals['addresses'];
+                                    }
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } else {
+                                    $add_arr = preg_split('(\r\n|\n|\r)', $vals['strings']);
+                                    if (count($add_arr) > 1) {
+                                        foreach ($add_arr as $k => $v) {
+                                            $add_arr[$k] = '*' . $v;
+                                        }
+                                        $vals['strings'] = implode("\r\n", $add_arr);
+                                    } else {
+                                        $vals['strings'] = '*' . $vals['strings'];
+                                    }
+                                    if ($condition['field'] == 'Body') {
+                                        $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                    } else {
+                                        $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                    }
+                                }
+                                $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
+                                break;
+
+                            case 'regex':
+                            case 'not regex':
+                                $vals['match-type'] = ':regex';
+                                if ($use_address_test) {
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } elseif ($condition['field'] == 'Body') {
+                                    $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                } else {
+                                    $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                }
+                                if ($condition['match'] == 'not regex') {
+                                    $tmp = new Ingo_Script_Sieve_Test_Not($tmp);
+                                }
+                                $test->addTest($tmp);
+                                break;
+
+                            case 'matches':
+                                $vals['match-type'] = ':matches';
+                                if ($use_address_test) {
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } elseif ($condition['field'] == 'Body') {
+                                    $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                } else {
+                                    $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                }
+                                $test->addTest($tmp);
+                                break;
+
+                            case 'not matches':
+                                $vals['match-type'] = ':matches';
+                                if ($use_address_test) {
+                                    $tmp = new Ingo_Script_Sieve_Test_Address($vals);
+                                } elseif ($condition['field'] == 'Body') {
+                                    $tmp = new Ingo_Script_Sieve_Test_Body($vals);
+                                } else {
+                                    $tmp = new Ingo_Script_Sieve_Test_Header($vals);
+                                }
+                                $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
+                                break;
+                        }
                 }
             }
 

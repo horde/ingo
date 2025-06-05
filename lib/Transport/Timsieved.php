@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
@@ -12,8 +13,8 @@
  * @package  Ingo
  */
 
-use \Horde\ManageSieve\Client as ManageSieve;
-use \Horde\ManageSieve\Exception as ManageSieveException;
+use Horde\ManageSieve\Client as ManageSieve;
+use Horde\ManageSieve\Exception as ManageSieveException;
 
 /**
  * Ingo_Transport_Timsieved implements an Ingo transport driver to allow
@@ -41,9 +42,9 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
     /**
      * Constructor.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
-        parent::__construct(array_merge(array(
+        parent::__construct(array_merge([
             'admin'      => '',
             'debug'      => false,
             'euser'      => '',
@@ -51,8 +52,8 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
             'logintype'  => 'PLAIN',
             'port'       => 4190,
             'scriptname' => 'ingo',
-            'usetls'     => true
-        ), $params));
+            'usetls'     => true,
+        ], $params));
     }
 
     /**
@@ -73,7 +74,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
             : $this->_params['admin'];
 
         try {
-            $this->_sieve = new ManageSieve(array(
+            $this->_sieve = new ManageSieve([
                 'user'       => $auth,
                 'password'   => $this->_params['password'],
                 'host'       => $this->_params['hostspec'],
@@ -84,7 +85,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
                 'logger'     => $this->_params['debug']
                     ? $injector->getInstance('Horde_Log_Logger')
                     : null,
-            ));
+            ]);
         } catch (ManageSieveException $e) {
             throw new Ingo_Exception($e);
         }
@@ -115,7 +116,9 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
                 throw new Ingo_Exception(_("Not enough free space on the server."));
             }
             $this->_sieve->installScript(
-                $script['name'], $script['script'], true
+                $script['name'],
+                $script['script'],
+                true
             );
         } catch (ManageSieveException $e) {
             throw new Ingo_Exception($e);
@@ -137,10 +140,10 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
             if (!strlen($active)) {
                 throw new Horde_Exception_NotFound();
             }
-            return array(
+            return [
                 'name' => $active,
-                'script' => $this->_sieve->getScript($active)
-            );
+                'script' => $this->_sieve->getScript($active),
+            ];
         } catch (ManageSieveException $e) {
             throw new Ingo_Exception($e);
         }

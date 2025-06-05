@@ -1,5 +1,5 @@
 <div id="rules" data-role="page">
- <?php echo $this->smartmobileHeader(array('logout' => true, 'portal' => true, 'title' => _("Rules"))) ?>
+ <?php echo $this->smartmobileHeader(['logout' => true, 'portal' => true, 'title' => _("Rules")]) ?>
 
  <div data-role="content">
   <ul data-role="listview" data-filter="true" id="ingo-rules-list">

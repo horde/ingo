@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -20,9 +21,7 @@
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
-class Ingo_Rule_System_Whitelist
-extends Ingo_Rule_Addresses
-implements Ingo_Rule_System
+class Ingo_Rule_System_Whitelist extends Ingo_Rule_Addresses implements Ingo_Rule_System
 {
     /**
      */

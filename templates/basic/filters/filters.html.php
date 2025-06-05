@@ -45,7 +45,9 @@ $enable_img = $this->hordeImage('enable.png');
    </div>
    <div class="filtersName">
     <strong>
-     <?php if (isset($v['filterimg'])) { echo $this->hordeImage($v['filterimg']); } ?>
+     <?php if (isset($v['filterimg'])) {
+         echo $this->hordeImage($v['filterimg']);
+     } ?>
      <?php echo $v['descriplink'] ?>
     </strong>
    </div>

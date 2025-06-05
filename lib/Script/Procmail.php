@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
@@ -30,7 +31,7 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
      *
      * @var array
      */
-    protected $_features = array(
+    protected $_features = [
         /* Can tests be case sensitive? */
         'case_sensitive' => true,
         /* Does the driver support setting IMAP flags? */
@@ -43,74 +44,74 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
         'stop_script' => false,
         /* Does the driver support vacation start and end on time level? */
         'vacation_time' => true,
-    );
+    ];
 
     /**
      * The list of actions allowed (implemented) for this driver.
      *
      * @var array
      */
-    protected $_actions = array(
+    protected $_actions = [
         'Ingo_Rule_User_Discard',
         'Ingo_Rule_User_Keep',
         'Ingo_Rule_User_Move',
         'Ingo_Rule_User_Redirect',
         'Ingo_Rule_User_RedirectKeep',
-        'Ingo_Rule_User_Reject'
-    );
+        'Ingo_Rule_User_Reject',
+    ];
 
     /**
      * The categories of filtering allowed.
      *
      * @var array
      */
-    protected $_categories = array(
+    protected $_categories = [
         'Ingo_Rule_System_Blacklist',
         'Ingo_Rule_System_Forward',
         'Ingo_Rule_System_Vacation',
-        'Ingo_Rule_System_Forward'
-    );
+        'Ingo_Rule_System_Forward',
+    ];
 
     /**
      * The types of tests allowed (implemented) for this driver.
      *
      * @var array
      */
-    protected $_types = array(
+    protected $_types = [
         Ingo_Rule_User::TEST_HEADER,
-        Ingo_Rule_User::TEST_BODY
-    );
+        Ingo_Rule_User::TEST_BODY,
+    ];
 
     /**
      * A list of any special types that this driver supports.
      *
      * @var array
      */
-    protected $_special_types = array(
-        'Destination'
-    );
+    protected $_special_types = [
+        'Destination',
+    ];
 
     /**
      * The list of tests allowed (implemented) for this driver.
      *
      * @var array
      */
-    protected $_tests = array(
+    protected $_tests = [
         'contains',
         'not contain',
         'begins with',
         'not begins with',
         'ends with',
         'not ends with',
-        'regex'
-    );
+        'regex',
+    ];
 
     /**
      * Constructor.
      *
      * @param array $params  A hash containing parameters needed.
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         parent::__construct($params);
 
@@ -150,7 +151,7 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
         if (!empty($this->_params['variables']) &&
             is_array($this->_params['variables'])) {
             foreach ($this->_params['variables'] as $key => $val) {
-                $this->_addItem(Ingo::RULE_ALL, new Ingo_Script_Procmail_Variable(array('name' => $key, 'value' => $val)));
+                $this->_addItem(Ingo::RULE_ALL, new Ingo_Script_Procmail_Variable(['name' => $key, 'value' => $val]));
             }
         }
 
@@ -161,72 +162,72 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
 
         foreach ($filters as $rule) {
             switch ($class = get_class($rule)) {
-            case 'Ingo_Rule_System_Blacklist':
-                $this->_generateBlacklist($rule);
-                break;
-
-            case 'Ingo_Rule_System_Forward':
-                $this->_generateForward($rule);
-                break;
-
-            case 'Ingo_Rule_System_Vacation':
-                $this->_generateVacation($rule);
-                break;
-
-            case 'Ingo_Rule_System_Whitelist':
-                $this->_generateWhitelist($rule);
-                break;
-
-            default:
-                if (!in_array($class, $this->_actions)) {
+                case 'Ingo_Rule_System_Blacklist':
+                    $this->_generateBlacklist($rule);
                     break;
-                }
 
-                /* Create filter if using AND. */
-                switch ($rule->combine) {
-                case Ingo_Rule_User::COMBINE_ALL:
-                    $recipe = new Ingo_Script_Procmail_Recipe(
-                        array(
-                            'action' => $class,
-                            'action-value' => $rule->value,
-                            'disable' => $rule->disable
-                        ),
-                        $this->_params
-                    );
-                    foreach ($rule->conditions as $condition) {
-                        $recipe->addCondition($condition);
+                case 'Ingo_Rule_System_Forward':
+                    $this->_generateForward($rule);
+                    break;
+
+                case 'Ingo_Rule_System_Vacation':
+                    $this->_generateVacation($rule);
+                    break;
+
+                case 'Ingo_Rule_System_Whitelist':
+                    $this->_generateWhitelist($rule);
+                    break;
+
+                default:
+                    if (!in_array($class, $this->_actions)) {
+                        break;
                     }
-                    $this->_addItem(
-                        Ingo::RULE_FILTER,
-                        new Ingo_Script_Procmail_Comment($rule->name, $rule->disable, true)
-                    );
-                    $this->_addItem(Ingo::RULE_FILTER, $recipe);
-                    break;
 
-                case Ingo_Rule_User::COMBINE_ANY:
-                    /* Create filter if using OR */
-                    $this->_addItem(
-                        Ingo::RULE_FILTER,
-                        new Ingo_Script_Procmail_Comment($rule->name, $rule->disable, true)
-                    );
-                    $loop = 0;
-                    foreach ($rule->conditions as $condition) {
-                        $recipe = new Ingo_Script_Procmail_Recipe(
-                            array(
-                                'action' => $class,
-                                'action-value' => $rule->value,
-                                'disable' => $rule->disable
-                            ),
-                            $this->_params
-                        );
-                        if ($loop++) {
-                            $recipe->addFlag('E');
-                        }
-                        $recipe->addCondition($condition);
-                        $this->_addItem(Ingo::RULE_FILTER, $recipe);
+                    /* Create filter if using AND. */
+                    switch ($rule->combine) {
+                        case Ingo_Rule_User::COMBINE_ALL:
+                            $recipe = new Ingo_Script_Procmail_Recipe(
+                                [
+                                    'action' => $class,
+                                    'action-value' => $rule->value,
+                                    'disable' => $rule->disable,
+                                ],
+                                $this->_params
+                            );
+                            foreach ($rule->conditions as $condition) {
+                                $recipe->addCondition($condition);
+                            }
+                            $this->_addItem(
+                                Ingo::RULE_FILTER,
+                                new Ingo_Script_Procmail_Comment($rule->name, $rule->disable, true)
+                            );
+                            $this->_addItem(Ingo::RULE_FILTER, $recipe);
+                            break;
+
+                        case Ingo_Rule_User::COMBINE_ANY:
+                            /* Create filter if using OR */
+                            $this->_addItem(
+                                Ingo::RULE_FILTER,
+                                new Ingo_Script_Procmail_Comment($rule->name, $rule->disable, true)
+                            );
+                            $loop = 0;
+                            foreach ($rule->conditions as $condition) {
+                                $recipe = new Ingo_Script_Procmail_Recipe(
+                                    [
+                                        'action' => $class,
+                                        'action-value' => $rule->value,
+                                        'disable' => $rule->disable,
+                                    ],
+                                    $this->_params
+                                );
+                                if ($loop++) {
+                                    $recipe->addFlag('E');
+                                }
+                                $recipe->addCondition($condition);
+                                $this->_addItem(Ingo::RULE_FILTER, $recipe);
+                            }
+                            break;
                     }
-                    break;
-                }
             }
         }
 
@@ -257,22 +258,22 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
             new Ingo_Script_Procmail_Comment(_("Blacklisted Addresses"), $rule->disable, true)
         );
 
-        $params = array(
+        $params = [
             'action-value' => $rule->mailbox,
             'action' => strlen($rule->mailbox) ? 'Ingo_Rule_User_Move' : 'Ingo_Rule_User_Discard',
-            'disable' => $rule->disable
-        );
+            'disable' => $rule->disable,
+        ];
 
         foreach ($rule->addresses as $address) {
             $recipe = new Ingo_Script_Procmail_Recipe(
                 $params,
                 $this->_params
             );
-            $recipe->addCondition(array(
+            $recipe->addCondition([
                 'field' => 'From',
                 'value' => $address,
-                'match' => 'address'
-            ));
+                'match' => 'address',
+            ]);
             $this->_addItem(Ingo::RULE_BLACKLIST, $recipe);
         }
     }
@@ -295,15 +296,15 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
         );
 
         foreach ($rule->addresses as $address) {
-            $recipe = new Ingo_Script_Procmail_Recipe(array(
+            $recipe = new Ingo_Script_Procmail_Recipe([
                 'action' => 'Ingo_Rule_User_Keep',
-                'disable' => $rule->disable
-            ), $this->_params);
-            $recipe->addCondition(array(
+                'disable' => $rule->disable,
+            ], $this->_params);
+            $recipe->addCondition([
                 'field' => 'From',
                 'value' => $address,
-                'match' => 'address'
-            ));
+                'match' => 'address',
+            ]);
             $this->_addItem(Ingo::RULE_WHITELIST, $recipe);
         }
     }
@@ -325,9 +326,9 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
         );
 
         $recipe = new Ingo_Script_Procmail_Recipe(
-            array(
+            [
                 'action' => 'Ingo_Rule_System_Vacation',
-                'action-value' => array(
+                'action-value' => [
                     'addresses' => $rule->addresses,
                     'subject' => $rule->subject,
                     'days' => $rule->days,
@@ -335,10 +336,10 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
                     'ignorelist' => $rule->ignore_list,
                     'excludes' => $rule->exclude,
                     'start' => $rule->start,
-                    'end' => $rule->end
-                ),
-                'disable' => $rule->disable
-            ),
+                    'end' => $rule->end,
+                ],
+                'disable' => $rule->disable,
+            ],
             $this->_params
         );
         $this->_addItem(Ingo::RULE_VACATION, $recipe);
@@ -361,11 +362,11 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
         );
 
         $recipe = new Ingo_Script_Procmail_Recipe(
-            array(
+            [
                 'action' => 'Ingo_Rule_System_Forward',
                 'action-value' => $rule->addresses,
-                'disable' => $rule->disable
-            ),
+                'disable' => $rule->disable,
+            ],
             $this->_params
         );
 

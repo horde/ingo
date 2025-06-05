@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
@@ -50,17 +51,18 @@ class Ingo_Flist
         if ($registry->hasMethod('mail/mailboxList')) {
             try {
                 $view->create = $registry->hasMethod('mail/createMailbox');
-                $view->mboxes = $registry->mail->mailboxList(array(
-                    'unsub' => true
-                ));
+                $view->mboxes = $registry->mail->mailboxList([
+                    'unsub' => true,
+                ]);
 
                 $page_output->addScriptFile('new_folder.js');
-                $page_output->addInlineJsVars(array(
-                    'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:")
-                ));
+                $page_output->addInlineJsVars([
+                    'IngoNewFolder.folderprompt' => _("Please enter the name of the new folder:"),
+                ]);
 
                 return $view->render('flist/select');
-            } catch (Horde_Exception $e) {}
+            } catch (Horde_Exception $e) {
+            }
         }
 
         return $view->render('flist/input');

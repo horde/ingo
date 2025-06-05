@@ -21,7 +21,7 @@
 <?php endif; ?>
 </div>
 
-<?php echo $this->renderPartial('script', array('collection' => $this->scripts)) ?>
+<?php echo $this->renderPartial('script', ['collection' => $this->scripts]) ?>
 
 <?php else: ?>
 <div class="scriptHeader">[<?php echo _("No script generated.") ?>]</div>

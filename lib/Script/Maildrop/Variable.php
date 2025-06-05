@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *
@@ -37,7 +38,7 @@ class Ingo_Script_Maildrop_Variable implements Ingo_Script_Item
      * @param array $params  Array of parameters. Expected fields are 'name'
      *                       and 'value'.
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $this->_name = $params['name'];
         $this->_value = $params['value'];

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -29,17 +30,17 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
      *
      * @throws Ingo_Exception
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         if (!Horde_Util::extensionExists('ldap')) {
             throw new Ingo_Exception(_("LDAP support is required but the LDAP module is not available or not loaded."));
         }
 
-        $default_params = array(
+        $default_params = [
             'hostspec' => 'localhost',
             'port' => 389,
-            'script_attribute' => 'mailSieveRuleSource'
-        );
+            'script_attribute' => 'mailSieveRuleSource',
+        ];
 
         parent::__construct(array_merge($default_params, $params));
     }
@@ -59,7 +60,7 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
         $username = $this->_params['username'];
 
         if (strpos($username, '@') !== false) {
-            list($username, $domain) = explode('@', $username);
+            [$username, $domain] = explode('@', $username);
         }
         $domain = implode(', dc=', explode('.', $domain));
         if (!empty($domain)) {
@@ -70,9 +71,11 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
             $username = '"' . str_replace('"', '\\"', $username) . '"';
         }
 
-        return str_replace(array('%u', '%d'),
-                           array($username, $domain),
-                           $templ);
+        return str_replace(
+            ['%u', '%d'],
+            [$username, $domain],
+            $templ
+        );
     }
 
     /**
@@ -82,33 +85,38 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
      */
     protected function _connect()
     {
-        if (!($ldapcn = @ldap_connect($this->_params['hostspec'],
-                                      $this->_params['port']))) {
+        if (!($ldapcn = @ldap_connect(
+            $this->_params['hostspec'],
+            $this->_params['port']
+        ))) {
             throw new Ingo_Exception(_("Connection failure"));
         }
 
         /* Set the LDAP protocol version. */
         if (!empty($this->_params['version'])) {
-            @ldap_set_option($ldapcn,
-                             LDAP_OPT_PROTOCOL_VERSION,
-                             $this->_params['version']);
+            @ldap_set_option(
+                $ldapcn,
+                LDAP_OPT_PROTOCOL_VERSION,
+                $this->_params['version']
+            );
         }
 
         /* Start TLS if we're using it. */
         if (!empty($this->_params['tls']) &&
             !@ldap_start_tls($ldapcn)) {
-            throw new Ingo_Exception(sprintf(_("STARTTLS failed: (%s) %s"),
-                                     ldap_errno($ldapcn),
-                                     ldap_error($ldapcn)));
+            throw new Ingo_Exception(sprintf(
+                _("STARTTLS failed: (%s) %s"),
+                ldap_errno($ldapcn),
+                ldap_error($ldapcn)
+            ));
         }
 
         /* Bind to the server. */
         if (isset($this->_params['bind_dn'])) {
             $bind_dn = $this->_substUser($this->_params['bind_dn']);
 
-            $password = isset($this->_params['bind_password'])
-                ? $this->_params['bind_password']
-                : $this->_params['password'];
+            $password = $this->_params['bind_password']
+                ?? $this->_params['password'];
 
             $bind_success = @ldap_bind($ldapcn, $bind_dn, $password);
         } else {
@@ -120,9 +128,11 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
         }
 
 
-        throw new Ingo_Exception(sprintf(_("Bind failed: (%s) %s"),
-                                 ldap_errno($ldapcn),
-                                 ldap_error($ldapcn)));
+        throw new Ingo_Exception(sprintf(
+            _("Bind failed: (%s) %s"),
+            ldap_errno($ldapcn),
+            ldap_error($ldapcn)
+        ));
     }
 
     /**
@@ -136,37 +146,49 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
      */
     protected function _getScripts($ldapcn, &$userDN)
     {
-        $attrs = array($this->_params['script_attribute'], 'dn');
+        $attrs = [$this->_params['script_attribute'], 'dn'];
         $filter = $this->_substUser($this->_params['script_filter']);
 
         /* Find the user object. */
-        $sr = @ldap_search($ldapcn, $this->_params['script_base'], $filter,
-                           $attrs);
+        $sr = @ldap_search(
+            $ldapcn,
+            $this->_params['script_base'],
+            $filter,
+            $attrs
+        );
         if ($sr === false) {
-            throw new Ingo_Exception(sprintf(_("Error retrieving current script: (%d) %s"),
-                                     ldap_errno($ldapcn),
-                                     ldap_error($ldapcn)));
+            throw new Ingo_Exception(sprintf(
+                _("Error retrieving current script: (%d) %s"),
+                ldap_errno($ldapcn),
+                ldap_error($ldapcn)
+            ));
         }
 
         if (@ldap_count_entries($ldapcn, $sr) != 1) {
-            throw new Ingo_Exception(sprintf(_("Expected 1 object, got %d."),
-                                     ldap_count_entries($ldapcn, $sr)));
+            throw new Ingo_Exception(sprintf(
+                _("Expected 1 object, got %d."),
+                ldap_count_entries($ldapcn, $sr)
+            ));
         }
 
         $ent = @ldap_first_entry($ldapcn, $sr);
         if ($ent === false) {
-            throw new Ingo_Exception(sprintf(_("Error retrieving current script: (%d) %s"),
-                                     ldap_errno($ldapcn),
-                                     ldap_error($ldapcn)));
+            throw new Ingo_Exception(sprintf(
+                _("Error retrieving current script: (%d) %s"),
+                ldap_errno($ldapcn),
+                ldap_error($ldapcn)
+            ));
         }
 
         /* Retrieve the user's DN. */
         $v = @ldap_get_dn($ldapcn, $ent);
         if ($v === false) {
             @ldap_free_result($sr);
-            throw new Ingo_Exception(sprintf(_("Error retrieving current script: (%d) %s"),
-                                     ldap_errno($ldapcn),
-                                     ldap_error($ldapcn)));
+            throw new Ingo_Exception(sprintf(
+                _("Error retrieving current script: (%d) %s"),
+                ldap_errno($ldapcn),
+                ldap_error($ldapcn)
+            ));
         }
         $userDN = $v;
 
@@ -174,9 +196,11 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
         $attrs = @ldap_get_attributes($ldapcn, $ent);
         @ldap_free_result($sr);
         if ($attrs === false) {
-            throw new Ingo_Exception(sprintf(_("Error retrieving current script: (%d) %s"),
-                                     ldap_errno($ldapcn),
-                                     ldap_error($ldapcn)));
+            throw new Ingo_Exception(sprintf(
+                _("Error retrieving current script: (%d) %s"),
+                ldap_errno($ldapcn),
+                ldap_error($ldapcn)
+            ));
         }
 
         /* Attribute can be in any case, and can have a ";binary"
@@ -191,7 +215,7 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
             }
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -226,16 +250,18 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
             $values[] = $script['script'];
         }
 
-        $replace = array(Horde_String::lower($this->_params['script_attribute']) => $values);
+        $replace = [Horde_String::lower($this->_params['script_attribute']) => $values];
         $r = empty($values)
             ? @ldap_mod_del($ldapcn, $userDN, $replace)
             : @ldap_mod_replace($ldapcn, $userDN, $replace);
 
         if (!$r) {
-            throw new Ingo_Exception(sprintf(_("Activating the script for \"%s\" failed: (%d) %s"),
-                                     $userDN,
-                                     ldap_errno($ldapcn),
-                                     ldap_error($ldapcn)));
+            throw new Ingo_Exception(sprintf(
+                _("Activating the script for \"%s\" failed: (%d) %s"),
+                $userDN,
+                ldap_errno($ldapcn),
+                ldap_error($ldapcn)
+            ));
         }
 
         @ldap_close($ldapcn);
@@ -266,10 +292,10 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
         if (!strlen($script)) {
             throw new Horde_Exception_NotFound();
         }
-        return array(
+        return [
             'name' => '',
-            'script' => $script
-        );
+            'script' => $script,
+        ];
     }
 
 }

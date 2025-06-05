@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -35,14 +36,12 @@ class Ingo_Script_Sieve_Action_Notify extends Ingo_Script_Sieve_Action
      *   - notify: (boolean) If set, use notify instead of enotify.
      *
      */
-    public function __construct($vars = array())
+    public function __construct($vars = [])
     {
-        $this->_vars['address'] = isset($vars['address'])
-            ? $vars['address']
-            : '';
-        $this->_vars['name'] = isset($vars['name'])
-            ? $vars['name']
-            : '';
+        $this->_vars['address'] = $vars['address']
+            ?? '';
+        $this->_vars['name'] = $vars['name']
+            ?? '';
         $this->_vars['notify'] = !empty($vars['notify']);
     }
 
@@ -57,7 +56,7 @@ class Ingo_Script_Sieve_Action_Notify extends Ingo_Script_Sieve_Action
 
         if ($this->_vars['notify']) {
             return 'notify :method "mailto" :options "' . $addr .
-                '" :message "' ._("You have received a new message") . "\n" .
+                '" :message "' . _("You have received a new message") . "\n" .
                     _("From:") . " \$from\$ \n" .
                     _("Subject:") . " \$subject\$ \n" .
                     _("Rule:") . ' ' . $this->_vars['name'] . '";';
@@ -90,7 +89,7 @@ class Ingo_Script_Sieve_Action_Notify extends Ingo_Script_Sieve_Action
     public function requires()
     {
         return $this->_vars['notify']
-            ? array('notify')
-            : array('enotify');
+            ? ['notify']
+            : ['enotify'];
     }
 }

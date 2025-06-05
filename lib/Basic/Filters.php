@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
@@ -40,135 +41,135 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
         $delete_allowed = Ingo::hasSharePermission(Horde_Perms::DELETE);
 
         /* Token checking. */
-        $actionID = $this->_checkToken(array(
+        $actionID = $this->_checkToken([
             'rule_copy',
             'rule_delete',
             'rule_disable',
-            'rule_enable'
-        ));
+            'rule_enable',
+        ]);
 
         /* Default to no mailbox filtering. */
         $mbox_search = null;
 
         /* Perform requested actions. */
         switch ($actionID) {
-        case 'mbox_search':
-            if (isset($this->vars->searchfield)) {
-                $mbox_search = array(
-                    'exact' => $this->vars->get('searchexact', 1),
-                    'query' => $this->vars->searchfield
-                );
-            }
-            break;
-
-        case 'rule_copy':
-        case 'rule_delete':
-        case 'rule_disable':
-        case 'rule_enable':
-            if (!$edit_allowed) {
-                $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-                self::url()->redirect();
-            }
-
-            $success = false;
-
-            switch ($actionID) {
-            case 'rule_delete':
-                if (!$delete_allowed) {
-                    $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
-                    self::url()->redirect();
-                }
-
-                if (($tmp = $ingo_storage->getRuleByUid($this->vars->uid)) &&
-                    $ingo_storage->deleteRule($tmp)) {
-                    $notification->push(
-                        sprintf(_("Rule \"%s\" deleted."), $tmp->name),
-                        'horde.success'
-                    );
-                    $success = true;
+            case 'mbox_search':
+                if (isset($this->vars->searchfield)) {
+                    $mbox_search = [
+                        'exact' => $this->vars->get('searchexact', 1),
+                        'query' => $this->vars->searchfield,
+                    ];
                 }
                 break;
 
             case 'rule_copy':
-                switch ($ingo_storage->maxRules()) {
-                case Ingo_Storage::MAX_NONE:
-                    Horde::permissionDeniedError(
-                        'ingo',
-                        'max_rules',
-                        _("You are not allowed to create or edit custom rules.")
-                    );
-                    break 2;
-
-                case Ingo_Storage::MAX_OVER:
-                    Horde::permissionDeniedError(
-                        'ingo',
-                        'max_rules',
-                        sprintf(_("You are not allowed to create more than %d rules."), $ingo_storage->max_rules)
-                    );
-                    break 2;
-                }
-
-                if (($tmp = $ingo_storage->getRuleByUid($this->vars->uid)) &&
-                    $ingo_storage->copyRule($tmp)) {
-                    $notification->push(
-                        sprintf(_("Rule \"%s\" copied."), $tmp->name),
-                        'horde.success'
-                    );
-                    $success = true;
-                }
-                break;
-
+            case 'rule_delete':
             case 'rule_disable':
             case 'rule_enable':
-                if ($tmp = $ingo_storage->getRuleByUid($this->vars->uid)) {
-                    $tmp->disable = ($actionID === 'rule_disable');
-                    $ingo_storage->updateRule($tmp);
-                    $notification->push(
-                        sprintf(
-                            ($actionID === 'rule_disable')
-                                ? _("Rule \"%s\" disabled.")
-                                : _("Rule \"%s\" enabled."),
-                            $tmp->name
-                        ),
-                        'horde.success'
-                    );
-                    $success = true;
+                if (!$edit_allowed) {
+                    $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
+                    self::url()->redirect();
+                }
+
+                $success = false;
+
+                switch ($actionID) {
+                    case 'rule_delete':
+                        if (!$delete_allowed) {
+                            $notification->push(_("You do not have permission to delete filter rules."), 'horde.error');
+                            self::url()->redirect();
+                        }
+
+                        if (($tmp = $ingo_storage->getRuleByUid($this->vars->uid)) &&
+                            $ingo_storage->deleteRule($tmp)) {
+                            $notification->push(
+                                sprintf(_("Rule \"%s\" deleted."), $tmp->name),
+                                'horde.success'
+                            );
+                            $success = true;
+                        }
+                        break;
+
+                    case 'rule_copy':
+                        switch ($ingo_storage->maxRules()) {
+                            case Ingo_Storage::MAX_NONE:
+                                Horde::permissionDeniedError(
+                                    'ingo',
+                                    'max_rules',
+                                    _("You are not allowed to create or edit custom rules.")
+                                );
+                                break 2;
+
+                            case Ingo_Storage::MAX_OVER:
+                                Horde::permissionDeniedError(
+                                    'ingo',
+                                    'max_rules',
+                                    sprintf(_("You are not allowed to create more than %d rules."), $ingo_storage->max_rules)
+                                );
+                                break 2;
+                        }
+
+                        if (($tmp = $ingo_storage->getRuleByUid($this->vars->uid)) &&
+                            $ingo_storage->copyRule($tmp)) {
+                            $notification->push(
+                                sprintf(_("Rule \"%s\" copied."), $tmp->name),
+                                'horde.success'
+                            );
+                            $success = true;
+                        }
+                        break;
+
+                    case 'rule_disable':
+                    case 'rule_enable':
+                        if ($tmp = $ingo_storage->getRuleByUid($this->vars->uid)) {
+                            $tmp->disable = ($actionID === 'rule_disable');
+                            $ingo_storage->updateRule($tmp);
+                            $notification->push(
+                                sprintf(
+                                    ($actionID === 'rule_disable')
+                                        ? _("Rule \"%s\" disabled.")
+                                        : _("Rule \"%s\" enabled."),
+                                    $tmp->name
+                                ),
+                                'horde.success'
+                            );
+                            $success = true;
+                        }
+                        break;
+                }
+
+                /* Save changes */
+                if ($success) {
+                    try {
+                        $factory->activateAll();
+                    } catch (Ingo_Exception $e) {
+                        $notification->push($e->getMessage(), 'horde.error');
+                    }
                 }
                 break;
-            }
 
-            /* Save changes */
-            if ($success) {
-                try {
-                    $factory->activateAll();
-                } catch (Ingo_Exception $e) {
-                    $notification->push($e->getMessage(), 'horde.error');
+            case 'settings_save':
+                if (!$edit_allowed) {
+                    $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
+                    self::url()->redirect();
                 }
-            }
-            break;
+                $prefs->setValue('show_filter_msg', $this->vars->show_filter_msg);
+                $prefs->setValue('filter_seen', $this->vars->filter_seen);
+                $notification->push(_("Settings successfully updated."), 'horde.success');
+                break;
 
-        case 'settings_save':
-            if (!$edit_allowed) {
-                $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
-                self::url()->redirect();
-            }
-            $prefs->setValue('show_filter_msg', $this->vars->show_filter_msg);
-            $prefs->setValue('filter_seen', $this->vars->filter_seen);
-            $notification->push(_("Settings successfully updated."), 'horde.success');
-            break;
-
-        case 'apply_filters':
-            $factory->perform();
-            break;
+            case 'apply_filters':
+                $factory->perform();
+                break;
         }
 
         /* Common URLs. */
         $filters_url = $this->_addToken(self::url());
         $rule_url = Ingo_Basic_Rule::url();
 
-        $view = new Horde_View(array(
-            'templatePath' => INGO_TEMPLATES . '/basic/filters'
-        ));
+        $view = new Horde_View([
+            'templatePath' => INGO_TEMPLATES . '/basic/filters',
+        ]);
         $view->addHelper('Horde_Core_View_Helper_Help');
         $view->addHelper('Horde_Core_View_Helper_Image');
         $view->addHelper('Horde_Core_View_Helper_Label');
@@ -183,7 +184,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
 
         $view->can_copy = $edit_allowed && !$ingo_storage->maxRules();
 
-        $display = array();
+        $display = [];
         $filters = Ingo_Storage_FilterIterator_Match::create(
             $ingo_storage,
             $session->get('ingo', 'script_categories')
@@ -191,67 +192,67 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
 
         foreach ($filters as $rule) {
             $copyurl = $delurl = $editurl = null;
-            $entry = array();
+            $entry = [];
             $url = $filters_url->copy()->add('uid', $rule->uid);
 
             switch (get_class($rule)) {
-            case 'Ingo_Rule_System_Blacklist':
-                if (!is_null($mbox_search)) {
-                    continue 2;
-                }
-                $editurl = Ingo_Basic_Blacklist::url();
-                $entry['filterimg'] = 'blacklist.png';
-                break;
-
-            case 'Ingo_Rule_System_Whitelist':
-                if (!is_null($mbox_search)) {
-                    continue 2;
-                }
-                $editurl = Ingo_Basic_Whitelist::url();
-                $entry['filterimg'] = 'whitelist.png';
-                break;
-
-            case 'Ingo_Rule_System_Vacation':
-                if (!is_null($mbox_search)) {
-                    continue 2;
-                }
-                $editurl = Ingo_Basic_Vacation::url();
-                $entry['filterimg'] = 'vacation.png';
-                break;
-
-            case 'Ingo_Rule_System_Forward':
-                if (!is_null($mbox_search)) {
-                    continue 2;
-                }
-                $editurl = Ingo_Basic_Forward::url();
-                $entry['filterimg'] = 'forward.png';
-                break;
-
-            case 'Ingo_Rule_System_Spam':
-                if (!is_null($mbox_search)) {
-                    continue 2;
-                }
-                $editurl = Ingo_Basic_Spam::url();
-                $entry['filterimg'] = 'spam.png';
-                break;
-
-            default:
-                if (!is_null($mbox_search)) {
-                    if ($mbox_search['exact']) {
-                        if (strcasecmp($filter['action-value'], $mbox_search['query']) !== 0) {
-                            continue 2;
-                        }
-                    } elseif (stripos($filter['action-value'], $mbox_search['query']) === false) {
+                case 'Ingo_Rule_System_Blacklist':
+                    if (!is_null($mbox_search)) {
                         continue 2;
                     }
-                }
+                    $editurl = Ingo_Basic_Blacklist::url();
+                    $entry['filterimg'] = 'blacklist.png';
+                    break;
 
-                $editurl = $rule_url->copy()->add(array(
-                    'edit' => $rule->uid
-                ));
-                $delurl = $url->copy()->add('actionID', 'rule_delete');
-                $copyurl = $url->copy()->add('actionID', 'rule_copy');
-                break;
+                case 'Ingo_Rule_System_Whitelist':
+                    if (!is_null($mbox_search)) {
+                        continue 2;
+                    }
+                    $editurl = Ingo_Basic_Whitelist::url();
+                    $entry['filterimg'] = 'whitelist.png';
+                    break;
+
+                case 'Ingo_Rule_System_Vacation':
+                    if (!is_null($mbox_search)) {
+                        continue 2;
+                    }
+                    $editurl = Ingo_Basic_Vacation::url();
+                    $entry['filterimg'] = 'vacation.png';
+                    break;
+
+                case 'Ingo_Rule_System_Forward':
+                    if (!is_null($mbox_search)) {
+                        continue 2;
+                    }
+                    $editurl = Ingo_Basic_Forward::url();
+                    $entry['filterimg'] = 'forward.png';
+                    break;
+
+                case 'Ingo_Rule_System_Spam':
+                    if (!is_null($mbox_search)) {
+                        continue 2;
+                    }
+                    $editurl = Ingo_Basic_Spam::url();
+                    $entry['filterimg'] = 'spam.png';
+                    break;
+
+                default:
+                    if (!is_null($mbox_search)) {
+                        if ($mbox_search['exact']) {
+                            if (strcasecmp($filter['action-value'], $mbox_search['query']) !== 0) {
+                                continue 2;
+                            }
+                        } elseif (stripos($filter['action-value'], $mbox_search['query']) === false) {
+                            continue 2;
+                        }
+                    }
+
+                    $editurl = $rule_url->copy()->add([
+                        'edit' => $rule->uid,
+                    ]);
+                    $delurl = $url->copy()->add('actionID', 'rule_delete');
+                    $copyurl = $url->copy()->add('actionID', 'rule_copy');
+                    break;
             }
 
             /* Create description. */
@@ -334,11 +335,11 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
         $topbar->search = true;
         $topbar->searchAction = self::url();
         $topbar->searchLabel = _("Mailbox Search");
-        $topbar->searchParameters = array(
+        $topbar->searchParameters = [
             'actionID' => 'mbox_search',
             'searchexact' => 0,
-            'page' => 'filters'
-        );
+            'page' => 'filters',
+        ];
 
         $this->header = _("Filter Rules");
         $this->output = $view->render('filters');
@@ -352,16 +353,16 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
      *                         of exact match.
      * </pre>
      */
-    public static function url(array $opts = array())
+    public static function url(array $opts = [])
     {
         $url = Horde::url('basic.php')->add('page', 'filters');
 
         if (isset($opts['mbox_search'])) {
-            $url->add(array(
+            $url->add([
                 'actionID' => 'mbox_search',
                 'searchexact' => intval(empty($opts['mbox_search_substr'])),
-                'searchfield' => strval($opts['mbox_search'])
-            ));
+                'searchfield' => strval($opts['mbox_search']),
+            ]);
         }
 
         return $url;

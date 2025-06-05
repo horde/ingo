@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
@@ -22,7 +23,7 @@
  */
 abstract class Ingo_Basic_Base
 {
-    const INGO_TOKEN = 'ingo_token';
+    public const INGO_TOKEN = 'ingo_token';
 
     /**
      * @var string
@@ -62,9 +63,9 @@ abstract class Ingo_Basic_Base
         global $notification;
 
         Horde::startBuffer();
-        $notification->notify(array(
-            'listeners' => array('status', 'audio')
-        ));
+        $notification->notify([
+            'listeners' => ['status', 'audio'],
+        ]);
         return Horde::endBuffer();
     }
 
@@ -84,7 +85,7 @@ abstract class Ingo_Basic_Base
 
         if (strlen($new_mbox)) {
             if ($registry->hasMethod('mail/createMailbox') &&
-                $created = $registry->call('mail/createMailbox', array($new_mbox))) {
+                $created = $registry->call('mail/createMailbox', [$new_mbox])) {
                 return strval($created);
             }
         } elseif (strlen($this->vars->$name)) {
@@ -164,8 +165,6 @@ abstract class Ingo_Basic_Base
 
     /**
      */
-    public static function url(array $opts = array())
-    {
-    }
+    public static function url(array $opts = []) {}
 
 }

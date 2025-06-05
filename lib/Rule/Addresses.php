@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -24,9 +25,7 @@
  * @property-read Horde_Mail_Rfc822_List $addressList  The list of addresses.
  * @property-write string[]|string $addresses          A list of addresses.
  */
-class Ingo_Rule_Addresses
-extends Ingo_Rule
-implements Countable
+class Ingo_Rule_Addresses extends Ingo_Rule implements Countable
 {
     /**
      * Address list.
@@ -54,10 +53,10 @@ implements Countable
     public function __get($name)
     {
         switch ($name) {
-        case 'addresses':
-            return $this->_addr->bare_addresses;
-        case 'addressList':
-            return $this->_addr;
+            case 'addresses':
+                return $this->_addr->bare_addresses;
+            case 'addressList':
+                return $this->_addr;
         }
     }
 
@@ -66,18 +65,18 @@ implements Countable
     public function __set($name, $data)
     {
         switch ($name) {
-        case 'addresses':
-            $this->_addr = new Horde_Mail_Rfc822_List();
-            $this->addAddresses(
-                is_array($data) ? $data : preg_split("/\s+/", $data)
-            );
-            break;
-        case 'addressList':
-            if (!($data instanceof Horde_Mail_Rfc822_List)) {
-                throw new InvalidArgumentException('Value for addressList is not a Horde_Mail_Rfc822_List object');
-            }
-            $this->_addr = $data;
-            break;
+            case 'addresses':
+                $this->_addr = new Horde_Mail_Rfc822_List();
+                $this->addAddresses(
+                    is_array($data) ? $data : preg_split("/\s+/", $data)
+                );
+                break;
+            case 'addressList':
+                if (!($data instanceof Horde_Mail_Rfc822_List)) {
+                    throw new InvalidArgumentException('Value for addressList is not a Horde_Mail_Rfc822_List object');
+                }
+                $this->_addr = $data;
+                break;
         }
     }
 

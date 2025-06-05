@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -29,14 +30,14 @@ abstract class Ingo_Script_Base
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * A list of driver features.
      *
      * @var array
      */
-    protected $_features = array(
+    protected $_features = [
         /* Can tests be case sensitive? */
         'case_sensitive' => false,
         /* Does the driver support setting IMAP flags? */
@@ -49,7 +50,7 @@ abstract class Ingo_Script_Base
         'stop_script' => false,
         /* Does the driver support vacation start and end on time level? */
         'vacation_time' => false,
-    );
+    ];
 
     /**
      * The list of actions allowed (implemented) for this driver.
@@ -57,7 +58,7 @@ abstract class Ingo_Script_Base
      *
      * @var array
      */
-    protected $_actions = array();
+    protected $_actions = [];
 
     /**
      * The categories of filtering allowed.
@@ -65,7 +66,7 @@ abstract class Ingo_Script_Base
      *
      * @var array
      */
-    protected $_categories = array();
+    protected $_categories = [];
 
     /**
      * Which form fields are supported in each category by this driver?
@@ -76,7 +77,7 @@ abstract class Ingo_Script_Base
      *
      * @var array
      */
-    protected $_categoryFeatures = array();
+    protected $_categoryFeatures = [];
 
     /**
      * The list of tests allowed (implemented) for this driver.
@@ -84,7 +85,7 @@ abstract class Ingo_Script_Base
      *
      * @var array
      */
-    protected $_tests = array();
+    protected $_tests = [];
 
     /**
      * The types of tests allowed (implemented) for this driver.
@@ -92,21 +93,21 @@ abstract class Ingo_Script_Base
      *
      * @var array
      */
-    protected $_types = array();
+    protected $_types = [];
 
     /**
      * A list of any special types that this driver supports.
      *
      * @var array
      */
-    protected $_special_types = array();
+    protected $_special_types = [];
 
     /**
      * The recipes that make up the code.
      *
      * @var array
      */
-    protected $_recipes = array();
+    protected $_recipes = [];
 
     /**
      * Have the recipes been generated yet?
@@ -120,7 +121,7 @@ abstract class Ingo_Script_Base
      *
      * @param array $params  A hash containing parameters needed.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         global $registry;
 
@@ -146,7 +147,7 @@ abstract class Ingo_Script_Base
      *
      * @return Ingo_Script  This object, for chaining.
      */
-    public function setParams(array $params = array())
+    public function setParams(array $params = [])
     {
         $this->_params = array_merge($this->_params, $params);
         return $this;
@@ -207,7 +208,7 @@ abstract class Ingo_Script_Base
      */
     public function availableCategoryFeatures($category)
     {
-        return isset($this->_categoryFeatures[$category]) ? $this->_categoryFeatures[$category] : array();
+        return $this->_categoryFeatures[$category] ?? [];
     }
 
     /**
@@ -252,7 +253,7 @@ abstract class Ingo_Script_Base
             $this->_generated = true;
         }
 
-        $scripts = array();
+        $scripts = [];
         foreach ($this->_recipes as $item) {
             $rule = isset($this->_params['transport'][$item['rule']])
                 ? $item['rule']
@@ -267,12 +268,12 @@ abstract class Ingo_Script_Base
             }
 
             if (!isset($scripts[$rule . $name])) {
-                $scripts[$rule . $name] = array(
+                $scripts[$rule . $name] = [
                     'transport' => $this->_params['transport'][$rule],
                     'name' => $name,
                     'script' => '',
-                    'recipes' => array(),
-                );
+                    'recipes' => [],
+                ];
             }
             $scripts[$rule . $name]['script'] .= $item['object']->generate() . "\n";
             $scripts[$rule . $name]['recipes'][] = $item;
@@ -283,9 +284,7 @@ abstract class Ingo_Script_Base
     /**
      * Generates the scripts to do the filtering specified in the rules.
      */
-    protected function _generate()
-    {
-    }
+    protected function _generate() {}
 
     /**
      * Adds an item to the recipe list.
@@ -296,11 +295,11 @@ abstract class Ingo_Script_Base
      */
     protected function _addItem($rule, Ingo_Script_Item $item, $name = null)
     {
-        $this->_recipes[] = array(
+        $this->_recipes[] = [
             'rule' => $rule,
             'object' => $item,
-            'name' => $name
-        );
+            'name' => $name,
+        ];
     }
 
     /**
@@ -311,18 +310,21 @@ abstract class Ingo_Script_Base
      * @param string $name            A script name.
      * @þaram integer $position       Where to add the item.
      */
-    protected function _insertItem($rule, Ingo_Script_Item $item, $name = null,
-                                   $position = 0)
-    {
+    protected function _insertItem(
+        $rule,
+        Ingo_Script_Item $item,
+        $name = null,
+        $position = 0
+    ) {
         array_splice(
             $this->_recipes,
             $position,
             0,
-            array(array(
+            [[
                 'rule' => $rule,
                 'object' => $item,
-                'name' => $name
-            ))
+                'name' => $name,
+            ]]
         );
     }
 
@@ -347,9 +349,7 @@ abstract class Ingo_Script_Base
     /**
      * @see perform()
      */
-    protected function _perform($change)
-    {
-    }
+    protected function _perform($change) {}
 
     /**
      * Is the perform() function available right now?

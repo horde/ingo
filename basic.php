@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ingo basic view.
  *
@@ -18,7 +19,7 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('ingo', array('timezone' => true));
+Horde_Registry::appInit('ingo', ['timezone' => true]);
 
 $vars = $injector->getInstance('Horde_Variables');
 
@@ -31,10 +32,10 @@ $ob = new $class($vars);
 
 $status = $ob->status();
 
-$page_output->header(array(
+$page_output->header([
     'title' => $ob->title,
-    'view' => $registry::VIEW_BASIC
-));
+    'view' => $registry::VIEW_BASIC,
+]);
 
 echo $status;
 $ob->render();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ingo works purely on a preferred mechanism for server selection. There are
  * a number of properties that you can set for each backend:
@@ -83,32 +84,32 @@
  */
 
 /* IMAP Example */
-$backends['imap'] = array(
+$backends['imap'] = [
     // ENABLED by default
     'disabled' => false,
-    'transport' => array(
-        Ingo::RULE_ALL => array(
+    'transport' => [
+        Ingo::RULE_ALL => [
             'driver' => 'null',
-            'params' => array(),
-        ),
-    ),
-    'script' => array(
-        Ingo::RULE_ALL => array(
+            'params' => [],
+        ],
+    ],
+    'script' => [
+        Ingo::RULE_ALL => [
             'driver' => 'imap',
-            'params' => array(),
-        ),
-    ),
-    'shares' => false
-);
+            'params' => [],
+        ],
+    ],
+    'shares' => false,
+];
 
 /* Maildrop Example */
-$backends['maildrop'] = array(
+$backends['maildrop'] = [
     // Disabled by default
     'disabled' => true,
-    'transport' => array(
-        Ingo::RULE_ALL => array(
+    'transport' => [
+        Ingo::RULE_ALL => [
             'driver' => 'vfs',
-            'params' => array(
+            'params' => [
                 // Hostname of the VFS server
                 'hostspec' => 'localhost',
                 // Name of the maildrop config file to write
@@ -139,13 +140,13 @@ $backends['maildrop'] = array(
                 // 'vfstype' => 'ssh2',
                 // Port of the VFS server
                 // 'port' => 22,
-            )
-        ),
-    ),
-    'script' => array(
-        Ingo::RULE_ALL => array(
+            ],
+        ],
+    ],
+    'script' => [
+        Ingo::RULE_ALL => [
             'driver' => 'maildrop',
-            'params' => array(
+            'params' => [
                 // Any arguments passed to the mailbot command. The -N flag (to
                 // no include the original, quoted message content has been
                 // added with Maildrop 2.5.1/Courier 0.65.1.
@@ -160,24 +161,24 @@ $backends['maildrop'] = array(
                 'strip_inbox' => false,
                 // An array of variables to append to every generated script.
                 // Use if you need to set up specific environment variables.
-                'variables' => array(
+                'variables' => [
                     // Example for the $PATH variable
                     // 'PATH' => '/usr/bin'
-                )
-            ),
-        ),
-    ),
-    'shares' => false
-);
+                ],
+            ],
+        ],
+    ],
+    'shares' => false,
+];
 
 /* Procmail Example */
-$backends['procmail'] = array(
+$backends['procmail'] = [
     // Disabled by default
     'disabled' => true,
-    'transport' => array(
-        Ingo::RULE_ALL => array(
+    'transport' => [
+        Ingo::RULE_ALL => [
             'driver' => 'vfs',
-            'params' => array(
+            'params' => [
                 // Hostname of the VFS server
                 'hostspec' => 'localhost',
                 // Name of the procmail config file to write
@@ -217,13 +218,13 @@ $backends['procmail'] = array(
                 // 'vfstype' => 'ssh2',
                 // Port of the VFS server
                 // 'port' => 22,
-            )
-        ),
-    ),
-    'script' => array(
-        Ingo::RULE_ALL => array(
+            ],
+        ],
+    ],
+    'script' => [
+        Ingo::RULE_ALL => [
             'driver' => 'procmail',
-            'params' => array(
+            'params' => [
                 // What path style does the IMAP server use, one of:
                 //   'mbox'     - mbox style pathnames.
                 //   'mboxutf7' - mbox pathnames, with UTF7-imap encoding.
@@ -231,7 +232,7 @@ $backends['procmail'] = array(
                 'path_style' => 'mbox',
                 // An array of variables to append to every generated script.
                 // Use if you need to set up specific environment variables.
-                'variables' => array(
+                'variables' => [
                     // The $DEFAULT variable. If using Maildir, Ingo will use
                     // this value as the default unless you explicitly
                     // configure otherwise.
@@ -245,25 +246,25 @@ $backends['procmail'] = array(
                     // Example for the $VACATION_DIR variable (used to store
                     // vacation files)
                     // 'VACATION_DIR' => '$HOME',
-                ),
+                ],
                 // If you need procmail to be called from .forward in the
                 // user's home directory, set the file and the content below:
                 // 'forward_file' => '.forward',
                 // 'forward_string' => '"|/usr/local/bin/procmail"',
-            ),
-        ),
-    ),
-    'shares' => false
-);
+            ],
+        ],
+    ],
+    'shares' => false,
+];
 
 /* Sieve Example */
-$backends['sieve'] = array(
+$backends['sieve'] = [
     // Disabled by default
     'disabled' => true,
-    'transport' => array(
-        Ingo::RULE_ALL => array(
+    'transport' => [
+        Ingo::RULE_ALL => [
             'driver' => 'timsieved',
-            'params' => array(
+            'params' => [
                 // NOTE: Ingo by default sends only the bare Horde username
                 // for authentication. Sieve servers generally need both the
                 // username and domain. See the 'transport_auth' hook for
@@ -282,13 +283,13 @@ $backends['sieve'] = array(
                 // Enable debugging. The sieve protocol communication is
                 // logged with the DEBUG level.
                 'debug' => false,
-            ),
-        ),
-    ),
-    'script' => array(
-        Ingo::RULE_ALL => array(
+            ],
+        ],
+    ],
+    'script' => [
+        Ingo::RULE_ALL => [
             'driver' => 'sieve',
-            'params' => array(
+            'params' => [
                 // If false, use less reliable regular expression parsing of
                 // Received: headers instead of the standardized 'date' and
                 // 'relational' extensions for date-limiting vacation messages.
@@ -307,20 +308,20 @@ $backends['sieve'] = array(
                 // requires folder names to be UTF-8 encoded, set this
                 // parameter to true.
                 'utf8' => false,
-             ),
-        ),
-    ),
-    'shares' => false
-);
+            ],
+        ],
+    ],
+    'shares' => false,
+];
 
 /* sivtest Example */
-$backends['sivtest'] = array(
+$backends['sivtest'] = [
     // Disabled by default
     'disabled' => true,
-    'transport' => array(
-        Ingo::RULE_ALL => array(
+    'transport' => [
+        Ingo::RULE_ALL => [
             'driver' => 'sivtest',
-            'params' => array(
+            'params' => [
                 // Hostname of the timsieved server
                 'hostspec' => 'localhost',
                 // Login type of the server
@@ -336,26 +337,26 @@ $backends['sivtest'] = array(
                 // name of the socket we're using
                 'socket' => Horde::getTempDir() . '/sivtest.'
                     . uniqid(mt_rand()) . '.sock',
-            ),
-        ),
-    ),
-    'script' => array(
-        Ingo::RULE_ALL => array(
+            ],
+        ],
+    ],
+    'script' => [
+        Ingo::RULE_ALL => [
             'driver' => 'sieve',
-            'params' => array(),
-        ),
-    ),
+            'params' => [],
+        ],
+    ],
     'shares' => false,
-);
+];
 
 /* Sun ONE/JES Example (LDAP/Sieve) */
-$backends['ldapsieve'] = array(
+$backends['ldapsieve'] = [
     // Disabled by default
     'disabled' => true,
-    'transport' => array(
-        Ingo::RULE_ALL => array(
+    'transport' => [
+        Ingo::RULE_ALL => [
             'driver' => 'ldap',
-            'params' => array(
+            'params' => [
                 // Hostname of the ldap server
                 'hostspec' => 'localhost',
                 // Port number of the timsieved server
@@ -390,61 +391,61 @@ $backends['ldapsieve'] = array(
                 'script_filter' => '(uid=%u)',
                 // Attribute script is stored in.  Will not touch non-Ingo
                 // scripts.
-                'script_attribute' => 'mailSieveRuleSource'
-            ),
-        ),
-    ),
-    'script' => array(
-        Ingo::RULE_ALL => array(
+                'script_attribute' => 'mailSieveRuleSource',
+            ],
+        ],
+    ],
+    'script' => [
+        Ingo::RULE_ALL => [
             'driver' => 'sieve',
-            'params' => array()
-        ),
-    ),
-);
+            'params' => [],
+        ],
+    ],
+];
 
 /* ISPConfig Example */
-$backends['ispconfig'] = array(
+$backends['ispconfig'] = [
     'disabled' => true,
-    'transport' => array(
-        Ingo::RULE_ALL => array(
+    'transport' => [
+        Ingo::RULE_ALL => [
             'driver' => 'ispconfig',
             // enabling transport_auth() in hooks.php is likely to be required
-            'params' => array(
+            'params' => [
                 'soap_uri' => 'http://ispconfig-webinterface.example.com:8080/remote/',
                 // This user must be created in the ISPConfig webinterface
                 // under System -> Remote Users.  The required permissions
                 // ("functions") is "mail user functions" only.
                 'soap_user' => 'horde',
-                'soap_pass' => 'secret'
-            ),
-        ),
-    ),
-    'script' => array(
-        Ingo::RULE_ALL => array(
+                'soap_pass' => 'secret',
+            ],
+        ],
+    ],
+    'script' => [
+        Ingo::RULE_ALL => [
             'driver' => 'ispconfig',
-            'params' => array()
-        ),
-    ),
-    'shares' => false
-);
+            'params' => [],
+        ],
+    ],
+    'shares' => false,
+];
 
 /* Custom SQL Example */
-$backends['customsql'] = array(
+$backends['customsql'] = [
     'disabled' => true,
-    'transport' => array(
-        Ingo::RULE_ALL => array(
+    'transport' => [
+        Ingo::RULE_ALL => [
             'driver' => 'sql',
             'params' => $GLOBALS['conf']['sql'],
-        ),
-    ),
-    'script' => array(
-        Ingo::RULE_ALL => array(
+        ],
+    ],
+    'script' => [
+        Ingo::RULE_ALL => [
             'driver' => 'customsql',
-            'params' => array(
+            'params' => [
                 'vacation_unset' => 'UPDATE vacation SET active = 0 WHERE user = %u',
-                'vacation_set' => 'REPLACE INTO vacation (active, subject, message, user) VALUES (1, %s, %m, %u)'
-            ),
-        ),
-    ),
-    'shares' => false
-);
+                'vacation_set' => 'REPLACE INTO vacation (active, subject, message, user) VALUES (1, %s, %m, %u)',
+            ],
+        ],
+    ],
+    'shares' => false,
+];

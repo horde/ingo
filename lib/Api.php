@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -32,7 +33,7 @@ class Ingo_Api extends Horde_Registry_Api
 
         $pushed = $registry->pushApp('ingo');
 
-        $disabled = array();
+        $disabled = [];
         if ($prefs->isLocked('blacklist')) {
             $disabled[] = 'blacklistFrom';
         }
@@ -59,13 +60,13 @@ class Ingo_Api extends Horde_Registry_Api
 
         $pushed = $registry->pushApp('ingo');
 
-        $links = array(
+        $links = [
             /* @since 3.2.0 */
             'newEmailFilter' => strval(Ingo_Basic_Rule::url()) . '&field[0]=From&match[0]=is&value[0]=|email|',
             'showFilters' => strval(Ingo_Basic_Filters::url()),
             /* @since 3.2.0 */
-            'showFiltersMbox' => strval(Ingo_Basic_Filters::url(array('mbox_search' => '|mailbox|')))
-        );
+            'showFiltersMbox' => strval(Ingo_Basic_Filters::url(['mbox_search' => '|mailbox|'])),
+        ];
 
         if (!$prefs->isLocked('blacklist')) {
             $links['showBlacklist'] = strval(Ingo_Basic_Blacklist::url());
@@ -103,13 +104,11 @@ class Ingo_Api extends Horde_Registry_Api
             $bl->addAddresses($addresses);
             $ingo_storage->updateRule($bl);
             $injector->getInstance('Ingo_Factory_Script')->activateAll(false);
-            if (is_iterable($addresses))
-            {
+            if (is_iterable($addresses)) {
                 foreach ($addresses as $from) {
                     $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
                 }
-            }
-            else {
+            } else {
                 $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $addresses));
             }
         } catch (Ingo_Exception $e) {
@@ -161,7 +160,7 @@ class Ingo_Api extends Horde_Registry_Api
      *   - mailbox (UTF-8)
      *   - show_filter_msg
      */
-    public function applyFilters(array $params = array())
+    public function applyFilters(array $params = [])
     {
         if (isset($params['mailbox'])) {
             $mbox = new Horde_Imap_Client_Mailbox($params['mailbox']);
@@ -207,7 +206,10 @@ class Ingo_Api extends Horde_Registry_Api
                 ->create();
             /* Remove empty lines. */
             $info['addresses'] = preg_replace(
-                '/\n{2,}/', "\n", implode("\n", $identity->getAll('from_addr')));
+                '/\n{2,}/',
+                "\n",
+                implode("\n", $identity->getAll('from_addr'))
+            );
             if (empty($info['addresses'])) {
                 $info['addresses'] = $registry->getAuth();
             }
@@ -257,7 +259,7 @@ class Ingo_Api extends Horde_Registry_Api
             ->create();
         $v = $ingo_storage->getSystemRule('Ingo_Rule_System_Vacation');
 
-        return array(
+        return [
             'addresses' => $v->addresses,
             'days' => $v->days,
             'disabled' => $v->disable,
@@ -266,8 +268,8 @@ class Ingo_Api extends Horde_Registry_Api
             'ignorelist' => $v->ignore_list,
             'reason' => $v->reason,
             'start' => $v->start,
-            'subject' => $v->subject
-        );
+            'subject' => $v->subject,
+        ];
     }
 
     /**
@@ -297,12 +299,12 @@ class Ingo_Api extends Horde_Registry_Api
     public function listTimeObjectCategories()
     {
         // @todo check if available
-        return array(
-            'vacation' => array(
+        return [
+            'vacation' => [
                 'title' => _("Vacations"),
-                'type' => 'single'
-            )
-        );
+                'type' => 'single',
+            ],
+        ];
     }
 
     /**
@@ -321,7 +323,7 @@ class Ingo_Api extends Horde_Registry_Api
         global $injector;
 
         if (!in_array('vacation', $time_categories)) {
-            return array();
+            return [];
         }
 
         $vacation = $injector->getInstance('Ingo_Factory_Storage')
@@ -330,7 +332,7 @@ class Ingo_Api extends Horde_Registry_Api
 
         // Don't return any inactive rules.
         if ($vacation->disable) {
-            return array();
+            return [];
         }
 
         // Ensure these are Horde_Dates
@@ -343,18 +345,18 @@ class Ingo_Api extends Horde_Registry_Api
         $vac_end = $vacation->end ? $vacation->end : $end->timestamp();
 
         if ($vac_start <= $end->timestamp() && $vac_end >= $start->timestamp()) {
-            return array(
-                $vacation->uid => array(
+            return [
+                $vacation->uid => [
                     'id' => $vacation->uid,
                     'title' => $vacation->subject,
                     'start' => $vacation->start,
                     'end' => $vacation->end,
-                    'link' => Ingo_Basic_Vacation::url()
-                )
-            );
+                    'link' => Ingo_Basic_Vacation::url(),
+                ],
+            ];
         }
 
-        return array();
+        return [];
     }
 
 }

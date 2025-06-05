@@ -15,17 +15,17 @@
 
   <ul class="blacklistAction">
    <li>
-    <?php echo $this->radioButtonTag('action', 'delete', empty($this->folder), array('id' => 'action_delete')) ?>
+    <?php echo $this->radioButtonTag('action', 'delete', empty($this->folder), ['id' => 'action_delete']) ?>
     <?php echo $this->hordeLabel('action_delete', _("_Delete message completely")) ?>
    </li>
 <?php if ($this->flagonly): ?>
    <li>
-    <?php echo $this->radioButtonTag('action', 'mark', $this->folder == Ingo_Rule_System_Blacklist::DELETE_MARKER, array('id' => 'action_mark')) ?>
+    <?php echo $this->radioButtonTag('action', 'mark', $this->folder == Ingo_Rule_System_Blacklist::DELETE_MARKER, ['id' => 'action_mark']) ?>
     <?php echo $this->hordeLabel('action_mark', _("Mar_k message as deleted")) ?>
    </li>
    <li>
 <?php endif; ?>
-    <?php echo $this->radioButtonTag('action', 'folder', $this->folder && ($this->folder != Ingo_Rule_System_Blacklist::DELETE_MARKER), array('id' => 'action_folder')) ?>
+    <?php echo $this->radioButtonTag('action', 'folder', $this->folder && ($this->folder != Ingo_Rule_System_Blacklist::DELETE_MARKER), ['id' => 'action_folder']) ?>
     <?php echo $this->hordeLabel('action_folder', _("_Move message to folder:")) ?>
     <label for="actionvalue" class="hidden"><?php echo _("Select target folder") ?></label>
     <?php echo $this->folderlist ?>

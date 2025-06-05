@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
@@ -44,7 +45,7 @@ class Ingo_Script_Procmail_Comment implements Ingo_Script_Item
         }
 
         $this->_comment = $header
-            ? '##### ' . $comment  . ' #####'
+            ? '##### ' . $comment . ' #####'
             : '# ' . $comment;
     }
 

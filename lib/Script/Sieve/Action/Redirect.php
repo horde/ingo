@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -28,11 +29,10 @@ class Ingo_Script_Sieve_Action_Redirect extends Ingo_Script_Sieve_Action
      *
      * @param array $vars  Any required parameters.
      */
-    public function __construct($vars = array())
+    public function __construct($vars = [])
     {
-        $this->_vars['address'] = isset($vars['address'])
-            ? $vars['address']
-            : '';
+        $this->_vars['address'] = $vars['address']
+            ?? '';
     }
 
     /**

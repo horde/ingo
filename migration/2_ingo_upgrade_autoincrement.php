@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Create Ingo base tables.
  *
@@ -37,8 +38,8 @@ class IngoUpgradeAutoIncrement extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        $this->changeColumn('ingo_rules', 'rule_id', 'integer', array('null' => false));
-        $this->changeColumn('ingo_shares', 'share_id', 'integer', array('null' => false));
+        $this->changeColumn('ingo_rules', 'rule_id', 'integer', ['null' => false]);
+        $this->changeColumn('ingo_shares', 'share_id', 'integer', ['null' => false]);
     }
 
 }

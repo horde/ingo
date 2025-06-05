@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -21,6 +22,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
+ * @coversNothing
  */
 class Ingo_Script_Sieve_Test_Body extends Ingo_Script_Sieve_Test
 {
@@ -29,17 +31,14 @@ class Ingo_Script_Sieve_Test_Body extends Ingo_Script_Sieve_Test
      *
      * @param array $vars  Any required parameters.
      */
-    public function __construct($vars = array())
+    public function __construct($vars = [])
     {
-        $this->_vars['comparator'] = isset($vars['comparator'])
-            ? $vars['comparator']
-            : 'i;ascii-casemap';
-        $this->_vars['match-type'] = isset($vars['match-type'])
-            ? $vars['match-type']
-            : ':is';
-        $this->_vars['strings'] = isset($vars['strings'])
-            ? $vars['strings']
-            : '';
+        $this->_vars['comparator'] = $vars['comparator']
+            ?? 'i;ascii-casemap';
+        $this->_vars['match-type'] = $vars['match-type']
+            ?? ':is';
+        $this->_vars['strings'] = $vars['strings']
+            ?? '';
     }
 
     /**
@@ -92,7 +91,7 @@ class Ingo_Script_Sieve_Test_Body extends Ingo_Script_Sieve_Test
     public function requires()
     {
         return ($this->_vars['match-type'] == ':regex')
-            ? array('regex', 'body')
-            : array('body');
+            ? ['regex', 'body']
+            : ['body'];
     }
 }

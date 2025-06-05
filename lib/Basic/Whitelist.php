@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
@@ -36,24 +37,24 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
         $whitelist = $ingo_storage->getSystemRule('Ingo_Rule_System_Whitelist');
 
         /* Token checking & perform requested actions. */
-        switch ($this->_checkToken(array('rule_update'))) {
-        case 'rule_update':
-            try {
-                $whitelist->addresses = $this->vars->whitelist;
-                $ingo_storage->updateRule($whitelist);
-                $notification->push(_("Changes saved."), 'horde.success');
+        switch ($this->_checkToken(['rule_update'])) {
+            case 'rule_update':
+                try {
+                    $whitelist->addresses = $this->vars->whitelist;
+                    $ingo_storage->updateRule($whitelist);
+                    $notification->push(_("Changes saved."), 'horde.success');
 
-                $injector->getInstance('Ingo_Factory_Script')->activateAll();
-            } catch (Ingo_Exception $e) {
-                $notification->push($e);
-            }
-            break;
+                    $injector->getInstance('Ingo_Factory_Script')->activateAll();
+                } catch (Ingo_Exception $e) {
+                    $notification->push($e);
+                }
+                break;
         }
 
         /* Prepare the view. */
-        $view = new Horde_View(array(
-            'templatePath' => INGO_TEMPLATES . '/basic/whitelist'
-        ));
+        $view = new Horde_View([
+            'templatePath' => INGO_TEMPLATES . '/basic/whitelist',
+        ]);
         $view->addHelper('Horde_Core_View_Helper_Help');
         $view->addHelper('Horde_Core_View_Helper_Label');
         $view->addHelper('Text');
@@ -63,9 +64,9 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
         $view->whitelist = implode("\n", $whitelist->addresses);
 
         $page_output->addScriptFile('whitelist.js');
-        $page_output->addInlineJsVars(array(
-            'IngoWhitelist.filtersurl' => strval(Ingo_Basic_Filters::url()->setRaw(true))
-        ));
+        $page_output->addInlineJsVars([
+            'IngoWhitelist.filtersurl' => strval(Ingo_Basic_Filters::url()->setRaw(true)),
+        ]);
 
         $this->title = _("Whitelist Edit");
         $this->output = $view->render('whitelist');
@@ -73,7 +74,7 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
 
     /**
      */
-    public static function url(array $opts = array())
+    public static function url(array $opts = [])
     {
         return Horde::url('basic.php')->add('page', 'whitelist');
     }

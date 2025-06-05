@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file defines the set of default match items to display when creating
  * a new filter rule.
@@ -27,87 +28,87 @@
  *                          available to the driver.
  * )
  */
-$ingo_fields = array(
-    'To' => array(
+$ingo_fields = [
+    'To' => [
         'label' => _("To"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'Subject' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'Subject' => [
         'label' => _("Subject"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'Sender' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'Sender' => [
         'label' => _("Sender"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'From' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'From' => [
         'label' => _("From"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'Cc' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'Cc' => [
         'label' => _("Cc"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'Bcc' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'Bcc' => [
         'label' => _("Bcc"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'Resent-from' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'Resent-from' => [
         'label' => _("Resent-From"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'Resent-to' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'Resent-to' => [
         'label' => _("Resent-To"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'List-Id' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'List-Id' => [
         'label' => _("List-ID"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'Received' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'Received' => [
         'label' => _("Received"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'X-Spam-Level' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'X-Spam-Level' => [
         'label' => _("X-Spam-Level"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'X-Spam-Score' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'X-Spam-Score' => [
         'label' => _("X-Spam-Score"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'X-Spam-Status' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'X-Spam-Status' => [
         'label' => _("X-Spam-Status"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'X-Priority' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'X-Priority' => [
         'label' => _("X-Priority"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'To,Cc,Bcc,Resent-to' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'To,Cc,Bcc,Resent-to' => [
         'label' => _("Destination (To, Cc, Bcc, etc.)"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'From,Sender,Reply-to,Resent-from' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'From,Sender,Reply-to,Resent-from' => [
         'label' => _("Source (From, Reply-to, etc.)"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'To,Cc,Bcc,Resent-to,From,Sender,Reply-to,Resent-from' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'To,Cc,Bcc,Resent-to,From,Sender,Reply-to,Resent-from' => [
         'label' => _("Participant (From, To, etc.)"),
-        'type' => Ingo_Rule_User::TEST_HEADER
-    ),
-    'Size' => array(
+        'type' => Ingo_Rule_User::TEST_HEADER,
+    ],
+    'Size' => [
         'label' => _("Size"),
         'type' => Ingo_Rule_User::TEST_SIZE,
-        'tests' => array('greater than', 'less than')
-    ),
-    'Body' => array(
+        'tests' => ['greater than', 'less than'],
+    ],
+    'Body' => [
         'label' => _("Body"),
         'type' => Ingo_Rule_User::TEST_BODY,
-        'tests' => array(
+        'tests' => [
             'contains', 'not contain', 'is', 'not is', 'begins with',
             'not begins with', 'ends with', 'not ends with', 'regex',
-            'not regex', 'matches', 'not matches'
-        )
-    )
-);
+            'not regex', 'matches', 'not matches',
+        ],
+    ],
+];

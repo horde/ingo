@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
@@ -56,7 +57,7 @@ class Ingo_Session
             'vacation' => 'Ingo_Rule_System_Vacation',
             'whitelist' => 'Ingo_Rule_System_Whitelist',
             'redirect' => 'Ingo_Rule_User_Redirect',
-            'redirectkeep' => 'Ingo_Rule_User_RedirectKeep'
+            'redirectkeep' => 'Ingo_Rule_User_RedirectKeep',
         ];
         $locked = [];
         foreach ($locked_prefs as $key => $val) {
@@ -68,7 +69,7 @@ class Ingo_Session
         /* Set the list of categories this driver supports. */
         $ingo_scripts = $injector->getInstance('Ingo_Factory_Script')
             ->createAll();
-        $categories = array();
+        $categories = [];
         foreach ($ingo_scripts as $ingo_script) {
             $categories = array_merge(
                 $categories,
@@ -148,7 +149,7 @@ class Ingo_Session
             throw new Ingo_Exception(_("No backend configured for this host"));
         }
 
-        foreach (array('script', 'transport') as $val) {
+        foreach (['script', 'transport'] as $val) {
             if (empty($backend[$val])) {
                 throw new Ingo_Exception(sprintf(_("No \"%s\" element found in backend configuration."), $val));
             }

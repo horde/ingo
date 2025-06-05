@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -20,8 +21,7 @@
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
-class Ingo_Storage_FilterIterator_Match
-extends Ingo_Storage_FilterIterator
+class Ingo_Storage_FilterIterator_Match extends Ingo_Storage_FilterIterator
 {
     /**
      */

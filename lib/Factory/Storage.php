@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -26,7 +27,7 @@ class Ingo_Factory_Storage extends Horde_Core_Factory_Base
      *
      * @var array
      */
-    private $_instances = array();
+    private $_instances = [];
 
     /**
      * Return the Ingo_Storage instance.
@@ -53,23 +54,23 @@ class Ingo_Factory_Storage extends Horde_Core_Factory_Base
             }
 
             switch ($driver) {
-            case 'Nosql':
-                $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')
-                    ->create('ingo', 'storage');
-                if ($nosql instanceof Horde_Mongo_Client) {
-                    $params['mongo_db'] = $nosql;
-                    $driver = 'Mongo';
-                }
-                break;
+                case 'Nosql':
+                    $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')
+                        ->create('ingo', 'storage');
+                    if ($nosql instanceof Horde_Mongo_Client) {
+                        $params['mongo_db'] = $nosql;
+                        $driver = 'Mongo';
+                    }
+                    break;
 
-            case 'Sql':
-                $params['db'] = $injector->getInstance('Horde_Db_Adapter');
-                $params['table_forwards'] = 'ingo_forwards';
-                $params['table_lists'] = 'ingo_lists';
-                $params['table_rules'] = 'ingo_rules';
-                $params['table_spam'] = 'ingo_spam';
-                $params['table_vacations'] = 'ingo_vacations';
-                break;
+                case 'Sql':
+                    $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+                    $params['table_forwards'] = 'ingo_forwards';
+                    $params['table_lists'] = 'ingo_lists';
+                    $params['table_rules'] = 'ingo_rules';
+                    $params['table_spam'] = 'ingo_spam';
+                    $params['table_vacations'] = 'ingo_vacations';
+                    break;
             }
 
             $class = 'Ingo_Storage_' . $driver;

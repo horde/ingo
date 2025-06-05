@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -22,32 +23,31 @@
  *
  * @property-read boolean $has_flags  True if the rule has any flags set.
  */
-class Ingo_Rule_User
-extends Ingo_Rule
+class Ingo_Rule_User extends Ingo_Rule
 {
-    const COMBINE_ALL = 1;
-    const COMBINE_ANY = 2;
+    public const COMBINE_ALL = 1;
+    public const COMBINE_ANY = 2;
 
-    const FLAG_ANSWERED = 1;
-    const FLAG_DELETED = 2;
-    const FLAG_FLAGGED = 4;
-    const FLAG_SEEN = 8;
-    const FLAG_AVAILABLE = 16;
+    public const FLAG_ANSWERED = 1;
+    public const FLAG_DELETED = 2;
+    public const FLAG_FLAGGED = 4;
+    public const FLAG_SEEN = 8;
+    public const FLAG_AVAILABLE = 16;
 
-    const TEST_HEADER = 1;
-    const TEST_SIZE = 2;
-    const TEST_BODY = 3;
+    public const TEST_HEADER = 1;
+    public const TEST_SIZE = 2;
+    public const TEST_BODY = 3;
 
-    const TYPE_TEXT = 1;
-    const TYPE_MAILBOX = 2;
-    const TYPE_EMPTY = 3;
+    public const TYPE_TEXT = 1;
+    public const TYPE_MAILBOX = 2;
+    public const TYPE_EMPTY = 3;
 
     public $flags = 0;
     public $label = '';
     public $type = 0;
 
     public $combine = self::COMBINE_ALL;
-    public $conditions = array();
+    public $conditions = [];
     public $stop = true;
     public $value = '';
 
@@ -64,8 +64,8 @@ extends Ingo_Rule
     public function __get($name)
     {
         switch ($name) {
-        case 'has_flags':
-            return (bool) ($this->flags & ~self::FLAG_AVAILABLE);
+            case 'has_flags':
+                return (bool) ($this->flags & ~self::FLAG_AVAILABLE);
         }
     }
 
@@ -83,7 +83,7 @@ extends Ingo_Rule
     public function getTestInfo($test)
     {
         /* Mapping of gettext strings -> labels. */
-        $labels = array(
+        $labels = [
             'contains' => _("Contains"),
             'not contain' =>  _("Doesn't contain"),
             'is' => _("Is"),
@@ -103,27 +103,27 @@ extends Ingo_Rule
             'greater than' => _("Greater than"),
             'greater than or equal to' => _("Greater than or equal to"),
             'equal' => _("Equal to"),
-            'not equal' => _("Not equal to")
-        );
+            'not equal' => _("Not equal to"),
+        ];
 
         /* The type of tests available. */
-        $types = array(
-            'int'  => array(
+        $types = [
+            'int'  => [
                 'less than', 'less than or equal to', 'greater than',
-                'greater than or equal to', 'equal', 'not equal'
-            ),
-            'none' => array(
-                'exists', 'not exist'
-            ),
-            'text' => array(
+                'greater than or equal to', 'equal', 'not equal',
+            ],
+            'none' => [
+                'exists', 'not exist',
+            ],
+            'text' => [
                 'contains', 'not contain', 'is', 'not is', 'begins with',
                 'not begins with', 'ends with', 'not ends with', 'regex',
-                'not regex', 'matches', 'not matches'
-            )
-        );
+                'not regex', 'matches', 'not matches',
+            ],
+        ];
 
         /* Create the information object. */
-        $ob = new stdClass;
+        $ob = new stdClass();
         $ob->label = $labels[$test];
         foreach ($types as $key => $val) {
             if (in_array($test, $val)) {

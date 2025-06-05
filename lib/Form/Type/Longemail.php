@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
@@ -37,14 +38,14 @@ class Ingo_Form_Type_Longemail extends Horde_Form_Type_longtext
             return true;
         }
 
-        $invalid = array();
+        $invalid = [];
         $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
 
         foreach (explode("\n", $value) as $address) {
             try {
-                $rfc822->parseAddressList($address, array(
-                    'validate' => true
-                ));
+                $rfc822->parseAddressList($address, [
+                    'validate' => true,
+                ]);
             } catch (Horde_Mail_Exception $e) {
                 $invalid[] = $address;
             }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
@@ -23,6 +24,7 @@
  * @license    http://www.horde.org/licenses/apache ASL
  * @package    Ingo
  * @subpackage UnitTests
+ * @coversNothing
  */
 
 class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
@@ -32,19 +34,19 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $injector = $this->getMock('Horde_Injector', array(), array(), '', false);
+        $injector = $this->getMock('Horde_Injector', [], [], '', false);
         $injector->expects($this->any())
             ->method('getInstance')
-            ->will($this->returnCallback(array($this, '_injectorGetInstance')));
+            ->will($this->returnCallback([$this, '_injectorGetInstance']));
         $GLOBALS['injector'] = $injector;
 
-        $prefs = $this->getMock('Horde_Prefs', array(), array(), '', false);
+        $prefs = $this->getMock('Horde_Prefs', [], [], '', false);
         $prefs->expects($this->any())
             ->method('getValue')
             ->will($this->returnValue(false));
         $GLOBALS['prefs'] = $prefs;
 
-        $registry = $this->getMock('Horde_Registry', array(), array(), '', false);
+        $registry = $this->getMock('Horde_Registry', [], [], '', false);
         $registry->expects($this->any())
             ->method('hasMethod')
             ->will($this->returnValue(true));
@@ -58,49 +60,53 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
 
         $this->storage = new Ingo_Storage_Memory();
 
-        $GLOBALS['conf']['spam'] = array(
+        $GLOBALS['conf']['spam'] = [
             'enabled' => true,
             'char' => '*',
-            'header' => 'X-Spam-Level'
-        );
+            'header' => 'X-Spam-Level',
+        ];
     }
 
     public function _injectorGetInstance($interface)
     {
         switch ($interface) {
-        case 'Horde_Core_Factory_Identity':
-            $identity = $this->getMock('Horde_Core_Prefs_Identity', array(), array(), '', false);
-            $identity->expects($this->any())
-                ->method('getName')
-                ->will($this->returnValue('Foo'));
-            $identity->expects($this->any())
-                ->method('getDefaultFromAddress')
-                ->will($this->returnValue('foo@example.com'));
-            $identity->expects($this->any())
-                ->method('getValue')
-                ->will($this->returnValue('XYZ'));
+            case 'Horde_Core_Factory_Identity':
+                $identity = $this->getMock('Horde_Core_Prefs_Identity', [], [], '', false);
+                $identity->expects($this->any())
+                    ->method('getName')
+                    ->will($this->returnValue('Foo'));
+                $identity->expects($this->any())
+                    ->method('getDefaultFromAddress')
+                    ->will($this->returnValue('foo@example.com'));
+                $identity->expects($this->any())
+                    ->method('getValue')
+                    ->will($this->returnValue('XYZ'));
 
-            $factory = $this->getMock($interface, array(), array(), '', false);
-            $factory->expects($this->any())
-                ->method('create')
-                ->will($this->returnValue($identity));
+                $factory = $this->getMock($interface, [], [], '', false);
+                $factory->expects($this->any())
+                    ->method('create')
+                    ->will($this->returnValue($identity));
 
-            return $factory;
+                return $factory;
 
-        case 'Horde_Core_Hooks':
-            $hooks = $this->getMock(
-                'Horde_Core_Hooks', array(), array(), '', false
-            );
-            $hooks->expects($this->any())
-                ->method('callHook')
-                ->will($this->returnCallback(array($this, '_hooksCallback')));
+            case 'Horde_Core_Hooks':
+                $hooks = $this->getMock(
+                    'Horde_Core_Hooks',
+                    [],
+                    [],
+                    '',
+                    false
+                );
+                $hooks->expects($this->any())
+                    ->method('callHook')
+                    ->will($this->returnCallback([$this, '_hooksCallback']));
 
-            return $hooks;
+                return $hooks;
 
-        case 'Horde_Core_Perms':
-            $perms = $this->getMock('Horde_Core_Perms', array(), array(), '', false);
-            $perms->method('hasAppPermission')->will($this->returnValue(true));
-            return $perms;
+            case 'Horde_Core_Perms':
+                $perms = $this->getMock('Horde_Core_Perms', [], [], '', false);
+                $perms->method('hasAppPermission')->will($this->returnValue(true));
+                return $perms;
         }
     }
 
@@ -119,7 +125,7 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
 
         /* Remove comments and crunch whitespace so we can have a functional
          * comparison. */
-        $new = array();
+        $new = [];
         foreach (explode("\n", $result[0]['script']) as $line) {
             if (preg_match('/^\s*$/', $line)) {
                 continue;

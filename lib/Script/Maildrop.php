@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *
@@ -27,14 +28,14 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
      * Additional storage action since maildrop does not support the "c-flag"
      * as in procmail.
      */
-    const MAILDROP_STORAGE_ACTION_STOREANDFORWARD = 100;
+    public const MAILDROP_STORAGE_ACTION_STOREANDFORWARD = 100;
 
     /**
      * A list of driver features.
      *
      * @var array
      */
-    protected $_features = array(
+    protected $_features = [
         /* Can tests be case sensitive? */
         'case_sensitive' => true,
         /* Does the driver support setting IMAP flags? */
@@ -47,50 +48,50 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
         'stop_script' => false,
         /* Does the driver support vacation start and end on time level? */
         'vacation_time' => true,
-    );
+    ];
 
     /**
      * The list of actions allowed (implemented) for this driver.
      *
      * @var array
      */
-    protected $_actions = array(
+    protected $_actions = [
         'Ingo_Rule_User_Discard',
         'Ingo_Rule_User_Keep',
         'Ingo_Rule_User_Move',
         'Ingo_Rule_User_Redirect',
         'Ingo_Rule_User_RedirectKeep',
-        'Ingo_Rule_User_Reject'
-    );
+        'Ingo_Rule_User_Reject',
+    ];
 
     /**
      * The categories of filtering allowed.
      *
      * @var array
      */
-    protected $_categories = array(
+    protected $_categories = [
         'Ingo_Rule_System_Blacklist',
         'Ingo_Rule_System_Forward',
         'Ingo_Rule_System_Spam',
         'Ingo_Rule_System_Vacation',
-        'Ingo_Rule_System_Whitelist'
-    );
+        'Ingo_Rule_System_Whitelist',
+    ];
 
     /**
      * The types of tests allowed (implemented) for this driver.
      *
      * @var array
      */
-    protected $_types = array(
-        Ingo_Rule_User::TEST_HEADER
-    );
+    protected $_types = [
+        Ingo_Rule_User::TEST_HEADER,
+    ];
 
     /**
      * The list of tests allowed (implemented) for this driver.
      *
      * @var array
      */
-    protected $_tests = array(
+    protected $_tests = [
         'contains', 'not contain',
         'is', 'not is',
         'begins with','not begins with',
@@ -101,7 +102,7 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
         'less than', 'less than or equal to',
         'equal', 'not equal',
         'greater than', 'greater than or equal to',
-    );
+    ];
 
     /**
      * Generates the script to do the filtering specified in the rules.
@@ -119,7 +120,7 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
             foreach ($this->_params['variables'] as $key => $val) {
                 $this->_addItem(
                     Ingo::RULE_ALL,
-                    new Ingo_Script_Maildrop_Variable(array('name' => $key, 'value' => $val))
+                    new Ingo_Script_Maildrop_Variable(['name' => $key, 'value' => $val])
                 );
             }
         }
@@ -131,49 +132,49 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
 
         foreach ($filters as $rule) {
             switch ($class = get_class($rule)) {
-            case 'Ingo_Rule_System_Blacklist':
-                $this->_generateBlacklist($rule);
-                break;
-
-            case 'Ingo_Rule_System_Forward':
-                $this->_generateForward($rule);
-                break;
-
-            case 'Ingo_Rule_System_Spam':
-                $this->_generateSpam($rule);
-                break;
-
-            case 'Ingo_Rule_System_Vacation':
-                $this->_generateVacation($rule);
-                break;
-
-            case 'Ingo_Rule_System_Whitelist':
-                $this->_generateWhitelist($rule);
-                break;
-
-            default:
-                if (!in_array($class, $this->_actions)) {
+                case 'Ingo_Rule_System_Blacklist':
+                    $this->_generateBlacklist($rule);
                     break;
-                }
 
-                /* Create filter if using AND. */
-                $recipe = new Ingo_Script_Maildrop_Recipe(
-                    array(
-                        'action' => $class,
-                        'action-value' => $rule->value,
-                        'combine' => $rule->combine,
-                        'disable' => $rule->disable
-                    ),
-                    $this->_params
-                );
-                foreach ($rule->conditions as $condition) {
-                    $recipe->addCondition($condition);
-                }
-                $this->_addItem(
-                    Ingo::RULE_FILTER,
-                    new Ingo_Script_Maildrop_Comment($rule->name, $rule->disable, true)
-                );
-                $this->_addItem(Ingo::RULE_FILTER, $recipe);
+                case 'Ingo_Rule_System_Forward':
+                    $this->_generateForward($rule);
+                    break;
+
+                case 'Ingo_Rule_System_Spam':
+                    $this->_generateSpam($rule);
+                    break;
+
+                case 'Ingo_Rule_System_Vacation':
+                    $this->_generateVacation($rule);
+                    break;
+
+                case 'Ingo_Rule_System_Whitelist':
+                    $this->_generateWhitelist($rule);
+                    break;
+
+                default:
+                    if (!in_array($class, $this->_actions)) {
+                        break;
+                    }
+
+                    /* Create filter if using AND. */
+                    $recipe = new Ingo_Script_Maildrop_Recipe(
+                        [
+                            'action' => $class,
+                            'action-value' => $rule->value,
+                            'combine' => $rule->combine,
+                            'disable' => $rule->disable,
+                        ],
+                        $this->_params
+                    );
+                    foreach ($rule->conditions as $condition) {
+                        $recipe->addCondition($condition);
+                    }
+                    $this->_addItem(
+                        Ingo::RULE_FILTER,
+                        new Ingo_Script_Maildrop_Comment($rule->name, $rule->disable, true)
+                    );
+                    $this->_addItem(Ingo::RULE_FILTER, $recipe);
             }
         }
     }
@@ -195,18 +196,18 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
             new Ingo_Script_Maildrop_Comment(_("Blacklisted Addresses"), $rule->disable, true)
         );
 
-        $params = array(
+        $params = [
             'action-value' => $rule->mailbox,
             'action' => strlen($rule->mailbox) ? 'Ingo_Rule_User_Move' : 'Ingo_Rule_User_Discard',
-            'disable' => $rule->disable
-        );
+            'disable' => $rule->disable,
+        ];
 
         foreach ($rule->addresses as $address) {
             $recipe = new Ingo_Script_Maildrop_Recipe($params, $this->_params);
-            $recipe->addCondition(array(
+            $recipe->addCondition([
                 'field' => 'From',
-                'value' => $address
-            ));
+                'value' => $address,
+            ]);
             $this->_addItem(Ingo::RULE_BLACKLIST, $recipe);
         }
     }
@@ -230,16 +231,16 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
 
         foreach ($rule->addresses as $address) {
             $recipe = new Ingo_Script_Maildrop_Recipe(
-                array(
+                [
                     'action' => 'Ingo_Rule_User_Keep',
-                    'disable' => $rule->disable
-                ),
+                    'disable' => $rule->disable,
+                ],
                 $this->_params
             );
-            $recipe->addCondition(array(
+            $recipe->addCondition([
                 'field' => 'From',
-                'value' => $address
-            ));
+                'value' => $address,
+            ]);
             $this->_addItem(Ingo::RULE_WHITELIST, $recipe);
         }
     }
@@ -260,16 +261,16 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
             new Ingo_Script_Maildrop_Comment(_("Forwards"), $rule->disable, true)
         );
 
-        $params = array(
+        $params = [
             'action' => 'Ingo_Rule_System_Forward',
             'action-value' => $rule->addresses,
-            'disable' => $rule->disable
-        );
+            'disable' => $rule->disable,
+        ];
         if ($rule->keep) {
             $params['action'] = self::MAILDROP_STORAGE_ACTION_STOREANDFORWARD;
         }
         $recipe = new Ingo_Script_Maildrop_Recipe($params, $this->_params);
-        $recipe->addCondition(array('field' => 'From', 'value' => ''));
+        $recipe->addCondition(['field' => 'From', 'value' => '']);
         $this->_addItem(Ingo::RULE_FORWARD, $recipe);
     }
 
@@ -290,19 +291,19 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
         );
 
         $recipe = new Ingo_Script_Maildrop_Recipe(
-            array(
+            [
                 'action' => 'Ingo_Rule_System_Vacation',
-                'action-value' => array(
+                'action-value' => [
                     'addresses' => $rule->addresses,
                     'subject' => $rule->subject,
                     'days' => $rule->days,
                     'ignorelist' => $rule->ignore_list,
                     'excludes' => $rule->exclude,
                     'start' => $rule->start,
-                    'end' => $rule->end
-                ),
-                'disable' => $disable
-            ),
+                    'end' => $rule->end,
+                ],
+                'disable' => $disable,
+            ],
             $this->_params
         );
 
@@ -335,35 +336,35 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
         );
 
         $recipe = new Ingo_Script_Maildrop_Recipe(
-            array(
+            [
                 'action-value' => $rule->mailbox,
                 'action' => strlen($rule->mailbox) ? 'Ingo_Rule_User_Move' : 'Ingo_Rule_User_Discard',
-                'disable' => $rule->disable
-            ),
+                'disable' => $rule->disable,
+            ],
             $this->_params
         );
 
         if ($this->_params['spam_compare'] == 'numeric') {
-            $recipe->addCondition(array(
+            $recipe->addCondition([
                 'match' => 'greater than or equal to',
                 'field' => $this->_params['spam_header'],
-                'value' => $rule->level
-            ));
+                'value' => $rule->level,
+            ]);
         } elseif ($this->_params['spam_compare'] == 'string') {
-            $recipe->addCondition(array(
+            $recipe->addCondition([
                 'match' => 'contains',
                 'field' => $this->_params['spam_header'],
                 'value' => str_repeat(
                     $this->_params['spam_char'],
                     $rule->level
-                )
-            ));
+                ),
+            ]);
         } elseif ($this->_params['spam_compare'] == 'boolean') {
-            $recipe->addCondition(array(
+            $recipe->addCondition([
                 'match' => 'is',
                 'field' => $this->_params['spam_header'],
-                'value' => $this->_params['spam_value']
-            ));
+                'value' => $this->_params['spam_value'],
+            ]);
         }
 
         $this->_addItem(Ingo::RULE_SPAM, $recipe);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -36,9 +37,7 @@
  * @property-read integer $start_year  Start date (year).
  * @property string $subject  Outgoing message subject line.
  */
-class Ingo_Rule_System_Vacation
-extends Ingo_Rule_Addresses
-implements Ingo_Rule_System
+class Ingo_Rule_System_Vacation extends Ingo_Rule_Addresses implements Ingo_Rule_System
 {
     /**
      * Number of vacation days.
@@ -59,7 +58,7 @@ implements Ingo_Rule_System
      *
      * @var array
      */
-    protected $_exclude = array();
+    protected $_exclude = [];
 
     /**
      * Ignore list messages?
@@ -106,60 +105,61 @@ implements Ingo_Rule_System
         global $injector;
 
         switch ($name) {
-        case 'addresses':
-            $addr = parent::__get($name);
+            case 'addresses':
+                $addr = parent::__get($name);
 
-            try {
-                $addr = $injector->getInstance('Horde_Core_Hooks')->callHook(
-                    'vacation_addresses',
-                    'ingo',
-                    array(Ingo::getUser(), $addr)
-                );
-            } catch (Horde_Exception_HookNotSet $e) {}
+                try {
+                    $addr = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                        'vacation_addresses',
+                        'ingo',
+                        [Ingo::getUser(), $addr]
+                    );
+                } catch (Horde_Exception_HookNotSet $e) {
+                }
 
-            return $addr;
+                return $addr;
 
-        case 'days':
-            return $this->_days;
+            case 'days':
+                return $this->_days;
 
-        case 'end':
-            return $this->_end;
+            case 'end':
+                return $this->_end;
 
-        case 'end_day':
-            return date('j', $this->end);
+            case 'end_day':
+                return date('j', $this->end);
 
-        case 'end_month':
-            return date('n', $this->end);
+            case 'end_month':
+                return date('n', $this->end);
 
-        case 'end_year':
-            return date('Y', $this->end);
+            case 'end_year':
+                return date('Y', $this->end);
 
-        case 'exclude':
-            return $this->_exclude;
+            case 'exclude':
+                return $this->_exclude;
 
-        case 'ignore_list':
-            return $this->_ignoreList;
+            case 'ignore_list':
+                return $this->_ignoreList;
 
-        case 'reason':
-            return $this->_reason;
+            case 'reason':
+                return $this->_reason;
 
-        case 'start':
-            return $this->_start;
+            case 'start':
+                return $this->_start;
 
-        case 'start_day':
-            return date('j', $this->start);
+            case 'start_day':
+                return date('j', $this->start);
 
-        case 'start_month':
-            return date('n', $this->start);
+            case 'start_month':
+                return date('n', $this->start);
 
-        case 'start_year':
-            return date('Y', $this->start);
+            case 'start_year':
+                return date('Y', $this->start);
 
-        case 'subject':
-            return $this->_subject;
+            case 'subject':
+                return $this->_subject;
 
-        default:
-            return parent::__get($name);
+            default:
+                return parent::__get($name);
         }
     }
 
@@ -168,41 +168,41 @@ implements Ingo_Rule_System
     public function __set($name, $data)
     {
         switch ($name) {
-        case 'days':
-            $this->_days = intval($data);
-            break;
+            case 'days':
+                $this->_days = intval($data);
+                break;
 
-        case 'end':
-            $this->_end = intval($data);
-            break;
+            case 'end':
+                $this->_end = intval($data);
+                break;
 
-        case 'exclude':
-            $exclude = new Horde_Mail_Rfc822_List(
-                is_array($data) ? $data : preg_split("/\s+/", $data)
-            );
-            $exclude->unique();
-            $this->_exclude = $exclude->bare_addresses;
-            break;
+            case 'exclude':
+                $exclude = new Horde_Mail_Rfc822_List(
+                    is_array($data) ? $data : preg_split("/\s+/", $data)
+                );
+                $exclude->unique();
+                $this->_exclude = $exclude->bare_addresses;
+                break;
 
-        case 'ignore_list':
-            $this->_ignoreList = (bool)$data;
-            break;
+            case 'ignore_list':
+                $this->_ignoreList = (bool) $data;
+                break;
 
-        case 'reason':
-            $this->_reason = strval($data);
-            break;
+            case 'reason':
+                $this->_reason = strval($data);
+                break;
 
-        case 'start':
-            $this->_start = intval($data);
-            break;
+            case 'start':
+                $this->_start = intval($data);
+                break;
 
-        case 'subject':
-            $this->_subject = strval($data);
-            break;
+            case 'subject':
+                $this->_subject = strval($data);
+                break;
 
-        default:
-            parent::__set($name, $data);
-            break;
+            default:
+                parent::__set($name, $data);
+                break;
         }
     }
 
@@ -224,13 +224,13 @@ implements Ingo_Rule_System
         $identity = $injector->getInstance('Horde_Core_Factory_Identity')
             ->create(Ingo::getUser());
 
-        $replace = array(
+        $replace = [
             '%NAME%' => $identity->getName(),
             '%EMAIL%' => $identity->getDefaultFromAddress(),
             '%SIGNATURE%' => $identity->getValue('signature'),
             '%STARTDATE%' => $start ? strftime($format, $start) : '',
-            '%ENDDATE%' => $end ? strftime($format, $end) : ''
-        );
+            '%ENDDATE%' => $end ? strftime($format, $end) : '',
+        ];
 
         return str_replace(
             array_keys($replace),

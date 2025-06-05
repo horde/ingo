@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -60,13 +61,13 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
             $auth['euser'] = Ingo::getUser(false);
         }
 
-        // Get transport parameters. 
+        // Get transport parameters.
         try {
             $customParams = $coreHooks->callHook('transport_params', 'ingo', [$transportDriver, $transportParams]);
         } catch (Horde_Exception_HookNotSet $e) {
             $customParams = null;
         }
-        if (is_array($customParams)){
+        if (is_array($customParams)) {
             $transportParams = array_merge($transportParams, $customParams);
         }
 

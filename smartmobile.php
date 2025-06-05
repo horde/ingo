@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ingo smartmobile view.
  *
@@ -18,10 +19,10 @@ Horde_Registry::appInit('ingo');
 
 $ob = new Ingo_Smartmobile($injector->getInstance('Horde_Variables'));
 
-$page_output->header(array(
+$page_output->header([
     'title' => _("Mobile"),
-    'view' => $registry::VIEW_SMARTMOBILE
-));
+    'view' => $registry::VIEW_SMARTMOBILE,
+]);
 
 $ob->render();
 

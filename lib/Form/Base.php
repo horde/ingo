@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -28,7 +29,7 @@ class Ingo_Form_Base extends Horde_Form
      */
     protected $_features;
 
-    public function __construct($vars, $title = '', $name = null, $features = array())
+    public function __construct($vars, $title = '', $name = null, $features = [])
     {
         parent::__construct($vars, $title, $name);
         $this->_features = $features;

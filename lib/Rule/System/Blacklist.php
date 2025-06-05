@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -22,15 +23,13 @@
  *
  * @property string $mailbox  The blacklist mailbox.
  */
-class Ingo_Rule_System_Blacklist
-extends Ingo_Rule_Addresses
-implements Ingo_Rule_System
+class Ingo_Rule_System_Blacklist extends Ingo_Rule_Addresses implements Ingo_Rule_System
 {
     /**
      * String that can't be a valid folder name used to mark blacklisted email
      * as deleted.
      */
-    const DELETE_MARKER = '++DELETE++';
+    public const DELETE_MARKER = '++DELETE++';
 
     /**
      * Blacklist mailbox.
@@ -58,11 +57,11 @@ implements Ingo_Rule_System
     public function __get($name)
     {
         switch ($name) {
-        case 'mailbox':
-            return $this->_mbox;
+            case 'mailbox':
+                return $this->_mbox;
 
-        default:
-            return parent::__get($name);
+            default:
+                return parent::__get($name);
         }
     }
 
@@ -71,13 +70,13 @@ implements Ingo_Rule_System
     public function __set($name, $data)
     {
         switch ($name) {
-        case 'mailbox':
-            $this->_mbox = $data;
-            break;
+            case 'mailbox':
+                $this->_mbox = $data;
+                break;
 
-        default:
-            parent::__set($name, $data);
-            break;
+            default:
+                parent::__set($name, $data);
+                break;
         }
     }
 

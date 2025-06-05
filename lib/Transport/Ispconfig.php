@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -75,7 +76,9 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
 
         try {
             $user = $this->_soap->mail_user_get(
-                $this->_soap_session, $this->_details['mailuser_id']);
+                $this->_soap_session,
+                $this->_details['mailuser_id']
+            );
 
             $user['autoresponder'] = $recipe['object']->disable ? 'n' : 'y';
             // UNIX timestamp.
@@ -87,26 +90,29 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
             if (empty($end)) {
                 $end = time();
             }
-            $user['autoresponder_start_date'] = array(
+            $user['autoresponder_start_date'] = [
                 'year' => date('Y', $start),
                 'month' => date('m', $start),
                 'day' => date('d', $start),
                 'hour' => date('H', $start),
-                'minute' => date('i', $start));
-            $user['autoresponder_end_date'] = array(
+                'minute' => date('i', $start)];
+            $user['autoresponder_end_date'] = [
                 'year' => date('Y', $end),
                 'month' => date('m', $end),
                 'day' => date('d', $end),
                 'hour' => 23,
-                'minute' => 59);
+                'minute' => 59];
             // $vacation->getVacationSubject() not supported by ISPConfig
             $user['autoresponder_text'] = $vacation->getVacationReason();
             // otherwise ISPConfig calculates the hash of this hash... braindead
             unset($user['password']);
 
             $this->_soap->mail_user_update(
-                $this->_soap_session, $this->_details['client_id'],
-                $this->_details['mailuser_id'], $user);
+                $this->_soap_session,
+                $this->_details['client_id'],
+                $this->_details['mailuser_id'],
+                $user
+            );
         } catch (SoapFault $e) {
             throw new Ingo_Exception($e);
         }
@@ -132,15 +138,19 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
         try {
             $users = $this->_soap->mail_user_get(
                 $this->_soap_session,
-                array('login' => $this->_params['username']));
+                ['login' => $this->_params['username']]
+            );
         } catch (SoapFault $e) {
             throw new Ingo_Exception($e);
         }
         if (count($users) != 1) {
             throw new Ingo_Exception(
-                sprintf(_("%d users with login %s found, one expected."),
-                        count($users),
-                        $this->_params['username']));
+                sprintf(
+                    _("%d users with login %s found, one expected."),
+                    count($users),
+                    $this->_params['username']
+                )
+            );
         }
 
         $user = $users[0];
@@ -167,7 +177,7 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
     protected function _checkConfig()
     {
         if (empty($this->_params['soap_uri']) ||
-            empty($this->_params['soap_user']) ) {
+            empty($this->_params['soap_user'])) {
             throw new Ingo_Exception('The Ingo Ispconfig transport is not properly configured, edit your ingo/config/backends.local.php.');
         }
     }
@@ -184,16 +194,18 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
         }
 
         $soap_uri = $this->_params['soap_uri'];
-        $client = new SoapClient(null, array(
+        $client = new SoapClient(null, [
             'location' => $soap_uri . 'index.php',
-            'uri'      => $soap_uri));
+            'uri'      => $soap_uri]);
 
         try {
             if (!$session_id = $client->login(
                 $this->_params['soap_user'],
-                $this->_params['soap_pass'])) {
+                $this->_params['soap_pass']
+            )) {
                 throw new Ingo_Exception(
-                    sprintf(_("Login to %s failed."), $soap_uri));
+                    sprintf(_("Login to %s failed."), $soap_uri)
+                );
             }
         } catch (SoapFault $e) {
             throw new Ingo_Exception($e);

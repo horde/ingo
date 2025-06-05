@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
@@ -27,7 +28,7 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
      *
      * @var array
      */
-    protected $_features = array(
+    protected $_features = [
         /* Can tests be case sensitive? */
         'case_sensitive' => false,
         /* Does the driver support setting IMAP flags? */
@@ -40,16 +41,16 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
         'stop_script' => false,
         /* Does the driver support vacation start and end on time level? */
         'vacation_time' => false,
-    );
+    ];
 
     /**
      * The categories of filtering allowed.
      *
      * @var array
      */
-    protected $_categories = array(
-        'Ingo_Rule_System_Vacation'
-    );
+    protected $_categories = [
+        'Ingo_Rule_System_Vacation',
+    ];
 
     /**
      * Which form fields are supported in each category by this driver?
@@ -60,11 +61,11 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
      *
      * @var array
      */
-    protected $_categoryFeatures = array(
-        'Ingo_Rule_System_Vacation' => array(
-            'subject', 'reason'
-        )
-    );
+    protected $_categoryFeatures = [
+        'Ingo_Rule_System_Vacation' => [
+            'subject', 'reason',
+        ],
+    ];
 
     /**
      * Generates the scripts to do the filtering specified in the rules.
@@ -78,24 +79,28 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
 
         foreach ($filters as $rule) {
             switch (get_class($rule)) {
-            case 'Ingo_Rule_System_Vacation':
-                $this->_addItem(
-                    Ingo::RULE_VACATION,
-                    new Ingo_Script_String(
-                        $this->_placeHolders($this->_params['vacation_unset'],
-                                             Ingo::RULE_VACATION)
-                    )
-                );
-                if (!$rule->disable) {
+                case 'Ingo_Rule_System_Vacation':
                     $this->_addItem(
                         Ingo::RULE_VACATION,
                         new Ingo_Script_String(
-                            $this->_placeHolders($this->_params['vacation_set'],
-                                                 Ingo::RULE_VACATION)
+                            $this->_placeHolders(
+                                $this->_params['vacation_unset'],
+                                Ingo::RULE_VACATION
+                            )
                         )
                     );
-                }
-                break;
+                    if (!$rule->disable) {
+                        $this->_addItem(
+                            Ingo::RULE_VACATION,
+                            new Ingo_Script_String(
+                                $this->_placeHolders(
+                                    $this->_params['vacation_set'],
+                                    Ingo::RULE_VACATION
+                                )
+                            )
+                        );
+                    }
+                    break;
             }
         }
     }
@@ -113,25 +118,24 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
         $transport = $GLOBALS['injector']
             ->getInstance('Ingo_Factory_Transport')
             ->create(
-                isset($this->_params['transport'][$rule])
-                    ? $this->_params['transport'][$rule]
-                    : $this->_params['transport'][Ingo::RULE_ALL]
+                $this->_params['transport'][$rule]
+                    ?? $this->_params['transport'][Ingo::RULE_ALL]
             );
 
-        $search = array('%u', '%d');
-        $replace = array(
+        $search = ['%u', '%d'];
+        $replace = [
             $transport->quote(Ingo::getUser()),
-            $transport->quote(Ingo::getDomain())
-        );
+            $transport->quote(Ingo::getDomain()),
+        ];
 
         switch ($rule) {
-        case Ingo::RULE_VACATION:
-            $vacation = $this->_params['storage']->getSystemRule('Ingo_Rule_System_Vacation');
-            $search[] = '%m';
-            $search[] = '%s';
-            $replace[] = $transport->quote($vacation->reason);
-            $replace[] = $transport->quote($vacation->subject);
-            break;
+            case Ingo::RULE_VACATION:
+                $vacation = $this->_params['storage']->getSystemRule('Ingo_Rule_System_Vacation');
+                $search[] = '%m';
+                $search[] = '%s';
+                $replace[] = $transport->quote($vacation->reason);
+                $replace[] = $transport->quote($vacation->subject);
+                break;
         }
 
         return str_replace($search, $replace, $query);

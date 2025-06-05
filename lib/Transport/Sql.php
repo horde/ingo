@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
@@ -33,7 +34,7 @@ class Ingo_Transport_Sql extends Ingo_Transport_Base
      *
      * @param array $params  A hash containing driver parameters.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         $this->_supportShares = true;
         parent::__construct($params);

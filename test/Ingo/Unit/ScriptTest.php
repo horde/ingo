@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Test cases for Ingo_Script:: and derived classes
  *
@@ -8,6 +9,7 @@
  * @author     Jason M. Felice <jason.m.felice@gmail.com>
  * @package    Ingo
  * @subpackage UnitTests
+ * @coversNothing
  */
 
 class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
@@ -17,7 +19,7 @@ class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
         $this->markTestIncomplete('TODO');
     }
 
-    function testBlacklistRuleWithoutFolderWillDiscardMatchingMessage()
+    public function testBlacklistRuleWithoutFolderWillDiscardMatchingMessage()
     {
         $runner = ScriptTester::factory('all', $this);
 
@@ -29,7 +31,7 @@ class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
         $runner->assertKeepsMessage('not_from_spammer');
     }
 
-    function testWhitelistRuleWillPreventDeletionOfBlacklistedMessage()
+    public function testWhitelistRuleWillPreventDeletionOfBlacklistedMessage()
     {
         $runner = ScriptTester::factory('all', $this);
 
@@ -45,7 +47,7 @@ class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
         $runner->assertKeepsMessage('not_from_spammer');
     }
 
-    function testBlacklistRuleWithFolderWillMoveMatchingMessages()
+    public function testBlacklistRuleWithFolderWillMoveMatchingMessages()
     {
         $runner = ScriptTester::factory('all', $this);
 
@@ -57,7 +59,7 @@ class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
         $runner->assertMovesMessage('from_spammer', 'Junk');
     }
 
-    function testPartialWhitelistAddressShouldNotMatch()
+    public function testPartialWhitelistAddressShouldNotMatch()
     {
         $runner = ScriptTester::factory('all', $this);
 
@@ -72,7 +74,7 @@ class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
         $runner->assertDeletesMessage('from_spammer');
     }
 
-    function testPartialBlacklistAddressShouldNotMatch()
+    public function testPartialBlacklistAddressShouldNotMatch()
     {
         $runner = ScriptTester::factory('all', $this);
 
@@ -88,44 +90,44 @@ class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
 /**
  * Abstract base class for strategies for testing different Script backends
  */
-class ScriptTester {
-
+class ScriptTester
+{
     protected $test;
-    protected $rules = array();
+    protected $rules = [];
 
-    function __construct($test)
+    public function __construct($test)
     {
         $this->test = $test;
     }
 
-    function addRule($rule)
+    public function addRule($rule)
     {
         $this->rules[] = $rule;
     }
 
-    function assertDeletesMessage($fixture)
+    public function assertDeletesMessage($fixture)
     {
         return PEAR::raiseError('Not implemented.');
     }
 
-    function assertKeepsMessage($fixture)
+    public function assertKeepsMessage($fixture)
     {
         return PEAR::raiseError('Not implemented.');
     }
 
-    function assertMovesMessage($fixture, $to_folder)
+    public function assertMovesMessage($fixture, $to_folder)
     {
         return PEAR::raiseError('Not implemented.');
     }
 
-    static function factory($type, $test)
+    public static function factory($type, $test)
     {
         $class = 'ScriptTester_' . $type;
         $ob = new $class($test);
         return $ob;
     }
 
-    function _setupStorage()
+    public function _setupStorage()
     {
         $GLOBALS['ingo_storage'] = new Ingo_Storage_Memory();
         foreach ($this->rules as $ob) {
@@ -138,35 +140,35 @@ class ScriptTester {
 /**
  * Implementation of ScriptTester:: for testing 'imap' scripts
  */
-class ScriptTester_imap extends ScriptTester {
+class ScriptTester_imap extends ScriptTester
+{
+    public $imap;
+    public $api;
 
-    var $imap;
-    var $api;
-
-    function _setup()
+    public function _setup()
     {
         $this->_setupStorage();
-        $this->api = Ingo_Script_Imap_Api::factory('mock', array());
+        $this->api = Ingo_Script_Imap_Api::factory('mock', []);
         $this->api->loadFixtures(__DIR__ . '/fixtures/');
 
-        $GLOBALS['notification'] = new Ingo_Test_Notification;
+        $GLOBALS['notification'] = new Ingo_Test_Notification();
 
-        $this->imap = new Ingo_Script_Imap(array(
+        $this->imap = new Ingo_Script_Imap([
             'api' => $this->api,
             'spam_compare' => 'string',
             'spam_header' => 'X-Spam-Level',
             'spam_char' => '*',
             'filter_seen' => 0,
-            'show_filter_msg' => 1
-        ));
+            'show_filter_msg' => 1,
+        ]);
     }
 
-    function _run()
+    public function _run()
     {
         $this->imap->perform(0);
     }
 
-    function assertDeletesMessage($fixture)
+    public function assertDeletesMessage($fixture)
     {
         $this->_setup();
         $this->test->assertTrue($this->api->hasMessage($fixture));
@@ -174,7 +176,7 @@ class ScriptTester_imap extends ScriptTester {
         $this->test->assertFalse($this->api->hasMessage($fixture));
     }
 
-    function assertKeepsMessage($fixture)
+    public function assertKeepsMessage($fixture)
     {
         $this->_setup();
         $this->test->assertTrue($this->api->hasMessage($fixture));
@@ -182,7 +184,7 @@ class ScriptTester_imap extends ScriptTester {
         $this->test->assertTrue($this->api->hasMessage($fixture));
     }
 
-    function assertMovesMessage($fixture, $to_folder)
+    public function assertMovesMessage($fixture, $to_folder)
     {
         $this->_setup();
         $this->test->assertTrue($this->api->hasMessage($fixture));
@@ -197,35 +199,35 @@ class ScriptTester_imap extends ScriptTester {
  * This script tester iterates through all enabled backends to verify that
  * each one works properly.
  */
-class ScriptTester_all extends ScriptTester {
-
+class ScriptTester_all extends ScriptTester
+{
     // No imap tests for now, until the mock searching works again.
-    var $backends = array('sieve');
+    public $backends = ['sieve'];
 
-    function _delegate($method, $params)
+    public function _delegate($method, $params)
     {
         foreach ($this->backends as $backend) {
             $runner = ScriptTester::factory($backend, $this->test);
             foreach ($this->rules as $rule) {
                 $runner->addRule($rule);
             }
-            call_user_func_array(array($runner, $method), $params);
+            call_user_func_array([$runner, $method], $params);
         }
     }
 
-    function assertDeletesMessage($fixture)
+    public function assertDeletesMessage($fixture)
     {
-        $this->_delegate('assertDeletesMessage', array($fixture));
+        $this->_delegate('assertDeletesMessage', [$fixture]);
     }
 
-    function assertKeepsMessage($fixture)
+    public function assertKeepsMessage($fixture)
     {
-        $this->_delegate('assertKeepsMessage', array($fixture));
+        $this->_delegate('assertKeepsMessage', [$fixture]);
     }
 
-    function assertMovesMessage($fixture, $to_folder)
+    public function assertMovesMessage($fixture, $to_folder)
     {
-        $this->_delegate('assertMovesMessage', array($fixture, $to_folder));
+        $this->_delegate('assertMovesMessage', [$fixture, $to_folder]);
     }
 
 }
@@ -234,41 +236,45 @@ class ScriptTester_all extends ScriptTester {
  * Test the sieve Script backend.  This uses the command-line `sieve' from
  * the GNU mailutils package.
  */
-class ScriptTester_sieve extends ScriptTester {
-
-    function assertDeletesMessage($fixture)
+class ScriptTester_sieve extends ScriptTester
+{
+    public function assertDeletesMessage($fixture)
     {
         $this->_run();
         $this->_assertOutput("DISCARD on msg uid " . $this->uids[$fixture]);
     }
 
-    function assertKeepsMessage($fixture)
+    public function assertKeepsMessage($fixture)
     {
         $this->_run();
         $this->_assertOutput("KEEP on msg uid " . $this->uids[$fixture]);
     }
 
-    function assertMovesMessage($fixture, $to_folder)
+    public function assertMovesMessage($fixture, $to_folder)
     {
         $this->_run();
         $this->_assertOutput("FILEINTO on msg uid " . $this->uids[$fixture] .
                              ": delivering into " . $to_folder);
     }
 
-    function _assertOutput($want)
+    public function _assertOutput($want)
     {
-        $this->test->assertRegExp('/' . preg_quote($want, '/') . '/',
-                                  $this->output,
-                                  "FAILED SIEVE SCRIPT:\n\n", $this->sieve_text, "\n\n");
+        $this->test->assertRegExp(
+            '/' . preg_quote($want, '/') . '/',
+            $this->output,
+            "FAILED SIEVE SCRIPT:\n\n",
+            $this->sieve_text,
+            "\n\n"
+        );
     }
 
-    var $mbox;
-    var $sieve;
-    var $script_text;
-    var $output;
-    var $uids;
+    public $mbox;
+    public $sieve;
+    public $script_text;
+    public $output;
+    public $uids;
 
-    function _run()
+    public function _run()
     {
         $this->_buildMailboxFile();
         $this->_writeSieveScript();
@@ -278,9 +284,9 @@ class ScriptTester_sieve extends ScriptTester {
         @unlink($this->sieve);
     }
 
-    function _buildMailboxFile()
+    public function _buildMailboxFile()
     {
-        $this->uids = array();
+        $this->uids = [];
         $this->mbox = tempnam('/tmp', 'mbox');
         $mh = fopen($this->mbox, 'w');
         $uid = 1;
@@ -297,16 +303,16 @@ class ScriptTester_sieve extends ScriptTester {
         fclose($mh);
     }
 
-    function _writeSieveScript()
+    public function _writeSieveScript()
     {
         $this->_setupStorage();
-        $script = new Ingo_Script_Sieve(array(
+        $script = new Ingo_Script_Sieve([
             'date_format' => '%x',
             'time_format' => '%R',
             'spam_compare' => 'string',
             'spam_header' => 'X-Spam-Level',
-            'spam_char' => '*'
-        ));
+            'spam_char' => '*',
+        ]);
 
         $this->sieve = tempnam('/tmp', 'sieve');
         $fh = fopen($this->sieve, 'w');
@@ -316,7 +322,7 @@ class ScriptTester_sieve extends ScriptTester {
         fclose($fh);
     }
 
-    function _runSieve()
+    public function _runSieve()
     {
         $this->output = '';
         $ph = popen("sieve -vv -n -f " . escapeshellarg($this->mbox) . " " .
@@ -331,4 +337,3 @@ class ScriptTester_sieve extends ScriptTester {
     }
 
 }
-

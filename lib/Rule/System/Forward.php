@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
  *
@@ -22,9 +23,7 @@
  *
  * @property boolean $keep  Keep messages that have been forwarded?
  */
-class Ingo_Rule_System_Forward
-extends Ingo_Rule_Addresses
-implements Ingo_Rule_System
+class Ingo_Rule_System_Forward extends Ingo_Rule_Addresses implements Ingo_Rule_System
 {
     /**
      * Keep messages that have been forwarded?
@@ -52,11 +51,11 @@ implements Ingo_Rule_System
     public function __get($name)
     {
         switch ($name) {
-        case 'keep':
-            return $this->_keep;
+            case 'keep':
+                return $this->_keep;
 
-        default:
-            return parent::__get($name);
+            default:
+                return parent::__get($name);
         }
     }
 
@@ -65,13 +64,13 @@ implements Ingo_Rule_System
     public function __set($name, $data)
     {
         switch ($name) {
-        case 'keep':
-            $this->_keep = (bool)$data;
-            break;
+            case 'keep':
+                $this->_keep = (bool) $data;
+                break;
 
-        default:
-            parent::__set($name, $data);
-            break;
+            default:
+                parent::__set($name, $data);
+                break;
         }
     }
 

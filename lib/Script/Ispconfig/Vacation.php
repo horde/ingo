@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
  *
@@ -38,7 +39,7 @@ class Ingo_Script_Ispconfig_Vacation implements Ingo_Script_Item
      * @param array $params  Array of parameters. Expected fields are
      *                       'vacation'.
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $this->vacation = $params['vacation'];
         $this->disable = $params['vacation']->disable;

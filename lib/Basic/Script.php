@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
@@ -37,58 +38,58 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
         }
 
         /* Token checking. */
-        $actionID = $this->_checkToken(array(
+        $actionID = $this->_checkToken([
             'action_activate',
-            'action_deactivate'
-        ));
+            'action_deactivate',
+        ]);
 
         /* Activate/deactivate script if requested. */
         switch ($actionID) {
-        case 'action_activate':
-        case 'action_deactivate':
-            try {
-                foreach ($script->createAll() as $val) {
-                    $val->activate($actionID == 'action_activate', false);
-                    $notification->push(
-                        ($actionID == 'action_activate')
-                            ? _("Script successfully activated.")
-                            : _("Script successfully deactivated."),
-                        'horde.success'
-                    );
-                }
-            } catch (Ingo_Exception $e) {
-                $notification->push($e);
-            }
-            break;
-
-        case 'show_active':
-            $scripts = array();
-            foreach ($session->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY) as $transport) {
+            case 'action_activate':
+            case 'action_deactivate':
                 try {
-                    $backend = $injector->getInstance('Ingo_Factory_Transport')->create($transport);
-                    if (method_exists($backend, 'getScript')) {
-                        $scripts[] = $backend->getScript();
+                    foreach ($script->createAll() as $val) {
+                        $val->activate($actionID == 'action_activate', false);
+                        $notification->push(
+                            ($actionID == 'action_activate')
+                                ? _("Script successfully activated.")
+                                : _("Script successfully deactivated."),
+                            'horde.success'
+                        );
                     }
-                } catch (Horde_Exception_NotFound $e) {
                 } catch (Ingo_Exception $e) {
                     $notification->push($e);
                 }
-            }
-            break;
+                break;
+
+            case 'show_active':
+                $scripts = [];
+                foreach ($session->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY) as $transport) {
+                    try {
+                        $backend = $injector->getInstance('Ingo_Factory_Transport')->create($transport);
+                        if (method_exists($backend, 'getScript')) {
+                            $scripts[] = $backend->getScript();
+                        }
+                    } catch (Horde_Exception_NotFound $e) {
+                    } catch (Ingo_Exception $e) {
+                        $notification->push($e);
+                    }
+                }
+                break;
         }
 
         /* Generate the script. */
         if (!isset($scripts)) {
-            $scripts = array();
+            $scripts = [];
             foreach ($script->createAll() as $script) {
                 $scripts = array_merge($scripts, $script->generate());
             }
         }
 
         /* Prepare the view. */
-        $view = new Horde_View(array(
-            'templatePath' => INGO_TEMPLATES . '/basic/script'
-        ));
+        $view = new Horde_View([
+            'templatePath' => INGO_TEMPLATES . '/basic/script',
+        ]);
         $view->addHelper('Text');
 
         if (empty($scripts)) {
@@ -112,7 +113,7 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
 
     /**
      */
-    public static function url(array $opts = array())
+    public static function url(array $opts = [])
     {
         return Horde::url('basic.php')->add('page', 'script');
     }

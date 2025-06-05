@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -20,6 +21,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
+ * @coversNothing
  */
 class Ingo_Script_Sieve_Test_Size extends Ingo_Script_Sieve_Test
 {
@@ -28,14 +30,12 @@ class Ingo_Script_Sieve_Test_Size extends Ingo_Script_Sieve_Test
      *
      * @param array $vars  Any required parameters.
      */
-    public function __construct($vars = array())
+    public function __construct($vars = [])
     {
-        $this->_vars['comparison'] = isset($vars['comparison'])
-            ? $vars['comparison']
-            : '';
-        $this->_vars['size'] = isset($vars['size'])
-            ? $vars['size']
-            : '';
+        $this->_vars['comparison'] = $vars['comparison']
+            ?? '';
+        $this->_vars['size'] = $vars['size']
+            ?? '';
     }
 
     /**

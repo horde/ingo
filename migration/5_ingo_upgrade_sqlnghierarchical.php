@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2011-2017 Horde LLC (http://www.horde.org/)
  *
@@ -25,7 +26,7 @@ class IngoUpgradeSqlnghierarchical extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->addColumn('ingo_sharesng', 'share_parents','text');
+        $this->addColumn('ingo_sharesng', 'share_parents', 'text');
     }
 
     /**

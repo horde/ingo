@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -25,7 +26,7 @@ class Ingo_Transport_Null extends Ingo_Transport_Base
     /**
      * Constructor.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         $this->_supportShares = true;
         parent::__construct($params);

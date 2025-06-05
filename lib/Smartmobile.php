@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -39,9 +40,9 @@ class Ingo_Smartmobile
 
         $this->vars = $vars;
 
-        $this->view = new Horde_View(array(
-            'templatePath' => INGO_TEMPLATES . '/smartmobile'
-        ));
+        $this->view = new Horde_View([
+            'templatePath' => INGO_TEMPLATES . '/smartmobile',
+        ]);
         $this->view->addHelper('Horde_Core_Smartmobile_View_Helper');
         $this->view->addHelper('Text');
 
@@ -50,7 +51,7 @@ class Ingo_Smartmobile
 
         $page_output->addScriptFile('smartmobile.js');
 
-        $notification->notify(array('listeners' => 'status'));
+        $notification->notify(['listeners' => 'status']);
     }
 
     /**
@@ -67,7 +68,7 @@ class Ingo_Smartmobile
     {
         global $injector, $session;
 
-        $this->view->list = array();
+        $this->view->list = [];
 
         $filters = Ingo_Storage_FilterIterator_Match::create(
             $injector->getInstance('Ingo_Factory_Storage')->create(),
@@ -81,40 +82,40 @@ class Ingo_Smartmobile
             }
 
             switch (get_class($val)) {
-            case 'Ingo_Rule_System_Blacklist':
-                $img = 'blacklist.png';
-                break;
+                case 'Ingo_Rule_System_Blacklist':
+                    $img = 'blacklist.png';
+                    break;
 
-            case 'Ingo_Rule_System_Whitelist':
-                $img = 'whitelist.png';
-                break;
+                case 'Ingo_Rule_System_Whitelist':
+                    $img = 'whitelist.png';
+                    break;
 
-            case 'Ingo_Rule_System_Vacation':
-                $img = 'vacation.png';
-                break;
+                case 'Ingo_Rule_System_Vacation':
+                    $img = 'vacation.png';
+                    break;
 
-            case 'Ingo_Rule_System_Forward':
-                $img = 'forward.png';
-                break;
+                case 'Ingo_Rule_System_Forward':
+                    $img = 'forward.png';
+                    break;
 
-            case 'Ingo_Rule_System_Spam':
-                $img = 'spam.png';
-                break;
+                case 'Ingo_Rule_System_Spam':
+                    $img = 'spam.png';
+                    break;
 
-            default:
-                $img = null;
-                break;
+                default:
+                    $img = null;
+                    break;
             }
 
             $url = new Horde_Core_Smartmobile_Url();
             $url->add('uid', $val->uid);
             $url->setAnchor('rule');
 
-            $this->view->list[] = array(
-                'img' => is_null($img) ? null : Horde_Themes_Image::tag($img, array('attr' => array('class' => 'ui-li-icon'))),
+            $this->view->list[] = [
+                'img' => is_null($img) ? null : Horde_Themes_Image::tag($img, ['attr' => ['class' => 'ui-li-icon']]),
                 'name' => $val->name,
-                'url' => $url
-            );
+                'url' => $url,
+            ];
         }
     }
 
@@ -125,15 +126,15 @@ class Ingo_Smartmobile
     {
         global $page_output;
 
-        $code = array(
-            'text' => array(
-                'no_descrip' => _("No Description")
-            )
-        );
+        $code = [
+            'text' => [
+                'no_descrip' => _("No Description"),
+            ],
+        ];
 
-        $page_output->addInlineJsVars(array(
-            'var Ingo' => $code
-        ), array('top' => true));
+        $page_output->addInlineJsVars([
+            'var Ingo' => $code,
+        ], ['top' => true]);
     }
 
 }

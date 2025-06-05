@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
@@ -23,40 +24,39 @@
  *
  * @property-read mixed $max_rules  The value of the max_rules permission.
  */
-abstract class Ingo_Storage
-implements Countable, IteratorAggregate
+abstract class Ingo_Storage implements Countable, IteratorAggregate
 {
     /* Internal storage actions. */
-    const STORE_ADD = 1;
-    const STORE_DELETE = 2;
-    const STORE_UPDATE = 3;
-    const STORE_SORT = 4;
+    public const STORE_ADD = 1;
+    public const STORE_DELETE = 2;
+    public const STORE_UPDATE = 3;
+    public const STORE_SORT = 4;
 
     /* Max rules errors. */
-    const MAX_OK = 0;
-    const MAX_NONE = 1;
-    const MAX_OVER = 2;
+    public const MAX_OK = 0;
+    public const MAX_NONE = 1;
+    public const MAX_OVER = 2;
 
     /**
      * Configuration parameters.
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Rules list.
      *
      * @var array
      */
-    protected $_rules = array();
+    protected $_rules = [];
 
     /**
      * Constructor.
      *
      * @params array $params  Configuration parameters.
      */
-    public function __construct(array $params = array())
+    public function __construct(array $params = [])
     {
         $this->_params = $params;
     }
@@ -68,9 +68,9 @@ implements Countable, IteratorAggregate
         global $injector;
 
         switch ($name) {
-        case 'max_rules':
-            return $injector->getInstance('Horde_Core_Perms')
-                ->hasAppPermission(Ingo_Perms::getPerm('max_rules'));
+            case 'max_rules':
+                return $injector->getInstance('Horde_Core_Perms')
+                    ->hasAppPermission(Ingo_Perms::getPerm('max_rules'));
         }
     }
 
@@ -109,7 +109,7 @@ implements Countable, IteratorAggregate
     /**
      * Load the rules from the storage backend.
      */
-    protected abstract function _loadFromBackend();
+    abstract protected function _loadFromBackend();
 
     /**
      * Retrieves the specified system rule.
@@ -150,7 +150,7 @@ implements Countable, IteratorAggregate
 
         $this->_removeUserData($user);
 
-        $this->_rules = array();
+        $this->_rules = [];
     }
 
     /**
@@ -160,7 +160,7 @@ implements Countable, IteratorAggregate
      *
      * @throws Ingo_Exception
      */
-    protected abstract function _removeUserData($user);
+    abstract protected function _removeUserData($user);
 
     /**
      * Has the maximum number of rules been reached?
@@ -252,7 +252,7 @@ implements Countable, IteratorAggregate
 
         $this->_rules = array_values(array_merge(
             array_slice($this->_rules, 0, $key + 1),
-            array($newrule),
+            [$newrule],
             array_slice($this->_rules, $key + 1)
         ));
 
@@ -273,8 +273,8 @@ implements Countable, IteratorAggregate
         $rules = array_flip($rules);
 
         usort($this->_rules, function ($a, $b) use ($rules) {
-            $pos_a = isset($rules[$a->uid]) ? $rules[$a->uid] : null;
-            $pos_b = isset($rules[$b->uid]) ? $rules[$b->uid] : null;
+            $pos_a = $rules[$a->uid] ?? null;
+            $pos_b = $rules[$b->uid] ?? null;
 
             if (is_null($pos_a)) {
                 return is_null($pos_b) ? 0 : 1;
@@ -321,24 +321,24 @@ implements Countable, IteratorAggregate
         $this->_storeBackend($action, $rule);
 
         switch ($action) {
-        case self::STORE_UPDATE:
-            if ($rule instanceof Ingo_Rule_System_Blacklist) {
-                $tmp = $this->getSystemRule('Ingo_Rule_System_Whitelist');
-            } elseif ($rule instanceof Ingo_Rule_System_Whitelist) {
-                $tmp = $this->getSystemRule('Ingo_Rule_System_Blacklist');
-            } else {
-                $tmp = null;
-            }
+            case self::STORE_UPDATE:
+                if ($rule instanceof Ingo_Rule_System_Blacklist) {
+                    $tmp = $this->getSystemRule('Ingo_Rule_System_Whitelist');
+                } elseif ($rule instanceof Ingo_Rule_System_Whitelist) {
+                    $tmp = $this->getSystemRule('Ingo_Rule_System_Blacklist');
+                } else {
+                    $tmp = null;
+                }
 
-            if (!is_null($tmp)) {
-                /* Filter out the rule's addresses in the opposite filter. */
-                $ob = new Horde_Mail_Rfc822_List($tmp->addresses);
-                $ob->setIteratorFilter(0, $rule->addresses);
-                $tmp->addresses = $ob->bare_addresses;
+                if (!is_null($tmp)) {
+                    /* Filter out the rule's addresses in the opposite filter. */
+                    $ob = new Horde_Mail_Rfc822_List($tmp->addresses);
+                    $ob->setIteratorFilter(0, $rule->addresses);
+                    $tmp->addresses = $ob->bare_addresses;
 
-                $this->_storeBackend($action, $tmp);
-            }
-            break;
+                    $this->_storeBackend($action, $tmp);
+                }
+                break;
         }
 
         $session->set('ingo', 'change', time());
@@ -349,7 +349,7 @@ implements Countable, IteratorAggregate
      *
      * @see _store()
      */
-    protected abstract function _storeBackend($action, $rule);
+    abstract protected function _storeBackend($action, $rule);
 
     /**
      * Retrieves a rule.
@@ -406,6 +406,6 @@ implements Countable, IteratorAggregate
      */
     public function clearCache()
     {
-        $this->_cache = array();
+        $this->_cache = [];
     }
 }

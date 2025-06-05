@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
  *
@@ -51,7 +52,7 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
             try {
                 try {
                     $forward->addressList = $injector->getInstance('Horde_Core_Hooks')
-                                                     ->callHook('verify_forward_addresses', 'ingo', array($forward->addressList));
+                                                     ->callHook('verify_forward_addresses', 'ingo', [$forward->addressList]);
                     $this->vars->addresses = implode("\n", $forward->addresses);
                 } catch (Horde_Exception_HookNotSet $e) {
                 }
@@ -97,12 +98,12 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
         Horde::startBuffer();
         Horde_Util::pformInput();
         $form->renderActive(
-            new Horde_Form_Renderer(array(
+            new Horde_Form_Renderer([
                 'encode_title' => false,
-                'varrenderer_driver' => array('ingo', 'ingo')
-            )),
+                'varrenderer_driver' => ['ingo', 'ingo'],
+            ]),
             $this->vars,
-            self::url(array('append_session' => -1)),
+            self::url(['append_session' => -1]),
             'post'
         );
         $this->output = Horde::endBuffer();
@@ -110,12 +111,12 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
 
     /**
      */
-    public static function url(array $opts = array())
+    public static function url(array $opts = [])
     {
         if (empty($opts['append_session'])) {
             $opts['append_session'] = 0;
         }
-        return Horde::url('basic.php', true, array('append_session' => $opts['append_session']))->add('page', 'forward');
+        return Horde::url('basic.php', true, ['append_session' => $opts['append_session']])->add('page', 'forward');
     }
 
 }

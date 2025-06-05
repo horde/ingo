@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
  *
@@ -34,36 +35,36 @@ class Ingo_Perms
      */
     public function __construct()
     {
-        $this->_perms = array(
-            'max_blacklist' => array(
-                'handle' => function($allowed, $opts) {
+        $this->_perms = [
+            'max_blacklist' => [
+                'handle' => function ($allowed, $opts) {
                     return max(array_map('intval', $allowed));
                 },
                 'title' => _("Maximum number of blacklist addresses."),
-                'type' => 'int'
-            ),
-            'max_forward' => array(
-                'handle' => function($allowed, $opts) {
+                'type' => 'int',
+            ],
+            'max_forward' => [
+                'handle' => function ($allowed, $opts) {
                     return max(array_map('intval', $allowed));
                 },
                 'title' => _("Maximum number of forward addresses."),
-                'type' => 'int'
-            ),
-            'max_rules' => array(
-                'handle' => function($allowed, $opts) {
+                'type' => 'int',
+            ],
+            'max_rules' => [
+                'handle' => function ($allowed, $opts) {
                     return max(array_map('intval', $allowed));
                 },
                 'title' => _("Maximum number of rules (0 to disable rules editing)."),
-                'type' => 'int'
-            ),
-            'max_whitelist' => array(
-                'handle' => function($allowed, $opts) {
+                'type' => 'int',
+            ],
+            'max_whitelist' => [
+                'handle' => function ($allowed, $opts) {
                     return max(array_map('intval', $allowed));
                 },
                 'title' => _("Maximum number of whitelist addresses."),
-                'type' => 'int'
-            )
-        );
+                'type' => 'int',
+            ],
+        ];
     }
 
     /**
@@ -71,24 +72,24 @@ class Ingo_Perms
      */
     public function perms()
     {
-        $perms = array(
-            'backends' => array(
-                'title' => _("Backends")
-            )
-        );
+        $perms = [
+            'backends' => [
+                'title' => _("Backends"),
+            ],
+        ];
 
         foreach (array_keys(Ingo::loadBackends()) as $key) {
             $bkey = 'backends:' . $key;
 
-            $perms[$bkey] = array(
-                'title' => $key
-            );
+            $perms[$bkey] = [
+                'title' => $key,
+            ];
 
             foreach ($this->_perms as $key2 => $val2) {
-                $perms[$bkey . ':' . $key2] = array(
+                $perms[$bkey . ':' . $key2] = [
                     'title' => $val2['title'],
-                    'type' => $val2['type']
-                );
+                    'type' => $val2['type'],
+                ];
             }
         }
 
@@ -105,8 +106,8 @@ class Ingo_Perms
         }
 
         return isset($this->_perms[$permission]['handle'])
-            ? (bool)call_user_func($this->_perms[$permission]['handle'], $allowed, $opts)
-            : (bool)$allowed;
+            ? (bool) call_user_func($this->_perms[$permission]['handle'], $allowed, $opts)
+            : (bool) $allowed;
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
  *
@@ -17,6 +18,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
+ * @coversNothing
  */
 class Ingo_Test extends Horde_Test
 {
@@ -25,42 +27,42 @@ class Ingo_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_moduleList = array(
-        'ftp' => array(
+    protected $_moduleList = [
+        'ftp' => [
             'descrip' => 'FTP Support',
-            'error' => 'If you will be using the VFS FTP driver for procmail scripts, PHP must have FTP support. Compile PHP <code>--with-ftp</code> before continuing.'
-        ),
-        'ssh2' => array(
+            'error' => 'If you will be using the VFS FTP driver for procmail scripts, PHP must have FTP support. Compile PHP <code>--with-ftp</code> before continuing.',
+        ],
+        'ssh2' => [
             'descrip' => 'SSH2 Support',
-            'error' => 'You need the SSH2 PECL module if you plan to use the SSH2 VFS driver to store procmail scripts on the mail server.'
-        ),
-    );
+            'error' => 'You need the SSH2 PECL module if you plan to use the SSH2 VFS driver to store procmail scripts on the mail server.',
+        ],
+    ];
 
     /**
      * PHP settings list.
      *
      * @var array
      */
-    protected $_settingsList = array();
+    protected $_settingsList = [];
 
     /**
      * PEAR modules list.
      *
      * @var array
      */
-    protected $_pearList = array();
+    protected $_pearList = [];
 
     /**
      * Inter-Horde application dependencies.
      *
      * @var array
      */
-    protected $_appList = array(
-        'imp' => array(
+    protected $_appList = [
+        'imp' => [
             'error' => 'IMP can be used to interface ingo with a mailserver.',
-            'version' => '6.0'
-        )
-    );
+            'version' => '6.0',
+        ],
+    ];
 
     /**
      */
@@ -68,11 +70,11 @@ class Ingo_Test extends Horde_Test
     {
         parent::__construct();
 
-        $this->_fileList += array(
+        $this->_fileList += [
             'config/backends.php' => null,
             'config/fields.php' => null,
-            'config/prefs.php' => null
-        );
+            'config/prefs.php' => null,
+        ];
     }
 
     /**
@@ -80,8 +82,6 @@ class Ingo_Test extends Horde_Test
      *
      * @return string  HTML output.
      */
-    public function appTests()
-    {
-    }
+    public function appTests() {}
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2006-2017 Horde LLC (http://www.horde.org/)
  *
@@ -28,7 +29,7 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
     public function deleteMessages($indices)
     {
         return $GLOBALS['registry']->hasMethod('mail/deleteMessages')
-            ? $GLOBALS['registry']->call('mail/deleteMessages', array($this->_getMboxOb(), $indices))
+            ? $GLOBALS['registry']->call('mail/deleteMessages', [$this->_getMboxOb(), $indices])
             : false;
     }
 
@@ -37,7 +38,7 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
     public function moveMessages($indices, $folder)
     {
         return $GLOBALS['registry']->hasMethod('mail/moveMessages')
-            ? $GLOBALS['registry']->call('mail/moveMessages', array($this->_getMboxOb(), $indices, $folder))
+            ? $GLOBALS['registry']->call('mail/moveMessages', [$this->_getMboxOb(), $indices, $folder])
             : false;
     }
 
@@ -46,7 +47,7 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
     public function copyMessages($indices, $folder)
     {
         return $GLOBALS['registry']->hasMethod('mail/copyMessages')
-            ? $GLOBALS['registry']->call('mail/copyMessages', array($this->_getMboxOb(), $indices, $folder))
+            ? $GLOBALS['registry']->call('mail/copyMessages', [$this->_getMboxOb(), $indices, $folder])
             : false;
     }
 
@@ -55,7 +56,7 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
     public function setMessageFlags($indices, $flags)
     {
         return $GLOBALS['registry']->hasMethod('mail/flagMessages')
-            ? $GLOBALS['registry']->call('mail/flagMessages', array($this->_getMboxOb(), $indices, $flags, true))
+            ? $GLOBALS['registry']->call('mail/flagMessages', [$this->_getMboxOb(), $indices, $flags, true])
             : false;
     }
 
@@ -69,8 +70,9 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
             $query->uid();
 
             try {
-                return $GLOBALS['registry']->call('mail/imapOb')->fetch($this->_getMboxOb(), $query, array('ids' => new Horde_Imap_Client_Ids($indices)));
-            } catch (Horde_Imap_Client_Exception $e) {}
+                return $GLOBALS['registry']->call('mail/imapOb')->fetch($this->_getMboxOb(), $query, ['ids' => new Horde_Imap_Client_Ids($indices)]);
+            } catch (Horde_Imap_Client_Exception $e) {
+            }
         }
 
         return false;
@@ -81,7 +83,7 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
     public function search($query)
     {
         return $GLOBALS['registry']->hasMethod('mail/searchMailbox')
-            ? $GLOBALS['registry']->call('mail/searchMailbox', array($this->_getMboxOb(), $query))
+            ? $GLOBALS['registry']->call('mail/searchMailbox', [$this->_getMboxOb(), $query])
             : false;
     }
 
@@ -102,10 +104,10 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
      */
     public function storeCache($timestamp)
     {
-        $GLOBALS['session']->set('ingo', 'imapcache/' . $this->_params['mailbox'], array(
+        $GLOBALS['session']->set('ingo', 'imapcache/' . $this->_params['mailbox'], [
             'id' => $this->_cacheId(),
-            'ts' => $timestamp
-        ));
+            'ts' => $timestamp,
+        ]);
     }
 
     /**
@@ -116,7 +118,8 @@ class Ingo_Script_Imap_Live extends Ingo_Script_Imap_Api
             $ob = $GLOBALS['registry']->call('mail/imapOb');
             try {
                 return $ob->getCacheId($this->_params['mailbox']);
-            } catch (Horde_Imap_Client_Exception $e) {}
+            } catch (Horde_Imap_Client_Exception $e) {
+            }
         }
 
         return time();

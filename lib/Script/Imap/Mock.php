@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -20,23 +21,23 @@ class Ingo_Script_Imap_Mock extends Ingo_Script_Imap_Api
     /**
      * TODO
      */
-    protected $_fixtures = array();
+    protected $_fixtures = [];
 
     /**
      * TODO
      */
-    protected $_folders = array();
+    protected $_folders = [];
 
     /**
      * TODO
      */
     public function loadFixtures($dir)
     {
-        $this->_fixtures = array();
+        $this->_fixtures = [];
 
         $dh = opendir($dir);
         while (($dent = readdir($dh)) !== false) {
-            if (!in_array($dent, array('.', '..'))) {
+            if (!in_array($dent, ['.', '..'])) {
                 $this->_fixtures[$dent] = Horde_Mime_Headers::parseHeaders(file_get_contents($dir . '/' . $dent));
             }
         }
@@ -44,9 +45,9 @@ class Ingo_Script_Imap_Mock extends Ingo_Script_Imap_Api
 
         $i = 0;
         foreach (array_keys($this->_fixtures) as $key) {
-            $this->_folders['INBOX'][] = array('uid'     => ++$i,
-                                               'fixture' => $key,
-                                               'deleted' => false);
+            $this->_folders['INBOX'][] = ['uid'     => ++$i,
+                'fixture' => $key,
+                'deleted' => false];
         }
     }
 
@@ -73,7 +74,7 @@ class Ingo_Script_Imap_Mock extends Ingo_Script_Imap_Api
      */
     public function search($query)
     {
-        $result = array();
+        $result = [];
         foreach ($this->_folders['INBOX'] as $message) {
             if ($message['deleted']) {
                 continue;
@@ -97,7 +98,7 @@ class Ingo_Script_Imap_Mock extends Ingo_Script_Imap_Api
         }
 
         // Force renumbering
-        $this->_folders['INBOX'] = array_merge($this->_folders['INBOX'], array());
+        $this->_folders['INBOX'] = array_merge($this->_folders['INBOX'], []);
     }
 
     /**
@@ -118,15 +119,15 @@ class Ingo_Script_Imap_Mock extends Ingo_Script_Imap_Api
      */
     public function fetchEnvelope($indices)
     {
-        $result = array();
+        $result = [];
 
         foreach ($indices as $uid) {
             foreach (array_keys($this->_folders['INBOX']) as $i) {
                 if ($this->_folders['INBOX'][$i]['uid'] == $uid) {
                     $fetch = new Horde_Imap_Client_Data_Fetch();
-                    $fetch->setEnvelope(array(
-                        'from' => $this->_fixtures[$this->_folders['INBOX'][$i]['fixture']]->getValue('from')
-                    ));
+                    $fetch->setEnvelope([
+                        'from' => $this->_fixtures[$this->_folders['INBOX'][$i]['fixture']]->getValue('from'),
+                    ]);
                     $fetch->setUid = $uid;
                     $result[$uid] = $fetch;
                 }

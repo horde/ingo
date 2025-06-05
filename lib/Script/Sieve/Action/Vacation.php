@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -28,9 +29,9 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      *
      * @param array $vars  Any required parameters.
      */
-    public function __construct($vars = array())
+    public function __construct($vars = [])
     {
-        $this->_vars = array_merge(array(
+        $this->_vars = array_merge([
             'days' => '',
             'addresses' => '',
             'subject' => '',
@@ -42,8 +43,8 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
             'end' => '',
             'end_year' => '',
             'end_month' => '',
-            'end_day' => ''
-        ), $vars);
+            'end_day' => '',
+        ], $vars);
     }
 
     /**
@@ -233,10 +234,10 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
     public function requires()
     {
         if ($this->_vars['date']) {
-            return array('vacation', 'date', 'relational');
+            return ['vacation', 'date', 'relational'];
         }
 
-        return array('vacation', 'regex');
+        return ['vacation', 'regex'];
     }
 
     /**
@@ -272,12 +273,12 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
         return $code
             . '"'
             . Ingo_Script_Sieve::escapeString(
-                  Ingo_Rule_System_Vacation::vacationReason(
-                      $this->_vars['reason'],
-                      $this->_vars['start'],
-                      $this->_vars['end']
-                  )
-              )
+                Ingo_Rule_System_Vacation::vacationReason(
+                    $this->_vars['reason'],
+                    $this->_vars['start'],
+                    $this->_vars['end']
+                )
+            )
             . '";';
     }
 
@@ -297,8 +298,8 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      */
     protected function _monthCheck($begin, $end)
     {
-        $months = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+        $months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         $code = 'header :regex "Received" "^.*(' . $months[$begin - 1];
         for ($i = $begin + 1; $i <= $end; $i++) {
             $code .= '|' . $months[$i - 1];

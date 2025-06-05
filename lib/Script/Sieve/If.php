@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -35,7 +36,7 @@ class Ingo_Script_Sieve_If extends Ingo_Script_Sieve_Base
      *
      * @var array
      */
-    protected $_actions = array();
+    protected $_actions = [];
 
     /**
      * A list of Ingo_Script_Sieve_Elseif objects that create optional elsif
@@ -43,7 +44,7 @@ class Ingo_Script_Sieve_If extends Ingo_Script_Sieve_Base
      *
      * @var array
      */
-    protected $_elsifs = array();
+    protected $_elsifs = [];
 
     /**
      * A Ingo_Script_Sieve_Else object that creates an optional else clause.
@@ -195,7 +196,7 @@ class Ingo_Script_Sieve_If extends Ingo_Script_Sieve_Base
      */
     public function requires()
     {
-        $requires = array();
+        $requires = [];
 
         foreach ($this->_actions as $action) {
             $requires = array_merge($requires, $action->requires());

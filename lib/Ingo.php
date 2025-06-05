@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
  *
@@ -26,28 +27,28 @@ class Ingo
     /**
      * Define the key to use to indicate a user-defined header is requested.
      */
-    const USER_HEADER = '++USER_HEADER++';
+    public const USER_HEADER = '++USER_HEADER++';
 
     /**
      * Only filter unseen messages.
      */
-    const FILTER_UNSEEN = 1;
+    public const FILTER_UNSEEN = 1;
 
     /**
      * Only filter seen messages.
      */
-    const FILTER_SEEN = 2;
+    public const FILTER_SEEN = 2;
 
     /**
      * Constants for rule types.
      */
-    const RULE_ALL = 0;
-    const RULE_FILTER = 1;
-    const RULE_BLACKLIST = 2;
-    const RULE_WHITELIST = 3;
-    const RULE_VACATION = 4;
-    const RULE_FORWARD = 5;
-    const RULE_SPAM = 6;
+    public const RULE_ALL = 0;
+    public const RULE_FILTER = 1;
+    public const RULE_BLACKLIST = 2;
+    public const RULE_WHITELIST = 3;
+    public const RULE_VACATION = 4;
+    public const RULE_FORWARD = 5;
+    public const RULE_SPAM = 6;
 
     /**
      * Returns the user whose rules are currently being edited.
@@ -64,7 +65,7 @@ class Ingo
             return $registry->getAuth($full ? null : 'bare');
         }
 
-        list(, $user) = explode(':', $session->get('ingo', 'current_share'), 2);
+        [, $user] = explode(':', $session->get('ingo', 'current_share'), 2);
         return $user;
     }
 
@@ -117,7 +118,7 @@ class Ingo
             throw new Ingo_Exception(_("No backends configured in backends.php"));
         }
 
-        $out = array();
+        $out = [];
         foreach ($config->config['backends'] as $key => $val) {
             if (empty($val['disabled'])) {
                 $out[$key] = $val;
@@ -137,14 +138,14 @@ class Ingo
         global $registry;
 
         switch ($registry->getView()) {
-        case $registry::VIEW_SMARTMOBILE:
-            return Horde::url('smartmobile.php');
+            case $registry::VIEW_SMARTMOBILE:
+                return Horde::url('smartmobile.php');
 
-        default:
-            if ($initial_page = $registry->get('initial_page')) {
-                return Horde::url($registry->get('webroot') . '/' . $initial_page);
-            }
-            return Ingo_Basic_Filters::url();
+            default:
+                if ($initial_page = $registry->get('initial_page')) {
+                    return Horde::url($registry->get('webroot') . '/' . $initial_page);
+                }
+                return Ingo_Basic_Filters::url();
         }
     }
 

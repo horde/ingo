@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
  *
@@ -60,10 +61,13 @@ class Ingo_Form_Spam extends Ingo_Form_Base
     }
 
     public function renderActive(
-        $renderer = null, $vars = null, $action = '', $method = 'get',
-        $enctype = null, $focus = true
-    )
-    {
+        $renderer = null,
+        $vars = null,
+        $action = '',
+        $method = 'get',
+        $enctype = null,
+        $focus = true
+    ) {
         if (is_null($vars)) {
             $vars = $this->_vars;
         }
@@ -72,7 +76,12 @@ class Ingo_Form_Spam extends Ingo_Form_Base
         unset($vars->folder_new);
 
         parent::renderActive(
-            $renderer, $vars, $action, $method, $enctype, $focus
+            $renderer,
+            $vars,
+            $action,
+            $method,
+            $enctype,
+            $focus
         );
     }
 
@@ -98,10 +107,10 @@ class Ingo_Form_Spam extends Ingo_Form_Base
  */
 class Horde_Form_Type_ingo_folders extends Horde_Form_Type
 {
-    var $_folder;
-    var $newFolderSet;
+    public $_folder;
+    public $newFolderSet;
 
-    function isValid($var, $vars, $value, $message)
+    public function isValid($var, $vars, $value, $message)
     {
         if ($this->newFolderSet || strlen($value)) {
             return true;
@@ -111,12 +120,12 @@ class Horde_Form_Type_ingo_folders extends Horde_Form_Type
         return false;
     }
 
-    function getFolder()
+    public function getFolder()
     {
         return $this->_folder;
     }
 
-    function setFolder($folder)
+    public function setFolder($folder)
     {
         $this->_folder = $folder;
     }
