@@ -1,10 +1,9 @@
 {
-    "minimum-stability": "dev",
     "name": "horde/ingo",
     "description": "Email filter rules manager application",
     "type": "horde-application",
     "homepage": "https://www.horde.org/apps/ingo",
-    "license": "ASL",
+    "license": "Apache-1.0",
     "authors": [
         {
             "name": "Jan Schneider",
@@ -22,15 +21,10 @@
             "role": "lead"
         }
     ],
-    "time": "2021-10-08",
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://horde-satis.maintaina.com/"
-        }
-    ],
+    "time": "2025-06-05",
+    "repositories": [],
     "require": {
-        "horde/horde-installer-plugin": "^2 || dev-FRAMEWORK_6_0",
+        "horde/horde-installer-plugin": "dev-FRAMEWORK_6_0 || ^3 || ^2",
         "php": "^7.4 || ^8",
         "horde/horde": "^6 || dev-FRAMEWORK_6_0",
         "horde/auth": "^3 || dev-FRAMEWORK_6_0",
@@ -65,9 +59,19 @@
         }
     },
     "bin": [
-        "bin/ingo-convert-sql-shares-to-sqlng",
-        "bin/ingo-convert-prefs-to-sql",
         "bin/ingo-admin-upgrade",
+        "bin/ingo-convert-prefs-to-sql",
+        "bin/ingo-convert-sql-shares-to-sqlng",
         "bin/ingo-postfix-policyd"
-    ]
+    ],
+    "config": {
+        "allow-plugins": {
+            "horde/horde-installer-plugin": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-FRAMEWORK_6_0": "4.x-dev"
+        }
+    }
 }

@@ -1,5 +1,19 @@
 ---
-4.0.0alpha7:
+4.0.0-alpha8:
+  api: 4.0.0-alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2025-06-05
+  license:
+    identifier: Apache-1.0
+    uri: http://www.horde.org/licenses/apache
+  notes: |
+    fix: License identifier ASL is no longer accepted, use Apache-1.0 instead
+    style: Apply php-cs-fixer php8.3+ rules
+    fix: Remove reference from signatures.
+    fix: adding update command so emails are inserted to database
+4.0.0-alpha7:
   api: 4.0.0alpha1
   state:
     release: alpha
@@ -8,9 +22,10 @@
   license:
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
-  notes: |+
-    
-4.0.0alpha6:
+  notes: |-
+    Original version string was 4.0.0alpha7
+    |+
+4.0.0-alpha6:
   api: 4.0.0alpha1
   state:
     release: alpha
@@ -20,9 +35,10 @@
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
   notes: |
+    Original version string was 4.0.0alpha6
     [rla] Make managesieve dependency mandatory as sieve is a primary use case and breakage is non-obvious to administrators.
     |+
-4.0.0alpha5:
+4.0.0-alpha5:
   api: 4.0.0alpha1
   state:
     release: alpha
@@ -31,8 +47,10 @@
   license:
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
-  notes: |+
-4.0.0alpha4:
+  notes: |-
+    Original version string was 4.0.0alpha5
+    |+
+4.0.0-alpha4:
   api: 4.0.0alpha1
   state:
     release: alpha
@@ -41,8 +59,10 @@
   license:
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
-  notes: |+
-4.0.0alpha3:
+  notes: |-
+    Original version string was 4.0.0alpha4
+    |+
+4.0.0-alpha3:
   api: 4.0.0alpha1
   state:
     release: alpha
@@ -51,8 +71,10 @@
   license:
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
-  notes: |+
-4.0.0alpha2:
+  notes: |-
+    Original version string was 4.0.0alpha3
+    |+
+4.0.0-alpha2:
   api: 4.0.0alpha1
   state:
     release: alpha
@@ -61,8 +83,10 @@
   license:
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
-  notes: |+
-4.0.0alpha1:
+  notes: |-
+    Original version string was 4.0.0alpha2
+    |+
+4.0.0-alpha1:
   api: 4.0.0alpha1
   state:
     release: beta
@@ -72,6 +96,7 @@
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
   notes: |
+    Original version string was 4.0.0alpha1
     [jan] Add verify_forward_addresses() hook.
     [jan] Add support for boolean spam headers (Adam James <adam.james@transitiv.co.uk>).
     [jan] Allow to specify time limits for vacation messages if supported.
@@ -300,41 +325,7 @@
     [mms] Add support for a negative regex test to the Maildrop driver.
     [mms] Add support for a negative regex test to the Sieve driver (Pete Beardmore <pete.beardmore@msn.com>, Request #12671).
     [mms] Fix vacation in the maildrop driver (balestrieri@mag-data.com, Bug #13415).
-3.2.0:
-  api: 3.2.0
-  state:
-    release: stable
-    api: stable
-  date: 2014-07-08
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: ~
-3.2.0RC2:
-  api: 3.2.0
-  state:
-    release: beta
-    api: beta
-  date: 2014-07-01
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    [mms] Fix mailbox selection on Spam page (Bug #13298).
-    [mms] Fix regression in deactivating scripts (Bug #13297).
-3.2.0RC1:
-  api: 3.2.0
-  state:
-    release: beta
-    api: beta
-  date: 2014-06-17
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    [jan] Update Polish translation (Maciej Uhlig <maciej.uhlig@us.edu.pl>).
-    [jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
-3.2.0beta2:
+3.2.0-beta2:
   api: 3.2.0
   state:
     release: beta
@@ -344,9 +335,10 @@
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
   notes: |
+    Original version string was 3.2.0beta2
     [mms] Honor 'auto_update' preference when re-sorting filters list (Bug #13216).
     [mms] Fix regression in copying a rule when storing in SQL backend (Bug #13213).
-3.2.0beta1:
+3.2.0-beta1:
   api: 3.2.0
   state:
     release: beta
@@ -356,8 +348,9 @@
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
   notes: |
+    Original version string was 3.2.0beta1
     [jan] Pass current vacation addresses to hook (skhorde@smail.inf.fh-bonn-rhein-sieg.de, Request #13185).
-3.2.0alpha1:
+3.2.0-alpha1:
   api: 3.2.0
   state:
     release: alpha
@@ -367,6 +360,7 @@
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
   notes: |
+    Original version string was 3.2.0alpha1
     [mms] Use standardized 'enotify' sieve extension (RFC 5435) by default instead of deprecated 'notify' extension (Request #8784).
     [mms] Use standardized 'imap4flags' sieve extension (RFC 5232) by default instead of deprecated 'imapflags' extension (Request #8784).
     [mms] Add ability to filter rules by mailbox.
@@ -377,6 +371,42 @@
     [jan] Make shares table compatible with Oracle.
     [mms] Validate e-mail addresses on the forward and vacation pages (Request #7249).
     [mms] Add 'newEmailFilter' API link.
+3.2.0-RC2:
+  api: 3.2.0
+  state:
+    release: beta
+    api: beta
+  date: 2014-07-01
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes: |
+    Original version string was 3.2.0RC2
+    [mms] Fix mailbox selection on Spam page (Bug #13298).
+    [mms] Fix regression in deactivating scripts (Bug #13297).
+3.2.0-RC1:
+  api: 3.2.0
+  state:
+    release: beta
+    api: beta
+  date: 2014-06-17
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes: |
+    Original version string was 3.2.0RC1
+    [jan] Update Polish translation (Maciej Uhlig <maciej.uhlig@us.edu.pl>).
+    [jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+3.2.0:
+  api: 3.2.0
+  state:
+    release: stable
+    api: stable
+  date: 2014-07-08
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes: ~
 3.1.5:
   api: 3.0.0
   state:
@@ -439,6 +469,35 @@
     [jan] Fix option to filter by user-defined headers (Bug #12345).
     [jan] Fix highlighting of menu entries.
     [jan] Restore compatibility with PHP 5.3 (Bug #12306).
+3.1.0-beta1:
+  api: 3.0.0
+  state:
+    release: beta
+    api: stable
+  date: 2013-05-07
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes: |
+    Original version string was 3.1.0beta1
+    [jan] Add composite script backends.
+    [jan] Add vacation driver for ISPConfig (Michael Bunk <mb@computer-leipzig.com>).
+    [jan] Hide unsupported form fields of vacation form (Michael Bunk <mb@computer-leipzig.com>).
+    [jan] Add composite transport backends.
+    [jan] Move shared ruleset selection to sidebar.
+    [mms] All Ingo templates now use Horde_View.
+3.1.0-RC1:
+  api: 3.0.0
+  state:
+    release: beta
+    api: stable
+  date: 2013-05-29
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes: |
+    Original version string was 3.1.0RC1
+    [mms] Fix regression in accessing Ingo links from the external API (Bug #12249).
 3.1.0:
   api: 3.0.0
   state:
@@ -450,33 +509,6 @@
     uri: http://www.horde.org/licenses/apache
   notes: |
     [mjr] Fix fatal error when updating filters.
-3.1.0RC1:
-  api: 3.0.0
-  state:
-    release: beta
-    api: stable
-  date: 2013-05-29
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    [mms] Fix regression in accessing Ingo links from the external API (Bug #12249).
-3.1.0beta1:
-  api: 3.0.0
-  state:
-    release: beta
-    api: stable
-  date: 2013-05-07
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    [jan] Add composite script backends.
-    [jan] Add vacation driver for ISPConfig (Michael Bunk <mb@computer-leipzig.com>).
-    [jan] Hide unsupported form fields of vacation form (Michael Bunk <mb@computer-leipzig.com>).
-    [jan] Add composite transport backends.
-    [jan] Move shared ruleset selection to sidebar.
-    [mms] All Ingo templates now use Horde_View.
 3.0.4:
   api: 3.0.0
   state:
@@ -530,6 +562,62 @@
   notes: |
     [jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
     [mms] Fix PHP error notification thrown if backends 'params' parameter was empty (Bug #11615).
+3.0.0-beta2:
+  api: 3.0.0beta1
+  state:
+    release: beta
+    api: beta
+  date: 2012-10-12
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes: |
+    Original version string was 3.0.0beta2
+    [mms] Add 'transport_auth' hook to handle defining authentication parameters for transport backends.
+    [mms] Remove session caching of rules.
+    [mms] Initial implementation of smartmobile view.
+    [mms] Disable blacklist, vacation, and whitelist API methods if the preference is locked.
+3.0.0-beta1:
+  api: 3.0.0beta1
+  state:
+    release: beta
+    api: beta
+  date: 2012-07-20
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes: |
+    Original version string was 3.0.0beta1
+    [jan] Update icon set.
+    [mms] Fix javascript actions on the vacation page.
+3.0.0-alpha1:
+  api: 3.0.0alpha1
+  state:
+    release: alpha
+    api: alpha
+  date: 2012-07-06
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes: |
+    Original version string was 3.0.0alpha1
+    First alpha release for Horde 5.
+    [mms] When adding to blacklist/whitelist, remove added addresses from the other list.
+    [jan] Allow to use placeholder variables in vacation messages (Request #10316).
+    [mjr] Add ability to retrieve vacation message details from the API.
+    [jan] Validate start and end dates of vacation rules (Request #10879).
+3.0.0-RC1:
+  api: 3.0.0beta1
+  state:
+    release: beta
+    api: beta
+  date: 2012-10-26
+  license:
+    identifier: ASL
+    uri: http://www.horde.org/licenses/apache
+  notes: |
+    Original version string was 3.0.0RC1
+    [mms] Add 'euser' option to 'transport_auth' hook allowing the effective user to be provided for the timsieved transport driver.
 3.0.0:
   api: 3.0.0
   state:
@@ -541,58 +629,6 @@
     uri: http://www.horde.org/licenses/apache
   notes: |
     First stable release for Horde 5.
-3.0.0RC1:
-  api: 3.0.0beta1
-  state:
-    release: beta
-    api: beta
-  date: 2012-10-26
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    [mms] Add 'euser' option to 'transport_auth' hook allowing the effective user to be provided for the timsieved transport driver.
-3.0.0beta2:
-  api: 3.0.0beta1
-  state:
-    release: beta
-    api: beta
-  date: 2012-10-12
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    [mms] Add 'transport_auth' hook to handle defining authentication parameters for transport backends.
-    [mms] Remove session caching of rules.
-    [mms] Initial implementation of smartmobile view.
-    [mms] Disable blacklist, vacation, and whitelist API methods if the preference is locked.
-3.0.0beta1:
-  api: 3.0.0beta1
-  state:
-    release: beta
-    api: beta
-  date: 2012-07-20
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    [jan] Update icon set.
-    [mms] Fix javascript actions on the vacation page.
-3.0.0alpha1:
-  api: 3.0.0alpha1
-  state:
-    release: alpha
-    api: alpha
-  date: 2012-07-06
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    First alpha release for Horde 5.
-    [mms] When adding to blacklist/whitelist, remove added addresses from the other list.
-    [jan] Allow to use placeholder variables in vacation messages (Request #10316).
-    [mjr] Add ability to retrieve vacation message details from the API.
-    [jan] Validate start and end dates of vacation rules (Request #10879).
 2.0.10:
   api: 2.0.0
   state:
@@ -722,52 +758,7 @@
   notes: |
     [mms] Fix folder selection (Bug #9907).
     [mms] Fix IMAP filtering using envelope data (Bug #9859).
-2.0.0:
-  api: 2.0.0
-  state:
-    release: stable
-    api: stable
-  date: 2011-04-06
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    First stable release for Horde 4.
-    [jan] Fix application-specific permission checks (Bug #9786).
-    [jan] Correctly escape vacation subjects with quote characters in Maildrop driver (Bug #9156).
-    [jan] Catch all PEAR errors in Sieve driver.
-    [jan] Allow script drivers to provide additional scripts to upload (Bug #8110).
-    [jan] Change default Sieve port to 4190 (Request #9791).
-    [jan] Fix reading default forward rule from preferences.
-    [jan] Fix removing flags with Sieve driver (Vilius Sumskas <vilius@lnk.lt>, Bug #9785).
-    [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
-    [jan] Move all executable scripts to bin/ and prefix with ingo-.
-2.0.0RC2:
-  api: 2.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-29
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    Second release candidate for Horde 4.
-    [jan] Fix updating forward rules in SQL driver (Bug #9699).
-2.0.0RC1:
-  api: 2.0.0
-  state:
-    release: beta
-    api: beta
-  date: 2011-03-23
-  license:
-    identifier: ASL
-    uri: http://www.horde.org/licenses/apache
-  notes: |
-    First release candidate for Horde 4.
-    [jan] Fix instantiation of VFS transport driver (Bug #9605).
-    [jan] Fix moving rules with the SQL driver (Bug #9672).
-2.0.0beta1:
+2.0.0-beta1:
   api: 2.0.0
   state:
     release: beta
@@ -777,8 +768,9 @@
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
   notes: |
+    Original version string was 2.0.0beta1
     Fix creating new rules with PostgreSQL (Bug #9638).
-2.0.0alpha1:
+2.0.0-alpha1:
   api: 2.0.0
   state:
     release: alpha
@@ -788,9 +780,32 @@
     identifier: ASL
     uri: http://www.horde.org/licenses/apache
   notes: |
+    Original version string was 2.0.0alpha1
     First alpha release for Horde 4.
-2.0:
+2.0.0-RC2:
   notes: |
+    Original version string was 2.0-RC2
+    [jan] Fix updating forward rules in SQL driver (Bug #9699).
+2.0.0-RC1:
+  notes: |
+    Original version string was 2.0-RC1
+    [jan] Update installation and upgrade instructions.
+    [jan] Fix instantiation of VFS transport driver (Bug #9605).
+    [jan] Fix moving rules with the SQL driver (Bug #9672).
+2.0.0-BETA1:
+  notes: |
+    Original version string was 2.0-BETA1
+    [jan] Fix creating new rules with PostgreSQL (Bug #9638).
+2.0.0-ALPHA1:
+  notes: |
+    Original version string was 2.0-ALPHA1
+    [jan] Provide default configuration files instead of .dist versions.
+    [jan] Rename 'driver' configuration and classes to 'transport' to avoid confusion with script and storage drivers.
+    [mms] Use IMP API for IMAP actions.
+    [mms] Convert to Horde 4 standards.
+2.0.0:
+  notes: |
+    Original version string was 2.0
     [jan] Fix application-specific permission checks (Bug #9786).
     [jan] Correctly escape vacation subjects with quote characters in Maildrop driver (Bug #9156).
     [jan] Catch all PEAR errors in Sieve driver.
@@ -799,23 +814,6 @@
     [jan] Fix reading default forward rule from preferences.
     [jan] Fix removing flags with Sieve driver (Vilius Sumskas <vilius@lnk.lt>, Bug #9785).
     [mjr] Datatree share to SQL upgrade script refactored for Horde 4.
-2.0-RC2:
-  notes: |
-    [jan] Fix updating forward rules in SQL driver (Bug #9699).
-2.0-RC1:
-  notes: |
-    [jan] Update installation and upgrade instructions.
-    [jan] Fix instantiation of VFS transport driver (Bug #9605).
-    [jan] Fix moving rules with the SQL driver (Bug #9672).
-2.0-BETA1:
-  notes: |
-    [jan] Fix creating new rules with PostgreSQL (Bug #9638).
-2.0-ALPHA1:
-  notes: |
-    [jan] Provide default configuration files instead of .dist versions.
-    [jan] Rename 'driver' configuration and classes to 'transport' to avoid confusion with script and storage drivers.
-    [mms] Use IMP API for IMAP actions.
-    [mms] Convert to Horde 4 standards.
 1.2.6:
   notes: |
     [mms] Fix encoding of vacation message in maildrop driver (Bug #9532).
@@ -866,11 +864,9 @@
     [jan] Fix moving to INBOX with the maildrop driver.
     [jan] Disable drop down entries with informational purpose only.
     [jan] Fix filter activity messages with non-ASCII folder names (taguchi@iij.ad.jp, Bug #6764).
-1.2:
+1.2.0-RC3:
   notes: |
-    [cjh] Improve resource usage in datatree_to_sql share migration script (Bug #6740).
-1.2-RC3:
-  notes: |
+    Original version string was 1.2-RC3
     [cjh] Apply fix for http://dev.rubyonrails.org/ticket/11473 to prototype.js (Request #6590).
     [cjh] Procmail driver: make the directory in which vacation files are generated configurable (jas@cse.yorku.ca, Request #6643).
     [cjh] Add an upgrade script for the new SQL share driver (Request #6109).
@@ -882,15 +878,17 @@
     [jan] Follow Sieve specifications more closely when disabling Sieve scripts (Bug #6337).
     [jan] Load default set of filters for SQL storage from config/prefs.php (tinu@humbapa.ch, Request #6096).
     [jan] Add Russian translation (Alexey Zakharov <baber@mosga.net>).
-1.2-RC2:
+1.2.0-RC2:
   notes: |
+    Original version string was 1.2-RC2
     [cjh] Add API methods for setting and disabling vacation rules (duck@obala.net).
     [mas] Fix procmail metacharacter quoting. (Bug #5581)
     [cjh] Fix procmail vacation recipe (Volker Then <horde32@volkerthen.com>).
     [cjh] Fix position of closing quote in maildrop driver (laxis@magex.hu, Bug #6020).
     [jan] Fix paths in the script for converting to SQL storage (Bug #5957).
-1.2-RC1:
+1.2.0-RC1:
   notes: |
+    Original version string was 1.2-RC1
     [cjh] Allow specifying permissions to set in the VFS for uploaded scripts (steinkel@ctinetworks.com, Request #5871).
     [cjh] Add spam filter actions and numeric comparisons to the Maildrop script driver (Request #5843).
     [cjh] Maildrop driver improvements: make INBOX-stripping configurable; fix REJECT action; and add is, not is, not contain, not begins with, not ends with, matches, not matches, exists, and not exists rules (horde@nospam.obeliks.de, Request #5816).
@@ -904,8 +902,9 @@
     [cjh] Match email addresses exactly for procmail vacation rules, and include the Cc: and Bcc: fields in checks for which address the message was sent to (Bug #4333).
     [cjh] Ingo now provides a Postfix policy daemon that can be used to enforce blacklist and whitelist rules at delivery time (Request #4904).
     [cjh] Autocreate VFS paths when saving rules (stevekwok@hotmail.com>).
-1.2-ALPHA:
+1.2.0-ALPHA1:
   notes: |
+    Original version string was 1.2-ALPHA
     [cjh] Add reverse conditions for procmail (horde@coursimault.com, Request #4037).
     [cjh] Allow numeric spam score comparisons with Sieve (adrieder@sbox.tugraz.at, Request #3837).
     [jan] Add Ukrainian translation (Andriy Kopystyansky <anri@polynet.lviv.ua>).
@@ -929,6 +928,10 @@
     [jan] Add support for changing other users' filter rules.
     [jan] Add SQL storage driver.
     [jmf] Add simple spam-filtering setup page.
+1.2.0:
+  notes: |
+    Original version string was 1.2
+    [cjh] Improve resource usage in datatree_to_sql share migration script (Bug #6740).
 1.1.5:
   notes: |
     [jan] Add Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
@@ -960,11 +963,9 @@
     [jan] Add Greek translation (Konstantinos C. Milosis <kmilosis@yahoo.com>).
     [mms] Fix backward compatibility break with Ingo 1.1 and Horde < 3.1.
     [cjh] Add missing stripe.js (Bug #3623).
-1.1:
+1.1.0-RC1:
   notes: |
-    [jan] Automatically add missing special rules when editing them (Bug #3325).
-1.1-RC1:
-  notes: |
+    Original version string was 1.1-RC1
     [jan] Add portal block for special rules (Oliver Kuhl <okuhl@netcologne.de>, Request #3106).
     [jan] Add Portuguese translation (Manuel Menezes de Sequeira <Manuel.Sequeira>).
     [cjh] Fix escaping of output in several cases.
@@ -981,9 +982,10 @@
     [ben] Add support for special headers on a per-driver basis.
     [jmf] Add support for storing Sieve rules in LDAP (Supports Sun JES/ONE and iPlanet messaging servers).
     [jan] Add permissions to restrict filter rule creation.
-1.0.2:
+1.1.0:
   notes: |
-    [jan] Add Korean translation (Jinhyok Heo <novembre@ournature.org>).
+    Original version string was 1.1
+    [jan] Automatically add missing special rules when editing them (Bug #3325).
 1.0.2-RC1:
   notes: |
     [jan] Convert rules from Ingo 1.0 with multibyte characters (Bug #1282).
@@ -1001,27 +1003,31 @@
     [jan] Add shortcut icon (favicon.ico).
     [ben] Fix procmail forwarding. (hager (at) fh-rosenheim (dot) de, Bug #1125)
     [jan] Allow to specify multiple values with "Begins/Ends With" tests (Todd Merritt <tmerritt@email.arizona.edu>, Bug #1105).
+1.0.2:
+  notes: |
+    [jan] Add Korean translation (Jinhyok Heo <novembre@ournature.org>).
 1.0.1:
   notes: |
     [jan] Fix blacklist conversion in IMP-to-Ingo conversion script (Steve Lidie <sol0@Lehigh.EDU>).
     [jan] Fix filter rules with multibyte characters.
-1.0:
+1.0.0-RC2:
   notes: |
-    [jan] Add Brazilian Portuguese translation (Fabio Gomes <flgomes@fazenda.sp.gov.br>).
-1.0-RC2:
-  notes: |
+    Original version string was 1.0-RC2
     [jan] Add Czech translation (Pavel Chytil <pavel@chytil.tk>).
     [cjh] Show menu in Script view (Bug #843).
-1.0-RC1:
+1.0.0-RC1:
   notes: |
+    Original version string was 1.0-RC1
     [cjh] Update icons.
     [jan] Disable Kolab backends if disabled globally.
-1.0-BETA:
+1.0.0-BETA1:
   notes: |
+    Original version string was 1.0-BETA
     [jan] Add Spanish translation (Manuel Perez Ayala <mperaya@alcazaba.unex.es>).
     [jan] Add vacation support to procmail driver (Micha Kersloot <micha@kovoks.nl>).
-1.0-ALPHA:
+1.0.0-ALPHA1:
   notes: |
+    Original version string was 1.0-ALPHA
     [mms] Add configuration option to limit total number of blacklist/whitelist entries a user can have.
     [jan] Allow setting up a global user in the backends configuration (Martin Luethi <horde@humbapa.ch>).
     [mms] Allow user to deactivate script.
@@ -1042,8 +1048,13 @@
     [mms] Added the 'mail/canApplyFilters' API call.
     [mms] Ingo_Storage:: now handles all session caching.
     [mms] Added IMAP client side Ingo_Script:: driver.
-0.1:
+1.0.0:
   notes: |
+    Original version string was 1.0
+    [jan] Add Brazilian Portuguese translation (Fabio Gomes <flgomes@fazenda.sp.gov.br>).
+0.1.0:
+  notes: |
+    Original version string was 0.1
     [jan] Add Swedish translation (Anders Norrbring <anders@norrbring.biz>).
     [jan] Add Lithuanian translation (Vilius Sumskas <vilius@lnk.lt>).
     [jan] Add Italian translation (Marko Djukic <marko@oblo.com>).
