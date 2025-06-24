@@ -102,8 +102,8 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
         }
 
         if ($this->hasFeature('period')) {
-            $this->_start->getInfo($vars, $start);
-            $this->_end->getInfo($vars, $end);
+            $start = $this->_start->getInfo($vars, $start);
+            $end = $this->_end->getInfo($vars, $end);
             if ($start && $end && $end < $start) {
                 $valid = false;
                 $this->_errors['end'] = _("Vacation end date is prior to start.");

@@ -50,7 +50,7 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
         /* Perform requested actions. Ingo_Form_Vacation does token checking
          * for us. */
         if ($form->validate($this->vars)) {
-            $form->getInfo($this->vars, $info);
+            $info = $form->getInfo($this->vars, $info);
             $vacation->addresses = $info['addresses'] ?? '';
             $vacation->days = $info['days'];
             $vacation->exclude = $info['excludes'];
