@@ -116,7 +116,7 @@ class Horde_Form_Type_ingo_folders extends Horde_Form_Type
             return true;
         }
 
-        $message = _("A target folder is required.");
+        $this->message = _("A target folder is required.");
         return false;
     }
 

@@ -32,7 +32,7 @@ class Ingo_Form_Type_Longemail extends Horde_Form_Type_longtext
 
         if (empty($value)) {
             if ($var->isRequired()) {
-                $message = _("This field is required.");
+                $this->message = _("This field is required.");
                 return false;
             }
             return true;
@@ -52,7 +52,7 @@ class Ingo_Form_Type_Longemail extends Horde_Form_Type_longtext
         }
 
         if (count($invalid)) {
-            $message = sprintf(
+            $this->message = sprintf(
                 ngettext(
                     _("\"%s\" is not a valid email address."),
                     _("\"%s\" are not valid email addresses."),
