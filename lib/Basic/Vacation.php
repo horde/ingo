@@ -68,7 +68,7 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
                     $vacation->disable = true;
                     $notify = _("Rule Disabled");
                 } else {
-                    $notification->push(_("Changes saved."), 'horde.success');
+                    $notify = _("Changes saved.");
                 }
 
                 $ingo_storage->updateRule($vacation);
