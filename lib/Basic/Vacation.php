@@ -128,7 +128,7 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
         $form->renderActive(
             new Horde_Form_Renderer([
                 'encode_title' => false,
-                'varrenderer_driver' => ['ingo', 'ingo'],
+                'varrenderer_driver' => ['ingo', 'html'],
             ]),
             $this->vars,
             self::url(['append_session' => -1]),

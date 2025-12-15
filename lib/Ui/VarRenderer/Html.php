@@ -21,7 +21,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Horde_Core_Ui_VarRenderer_Ingo extends Horde_Core_Ui_VarRenderer_Html
+class Ingo_Ui_VarRenderer_Html extends Horde_Core_Ui_VarRenderer_Html
 {
     public function __construct($params = [])
     {

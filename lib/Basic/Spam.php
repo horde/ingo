@@ -45,7 +45,7 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
         $form = new Ingo_Form_Spam($this->vars);
         $renderer = new Horde_Form_Renderer([
             'encode_title' => false,
-            'varrenderer_driver' => ['ingo', 'ingo'],
+            'varrenderer_driver' => ['ingo', 'html'],
         ]);
 
         /* Perform requested actions. Ingo_Form_Spam does token checking for
