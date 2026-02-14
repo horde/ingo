@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ingo Hooks configuration file.
  *
@@ -11,126 +10,125 @@
  *
  * $Id$
  */
-if (!class_exists('Ingo_Hooks')) {
-    class Ingo_Hooks
-    {
-        /**
-         * Returns the username/password needed to connect to the transport
-         * backend.
-         *
-         * @param string $driver  The driver name (array key from backends.php).
-         *
-         * @return mixed  If non-array, uses Horde authentication credentials
-         *                (DEFAULT). Otherwise, an array with the following keys
-         *                (non-existent keys will use default values):
-         *  - euser: (string; SIEVE ONLY) For the sieve driver, the effective
-         *           user to use (authorization ID).
-         *  - password: (string) Password.
-         *  - username: (string) User name (authentication ID).
-         */
-        //    public function transport_auth($driver)
-        //    {
-        //        switch ($driver) {
-        //        case 'foo':
-        //            // Example #1: Use full Horde username for password.
-        //            // This is generally needed for sieve servers.
-        //            $full_user = $GLOBALS['registry']->getAuth(null);
-        //            return array(
-        //                'euser' => $full_user,
-        //                'username' => $full_user
-        //            );
-        //
-        //            // Example #2: Use IMP password/username.
-        //            $ob = $GLOBALS['registry']->call('mail/imapOb');
-        //            return array(
-        //                'password' => $ob->getParam('password'),
-        //                'username' => $ob->getParam('username')
-        //            );
-        //        }
-        //
-        //        // DEFAULT: Use hordeauth (identical to not defining hook at all).
-        //        return true;
-        //    }
 
-        /**
-         * A hook to override the transport params based on the driver and the current params
-         * @param string $driver        The driver name (array key from backends.php).
-         * @param array $currentParams  The currently used params
-         *
-         * @return array|null           The params that should be overriden for this transport driver.
-         *                              If the return value is not an array nothing will be overriden.
-         */
-        //    public function transport_params($driver, $currentParams)
-        //    {
-        //        // in this example we use a different sieve server for certain users based on the domin in their username
-        //        // we also increase the port by one. This might not be a very realistic example, but it shows that you are very flexible with this hook
-        //        $params = [];
-        //        switch ($driver) {
-        //        case 'timsieved':
-        //            $userDomain = $GLOBALS['registry']->getAuth('domain');
-        //            if ($userDomain === 'new-server.localhost') {
-        //                 $params['hostspec'] = 'mail.new-server.localhost';
-        //                 $params['port'] = $currentParams['port'] + 1;
-        //            }
-        //        }
-        //        return $params;
-        //    }
+class Ingo_Hooks
+{
+    /**
+     * Returns the username/password needed to connect to the transport
+     * backend.
+     *
+     * @param string $driver  The driver name (array key from backends.php).
+     *
+     * @return mixed  If non-array, uses Horde authentication credentials
+     *                (DEFAULT). Otherwise, an array with the following keys
+     *                (non-existent keys will use default values):
+     *  - euser: (string; SIEVE ONLY) For the sieve driver, the effective
+     *           user to use (authorization ID).
+     *  - password: (string) Password.
+     *  - username: (string) User name (authentication ID).
+     */
+//    public function transport_auth($driver)
+//    {
+//        switch ($driver) {
+//        case 'foo':
+//            // Example #1: Use full Horde username for password.
+//            // This is generally needed for sieve servers.
+//            $full_user = $GLOBALS['registry']->getAuth(null);
+//            return array(
+//                'euser' => $full_user,
+//                'username' => $full_user
+//            );
+//
+//            // Example #2: Use IMP password/username.
+//            $ob = $GLOBALS['registry']->call('mail/imapOb');
+//            return array(
+//                'password' => $ob->getParam('password'),
+//                'username' => $ob->getParam('username')
+//            );
+//        }
+//
+//        // DEFAULT: Use hordeauth (identical to not defining hook at all).
+//        return true;
+//    }
 
-        /**
-         * Set the default addresses used for the vacation module.
-         *
-         * @param string $user  The username.
-         * @param array $value  The default/current value.
-         *
-         * @return array  A list of vacation addresses.
-         */
-        //    public function vacation_addresses($user = null, $value = null)
-        //    {
-        //        // Example #1: User has 2 vacation addresses.
-        //        return array($user . '@example.com', $user . '@foobar.com');
-        //
-        //        // Example #2: Keep user-supplied values, return defaults only
-        //        return is_array($value) && count($value)
-        //            ? $value
-        //            : array($user . '@example.com', $user . '@foobar.com');
-        //    }
+    /**
+     * A hook to override the transport params based on the driver and the current params
+     * @param string $driver        The driver name (array key from backends.php).
+     * @param array $currentParams  The currently used params
+     * 
+     * @return array|null           The params that should be overriden for this transport driver.
+     *                              If the return value is not an array nothing will be overriden.                           
+     */
+//    public function transport_params($driver, $currentParams)
+//    {
+//        // in this example we use a different sieve server for certain users based on the domin in their username
+//        // we also increase the port by one. This might not be a very realistic example, but it shows that you are very flexible with this hook
+//        $params = [];
+//        switch ($driver) {
+//        case 'timsieved':
+//            $userDomain = $GLOBALS['registry']->getAuth('domain');
+//            if ($userDomain === 'new-server.localhost') {
+//                 $params['hostspec'] = 'mail.new-server.localhost';
+//                 $params['port'] = $currentParams['port'] + 1;
+//            }
+//        }
+//        return $params;
+//    }
 
-        /**
-         * Verifies and modifies the list for addresses that the user wants to
-         * forward his messages to.
-         *
-         * @param Horde_Mail_Rfc822_List $addresses  The forward destinations.
-         *
-         * @throws Ingo_Exception if an address is rejected.
-         * @return Horde_Mail_Rfc822_List  The modified destinations.
-         */
-        //    public function verify_forward_addresses($addresses)
-        //    {
-        //        // Example #1: Correcting a common typo.
-        //        foreach ($addresses as $address) {
-        //            if ($address->mailbox == 'johny') {
-        //                $address->mailbox = 'johnny';
-        //            }
-        //        }
-        //
-        //        // Example #2: Deny domains not matching a whitelist.
-        //        $whitelist = array(
-        //            'example.com',
-        //            'example.net',
-        //            'mycompany.com'
-        //        );
-        //        foreach ($addresses as $address) {
-        //            if (!in_array($address->host, $whitelist)) {
-        //                throw new Ingo_Exception(sprintf(
-        //                    '%s does not contain a valid domain. Allowed domains: %s',
-        //                    $address,
-        //                    implode(', ', $whitelist)
-        //                ));
-        //            }
-        //        }
-        //
-        //        return $addresses;
-        //    }
+    /**
+     * Set the default addresses used for the vacation module.
+     *
+     * @param string $user  The username.
+     * @param array $value  The default/current value.
+     *
+     * @return array  A list of vacation addresses.
+     */
+//    public function vacation_addresses($user = null, $value = null)
+//    {
+//        // Example #1: User has 2 vacation addresses.
+//        return array($user . '@example.com', $user . '@foobar.com');
+//
+//        // Example #2: Keep user-supplied values, return defaults only
+//        return is_array($value) && count($value)
+//            ? $value
+//            : array($user . '@example.com', $user . '@foobar.com');
+//    }
 
-    }
+    /**
+     * Verifies and modifies the list for addresses that the user wants to
+     * forward his messages to.
+     *
+     * @param Horde_Mail_Rfc822_List $addresses  The forward destinations.
+     *
+     * @throws Ingo_Exception if an address is rejected.
+     * @return Horde_Mail_Rfc822_List  The modified destinations.
+     */
+//    public function verify_forward_addresses($addresses)
+//    {
+//        // Example #1: Correcting a common typo.
+//        foreach ($addresses as $address) {
+//            if ($address->mailbox == 'johny') {
+//                $address->mailbox = 'johnny';
+//            }
+//        }
+//
+//        // Example #2: Deny domains not matching a whitelist.
+//        $whitelist = array(
+//            'example.com',
+//            'example.net',
+//            'mycompany.com'
+//        );
+//        foreach ($addresses as $address) {
+//            if (!in_array($address->host, $whitelist)) {
+//                throw new Ingo_Exception(sprintf(
+//                    '%s does not contain a valid domain. Allowed domains: %s',
+//                    $address,
+//                    implode(', ', $whitelist)
+//                ));
+//            }
+//        }
+//
+//        return $addresses;
+//    }
+
 }
