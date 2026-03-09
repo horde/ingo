@@ -74,18 +74,39 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
             : $this->_params['admin'];
 
         try {
-            $this->_sieve = new ManageSieve([
-                'user'       => $auth,
-                'password'   => $this->_params['password'],
-                'host'       => $this->_params['hostspec'],
-                'port'       => $this->_params['port'],
-                'authmethod' => $this->_params['logintype'],
-                'euser'      => $this->_params['euser'],
-                'secure'     => $this->_params['usetls'],
-                'logger'     => $this->_params['debug']
-                    ? $injector->getInstance('Horde_Log_Logger')
-                    : null,
-            ]);
+            // Check if we have XOAUTH2 token
+            if (isset($this->_params['xoauth2_token']) &&
+                $this->_params['xoauth2_token'] instanceof \Horde\ManageSieve\Password\Xoauth2) {
+                // XOAUTH2 authentication - pass token directly
+                $authMethod = \Horde\ManageSieve\Client::AUTH_XOAUTH2;
+
+                $this->_sieve = new ManageSieve([
+                    'user'         => $auth,
+                    'xoauth2_token' => $this->_params['xoauth2_token'],
+                    'host'         => $this->_params['hostspec'],
+                    'port'         => $this->_params['port'],
+                    'authmethod'   => $authMethod,
+                    'euser'        => $this->_params['euser'],
+                    'secure'       => $this->_params['usetls'],
+                    'logger'       => $this->_params['debug']
+                        ? $injector->getInstance('Horde_Log_Logger')
+                        : null,
+                ]);
+            } else {
+                // Normal password authentication
+                $this->_sieve = new ManageSieve([
+                    'user'       => $auth,
+                    'password'   => $this->_params['password'],
+                    'host'       => $this->_params['hostspec'],
+                    'port'       => $this->_params['port'],
+                    'authmethod' => $this->_params['logintype'],
+                    'euser'      => $this->_params['euser'],
+                    'secure'     => $this->_params['usetls'],
+                    'logger'     => $this->_params['debug']
+                        ? $injector->getInstance('Horde_Log_Logger')
+                        : null,
+                ]);
+            }
         } catch (ManageSieveException $e) {
             throw new Ingo_Exception($e);
         }

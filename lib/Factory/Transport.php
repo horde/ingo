@@ -51,7 +51,10 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
             $auth = [];
         }
 
-        if (!isset($auth['password'])) {
+        $hasXoauth2 = isset($auth['xoauth2_token']) && 
+                      $auth['xoauth2_token'] instanceof \Horde\ManageSieve\Password\Xoauth2;
+
+        if (!$hasXoauth2 && !isset($auth['password'])) {
             $auth['password'] = $registry->getAuthCredential('password');
         }
         if (!isset($auth['username'])) {
