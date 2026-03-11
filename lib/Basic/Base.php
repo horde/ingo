@@ -84,10 +84,21 @@ abstract class Ingo_Basic_Base
         $new_mbox = $this->vars->get($name . '_new');
 
         if (strlen($new_mbox)) {
-            if ($registry->hasMethod('mail/createMailbox') &&
-                $created = $registry->call('mail/createMailbox', [$new_mbox])) {
-                return strval($created);
+            if ($registry->hasMethod('mail/createMailbox')) {
+                try {
+                    $created = $registry->call('mail/createMailbox', [$new_mbox]);
+                    if ($created) {
+                        return strval($created);
+                    }
+                } catch (Horde_Exception $e) {
+                    // If IMAP validation fails, accept the user input anyway.
+                    // This allows backends like the null driver to work without
+                    // requiring a real IMAP connection.
+                    return $new_mbox;
+                }
             }
+            // If mail/createMailbox not available, accept user input
+            return $new_mbox;
         } elseif (strlen($this->vars->$name)) {
             return $this->vars->$name;
         }
