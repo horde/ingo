@@ -21,7 +21,7 @@
             "role": "lead"
         }
     ],
-    "time": "2025-06-05",
+    "time": "2026-03-07",
     "repositories": [],
     "require": {
         "horde/horde-installer-plugin": "dev-FRAMEWORK_6_0 || ^3 || ^2",
@@ -51,6 +51,9 @@
     "autoload": {
         "psr-0": {
             "Ingo": "lib/"
+        },
+        "psr-4": {
+            "Horde\\Ingo\\": "src/"
         }
     },
     "autoload-dev": {
