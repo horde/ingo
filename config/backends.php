@@ -47,6 +47,8 @@
  *   - imap:      IMAP client side filtering (POP3 servers NOT supported).
  *   - ispconfig: ISPConfig SOAP Server (only for vacation notices).
  *   - maildrop:  Maildrop scripts.
+ *   - null:      Null driver for development/testing (stores rules but does
+ *                not deploy them).
  *   - procmail:  Procmail scripts.
  *   - sieve:     Sieve scripts.
  *
@@ -445,6 +447,25 @@ $backends['customsql'] = [
                 'vacation_unset' => 'UPDATE vacation SET active = 0 WHERE user = %u',
                 'vacation_set' => 'REPLACE INTO vacation (active, subject, message, user) VALUES (1, %s, %m, %u)',
             ],
+        ],
+    ],
+    'shares' => false,
+];
+
+/* Null Driver - Development/Testing */
+$backends['null'] = [
+    // Disabled by default - only enable in development environments
+    'disabled' => true,
+    'transport' => [
+        Ingo::RULE_ALL => [
+            'driver' => 'null',
+            'params' => [],
+        ],
+    ],
+    'script' => [
+        Ingo::RULE_ALL => [
+            'driver' => 'null',
+            'params' => [],
         ],
     ],
     'shares' => false,
