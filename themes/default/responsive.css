@@ -6,6 +6,23 @@
  */
 
 /* ============================================================================
+   App Icon Override
+   ========================================================================= */
+
+/* Override Horde base icon with Ingo-specific icon */
+.topbar-menu-app-ingo::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('graphics/ingo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+}
+
+/* ============================================================================
    Page Header
    ========================================================================= */
 
