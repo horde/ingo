@@ -19,7 +19,6 @@ use Psr\Http\Server\RequestHandlerInterface;
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author    Claude Code Assistant
  * @category  Horde
  * @copyright 2026 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
@@ -125,15 +124,48 @@ class ResponsiveController implements RequestHandlerInterface
      */
     private function viewRule(ServerRequestInterface $request, string $uid): ResponseInterface
     {
-        global $registry, $injector;
+        global $registry, $injector, $notification;
 
-        // TODO: Implement rule detail view
-        // For now, return a simple response
+        // Get responsive assets helper
+        $responsiveAssets = new \Horde\Core\Assets\ResponsiveAssets($registry);
+
+        // Load rule from storage
+        $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+        $rule = $storage->getRuleByUid($uid);
+
+        if (!$rule) {
+            $notification->push(_("Rule not found."), 'horde.error');
+            // Redirect back to rules list
+            header('Location: ' . \Horde::url('responsive', true));
+            exit;
+        }
+
+        // Build topbar
+        $topbar = $this->renderTopbar();
+
+        // Prepare view data
+        $viewData = [
+            'topbar' => $topbar,
+            'rule' => [
+                'uid' => $uid,
+                'name' => $rule->name,
+                'description' => $rule->description(),
+                'disabled' => $rule->disable ?? false,
+            ],
+            'cssUrls' => $responsiveAssets->getCssUrls(),
+            'jsUrls' => $responsiveAssets->getJsUrls(['responsive-topbar.js'], 'horde'),
+            'backUrl' => \Horde::url('responsive', true),
+        ];
+
+        // Render template
+        $templatePath = INGO_TEMPLATES . '/responsive/rule.html.php';
+        $view = new ResponsiveTemplateView($templatePath, $viewData);
+
         $streamFactory = $injector->getInstance('Psr\Http\Message\StreamFactoryInterface');
         $responseFactory = $injector->getInstance('Psr\Http\Message\ResponseFactoryInterface');
 
-        return $responseFactory->createResponse(501)
-            ->withBody($streamFactory->createStream('Rule detail not yet implemented'));
+        return $responseFactory->createResponse(200)
+            ->withBody($streamFactory->createStream($view->render()));
     }
 
     /**

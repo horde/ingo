@@ -22,6 +22,51 @@
     color: var(--text-primary);
 }
 
+/* Back link for detail pages */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--horde-primary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+}
+
+.back-link:hover {
+    background-color: var(--bg-hover);
+}
+
+.back-arrow {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+}
+
+/* Rule status badges */
+.rule-status {
+    display: inline-block;
+    margin-left: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-sm);
+}
+
+.rule-status-active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.rule-status-disabled {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+
 /* ============================================================================
    Search Widget
    ========================================================================= */
@@ -207,6 +252,36 @@
     box-shadow: var(--shadow-sm);
     padding: var(--space-xl);
     margin-bottom: var(--space-lg);
+}
+
+.rule-section {
+    margin-bottom: var(--space-lg);
+}
+
+.rule-section:last-child {
+    margin-bottom: 0;
+}
+
+.rule-section h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-md) 0;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.rule-description {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.empty-text {
+    color: var(--text-tertiary);
+    font-style: italic;
 }
 
 .rule-title {
