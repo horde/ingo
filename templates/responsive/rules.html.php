@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo _("Mail Filtering Rules") ?></title>
-    <link rel="stylesheet" href="<?php echo $GLOBALS['registry']->get('themesuri', 'horde') ?>/default/responsive.css">
-    <link rel="stylesheet" href="<?php echo $GLOBALS['registry']->get('themesuri', 'ingo') ?>/responsive.css">
+    <?php foreach ($this->cssUrls as $url): ?>
+    <link rel="stylesheet" href="<?php echo $this->escape($url) ?>">
+    <?php endforeach ?>
 </head>
 <body>
     <?php echo $this->topbar ?>
@@ -34,14 +35,14 @@
 
             <ul class="rule-list">
                 <?php foreach ($this->rules as $rule): ?>
-                    <li class="rule-item" data-rule-name="<?php echo $this->h($rule['name']) ?>">
+                    <li class="rule-item" data-rule-name="<?php echo $this->escape($rule['name']) ?>">
                         <a href="<?php echo Horde::url('responsive/rule/' . urlencode($rule['uid'])) ?>" class="rule-link">
                             <?php if (!empty($rule['icon'])): ?>
                                 <span class="rule-icon"><?php echo $rule['icon'] ?></span>
                             <?php else: ?>
                                 <span class="rule-icon rule-icon-default">📋</span>
                             <?php endif ?>
-                            <span class="rule-name"><?php echo $this->h($rule['name']) ?></span>
+                            <span class="rule-name"><?php echo $this->escape($rule['name']) ?></span>
                             <span class="rule-chevron">›</span>
                         </a>
                     </li>
@@ -60,6 +61,8 @@
         <?php endif ?>
     </div>
 
-    <script src="<?php echo $GLOBALS['registry']->get('jsuri', 'ingo') ?>/responsive-rules.js"></script>
+    <?php foreach ($this->jsUrls as $url): ?>
+    <script src="<?php echo $this->escape($url) ?>"></script>
+    <?php endforeach ?>
 </body>
 </html>

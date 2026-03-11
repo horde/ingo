@@ -60,6 +60,9 @@ class ResponsiveController implements RequestHandlerInterface
     {
         global $registry, $session, $injector;
 
+        // Get responsive assets helper
+        $responsiveAssets = new \Horde\Core\Assets\ResponsiveAssets($registry);
+
         // Load rules from storage
         $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 
@@ -94,6 +97,11 @@ class ResponsiveController implements RequestHandlerInterface
         $viewData = [
             'topbar' => $topbar,
             'rules' => $rules,
+            'cssUrls' => $responsiveAssets->getCssUrls(),
+            'jsUrls' => array_merge(
+                $responsiveAssets->getJsUrls(['responsive-topbar.js'], 'horde'),
+                $responsiveAssets->getJsUrls(['responsive-rules.js'])
+            ),
         ];
 
         // Render template
