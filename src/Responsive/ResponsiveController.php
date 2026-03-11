@@ -37,12 +37,12 @@ class ResponsiveController implements RequestHandlerInterface
     {
         global $injector;
 
-        // Get route parameters
-        $routeParams = $request->getAttribute('route_params', []);
+        // Get route match from router (stored in 'route' attribute by AppRouter)
+        $route = $request->getAttribute('route', []);
 
-        // Determine action based on route
-        if (isset($routeParams['uid'])) {
-            return $this->viewRule($request, $routeParams['uid']);
+        // Determine action based on route parameters
+        if (isset($route['uid'])) {
+            return $this->viewRule($request, $route['uid']);
         }
 
         return $this->index($request);
