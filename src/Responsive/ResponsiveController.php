@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace Horde\Ingo\Responsive;
 
-use Horde\Core\View\ResponsiveTemplateView;
+use Horde\Core\Controller\ResponsiveControllerTrait;
+use Horde_Registry;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 /**
@@ -26,6 +30,83 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class ResponsiveController implements RequestHandlerInterface
 {
+    use ResponsiveControllerTrait;
+
+    /**
+     * Constructor
+     *
+     * @param Horde_Registry $registry Registry instance
+     * @param UriFactoryInterface $uriFactory PSR-17 URI factory
+     * @param ResponseFactoryInterface $responseFactory PSR-17 response factory
+     * @param StreamFactoryInterface $streamFactory PSR-17 stream factory
+     */
+    public function __construct(
+        private Horde_Registry $registry,
+        private UriFactoryInterface $uriFactory,
+        private ResponseFactoryInterface $responseFactory,
+        private StreamFactoryInterface $streamFactory
+    ) {
+    }
+
+    /**
+     * Get application name for topbar display
+     *
+     * @return string Localized application name
+     */
+    protected function getAppName(): string
+    {
+        return _("Mail Filters");
+    }
+
+    /**
+     * Get template base path for this application
+     *
+     * @return string Template base path with trailing slash
+     */
+    protected function getTemplateBasePath(): string
+    {
+        return INGO_TEMPLATES . '/responsive/';
+    }
+
+    /**
+     * Get Horde registry instance
+     *
+     * @return Horde_Registry Registry instance
+     */
+    protected function getRegistry(): Horde_Registry
+    {
+        return $this->registry;
+    }
+
+    /**
+     * Get PSR-17 URI factory instance
+     *
+     * @return UriFactoryInterface URI factory
+     */
+    protected function getUriFactory(): UriFactoryInterface
+    {
+        return $this->uriFactory;
+    }
+
+    /**
+     * Get PSR-17 response factory instance
+     *
+     * @return ResponseFactoryInterface Response factory
+     */
+    protected function getResponseFactory(): ResponseFactoryInterface
+    {
+        return $this->responseFactory;
+    }
+
+    /**
+     * Get PSR-17 stream factory instance
+     *
+     * @return StreamFactoryInterface Stream factory
+     */
+    protected function getStreamFactory(): StreamFactoryInterface
+    {
+        return $this->streamFactory;
+    }
     /**
      * Handle request
      *
@@ -57,10 +138,7 @@ class ResponsiveController implements RequestHandlerInterface
      */
     private function index(ServerRequestInterface $request): ResponseInterface
     {
-        global $registry, $session, $injector;
-
-        // Get responsive assets helper
-        $responsiveAssets = new \Horde\Core\Assets\ResponsiveAssets($registry);
+        global $session, $injector;
 
         // Load rules from storage
         $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
@@ -89,29 +167,10 @@ class ResponsiveController implements RequestHandlerInterface
             ];
         }
 
-        // Build topbar
-        $topbar = $this->renderTopbar();
-
-        // Prepare view data
-        $viewData = [
-            'topbar' => $topbar,
+        // Render template (trait handles topbar, assets, response)
+        return $this->renderTemplate('rules.html.php', [
             'rules' => $rules,
-            'cssUrls' => $responsiveAssets->getCssUrls(),
-            'jsUrls' => array_merge(
-                $responsiveAssets->getJsUrls(['responsive-topbar.js'], 'horde'),
-                $responsiveAssets->getJsUrls(['responsive-rules.js'])
-            ),
-        ];
-
-        // Render template
-        $templatePath = INGO_TEMPLATES . '/responsive/rules.html.php';
-        $view = new ResponsiveTemplateView($templatePath, $viewData);
-
-        $streamFactory = $injector->getInstance('Psr\Http\Message\StreamFactoryInterface');
-        $responseFactory = $injector->getInstance('Psr\Http\Message\ResponseFactoryInterface');
-
-        return $responseFactory->createResponse(200)
-            ->withBody($streamFactory->createStream($view->render()));
+        ], ['responsive-rules.js']);
     }
 
     /**
@@ -124,48 +183,30 @@ class ResponsiveController implements RequestHandlerInterface
      */
     private function viewRule(ServerRequestInterface $request, string $uid): ResponseInterface
     {
-        global $registry, $injector, $notification;
-
-        // Get responsive assets helper
-        $responsiveAssets = new \Horde\Core\Assets\ResponsiveAssets($registry);
+        global $injector;
 
         // Load rule from storage
         $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
         $rule = $storage->getRuleByUid($uid);
 
         if (!$rule) {
-            $notification->push(_("Rule not found."), 'horde.error');
-            // Redirect back to rules list
-            header('Location: ' . \Horde::url('responsive', true));
-            exit;
+            return $this->redirectTo(
+                $this->buildUrl('responsive'),
+                _("Rule not found."),
+                'horde.error'
+            );
         }
 
-        // Build topbar
-        $topbar = $this->renderTopbar();
-
-        // Prepare view data
-        $viewData = [
-            'topbar' => $topbar,
+        // Render template (trait handles topbar, assets, response)
+        return $this->renderTemplate('rule.html.php', [
             'rule' => [
                 'uid' => $uid,
                 'name' => $rule->name,
                 'description' => $rule->description(),
                 'disabled' => $rule->disable ?? false,
             ],
-            'cssUrls' => $responsiveAssets->getCssUrls(),
-            'jsUrls' => $responsiveAssets->getJsUrls(['responsive-topbar.js'], 'horde'),
-            'backUrl' => \Horde::url('responsive', true),
-        ];
-
-        // Render template
-        $templatePath = INGO_TEMPLATES . '/responsive/rule.html.php';
-        $view = new ResponsiveTemplateView($templatePath, $viewData);
-
-        $streamFactory = $injector->getInstance('Psr\Http\Message\StreamFactoryInterface');
-        $responseFactory = $injector->getInstance('Psr\Http\Message\ResponseFactoryInterface');
-
-        return $responseFactory->createResponse(200)
-            ->withBody($streamFactory->createStream($view->render()));
+            'backUrl' => $this->buildUrl('responsive'),
+        ]);
     }
 
     /**
@@ -199,27 +240,5 @@ class ResponsiveController implements RequestHandlerInterface
 
         // Return empty string for default emoji (📋)
         return '';
-    }
-
-    /**
-     * Render the responsive topbar
-     *
-     * @return string HTML topbar
-     */
-    private function renderTopbar(): string
-    {
-        global $registry;
-
-        $topbarData = [
-            'appName' => _("Mail Filters"),
-            'portalUrl' => (string) $registry->getServiceLink('portal')->setRaw(true),
-            'logoutUrl' => (string) $registry->getServiceLink('logout')->setRaw(true),
-            'userName' => $registry->getAuth(),
-        ];
-
-        $templatePath = HORDE_TEMPLATES . '/responsive/topbar.html.php';
-        $view = new ResponsiveTemplateView($templatePath, $topbarData);
-
-        return $view->render();
     }
 }

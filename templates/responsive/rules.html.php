@@ -9,7 +9,7 @@
     <?php endforeach ?>
 </head>
 <body>
-    <?php echo $this->topbar ?>
+    <?php echo $this->topbarHtml ?>
 
     <div class="container">
         <div class="page-header">

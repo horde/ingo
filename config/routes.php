@@ -4,23 +4,21 @@ namespace Horde\Ingo;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-// Responsive UI Routes
-$mapper->connect(
-    'ResponsiveRules',
-    '/responsive',
-    [
-        'controller' => Responsive\ResponsiveController::class,
-        'HordeAuthType' => 'authenticate',
-        'stack' => [],
-    ]
-);
+// Responsive UI Routes - PSR-style builder pattern
 
-$mapper->connect(
-    'ResponsiveRule',
-    '/responsive/rule/:uid',
-    [
-        'controller' => Responsive\ResponsiveController::class,
-        'HordeAuthType' => 'authenticate',
-        'stack' => [],
-    ]
-);
+// Responsive Rules Index - Primary route with legacy smartmobile secondary
+$mapper->buildRoute(uri: '/responsive', name: 'ResponsiveRules')
+    ->withController(Responsive\ResponsiveController::class)
+    ->withDefaults(['HordeAuthType' => 'authenticate'])
+    ->noMiddleware()
+    ->withSecondaryRoute('/smartmobile')
+    ->withSecondaryRoute('/smartmobile.php')
+    ->add();
+
+// Responsive Rule View - View single rule by UID
+$mapper->buildRoute(uri: '/responsive/rule/:uid', name: 'ResponsiveRule')
+    ->withController(Responsive\ResponsiveController::class)
+    ->withDefaults(['HordeAuthType' => 'authenticate'])
+    ->requires('uid', '[a-zA-Z0-9\-_]+')
+    ->noMiddleware()
+    ->add();
