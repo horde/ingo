@@ -1,4 +1,24 @@
 ---
+4.0.0-alpha9:
+  api: 4.0.0-alpha9
+  state:
+    release: alpha
+    api: alpha
+  date: 2026-03-07
+  license:
+    identifier: Apache-1.0
+    uri: https://spdx.org/licenses/Apache-1.0.html
+  notes: |-
+    Merge pull request #11 from amulet1/fix_hook_class
+    Revert "fix: Ingo Hooks file protect against defining  twice"
+    Merge pull request #10 from amulet1/autoload_renderer
+    fix: Modify VarRenderer class name to facilitate autoloading
+    Merge pull request #9 from amulet1/undefined_vars
+    fix: Do not use undefined variables in getInfo() calls
+    fix: Do not display empty notification box when saving Vacation form
+    fix: Correctly set message in isValid() calls, adjust getInfo() call
+    fix: Ingo Hooks file protect against defining  twice
+    fix: getInfo() no longer writes back to second parameter. Use return value. (occurence found by Dmitry)
 4.0.0-alpha8:
   api: 4.0.0-alpha1
   state:
