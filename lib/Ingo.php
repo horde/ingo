@@ -139,8 +139,7 @@ class Ingo
 
         switch ($registry->getView()) {
             case $registry::VIEW_SMARTMOBILE:
-                // Use responsive interface for smartmobile view
-                return $registry->getServiceLink('ajax', 'ingo')->add('req', 'responsive')->setRaw(false);
+                return Horde::url($registry->get('webroot') . '/smartmobile.php');
 
             default:
                 if ($initial_page = $registry->get('initial_page')) {
