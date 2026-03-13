@@ -381,7 +381,7 @@ abstract class Ingo_Storage implements Countable, IteratorAggregate
 
     /**
      */
-    public function count()
+    public function count(): int
     {
         $this->_load();
 
@@ -392,7 +392,7 @@ abstract class Ingo_Storage implements Countable, IteratorAggregate
 
     /**
      */
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         $this->_load();
 
