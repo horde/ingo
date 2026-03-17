@@ -63,4 +63,9 @@ dependencies:
       horde/listheaders: ^2
       horde/mongo: ^2
       horde/vfs: ^3
+autoload:
+  classmap:
+    - lib/
+  psr-4:
+    Horde\Ingo\: /src
 vendor: horde

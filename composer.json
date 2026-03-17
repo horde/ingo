@@ -54,7 +54,10 @@
         },
         "psr-4": {
             "Horde\\Ingo\\": "src/"
-        }
+        },
+        "classmap": [
+            "lib/"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
