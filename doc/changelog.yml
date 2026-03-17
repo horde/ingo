@@ -1,4 +1,20 @@
 ---
+4.0.0-alpha10:
+  api: 4.0.0-alpha10
+  state:
+    release: alpha
+    api: alpha
+  date: 2026-03-17
+  license:
+    identifier: Apache-1.0
+    uri: https://spdx.org/licenses/Apache-1.0.html
+  notes: |-
+    fix: add classmap autoloading for lib/ directory
+    fix: Add return type declarations to satisfy Countable and IteratorAggregate interface requirements
+    feat(smartmobile): Remove old smartmobile entrypoint and use RouteBuilder
+    fix: Checkin the actual dist file.
+    Feat: Ingo responsive mode (#13)
+    feat(script): add null driver for development and testing
 4.0.0-alpha9:
   api: 4.0.0-alpha9
   state:
