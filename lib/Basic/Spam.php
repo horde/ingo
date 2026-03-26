@@ -100,7 +100,7 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
         $form_title .= ' ' . Horde_Help::link('ingo', 'spam');
         $form->setTitle($form_title);
 
-        $this->header = _("Spam Filtering");
+        $this->title = _("Spam Filtering");
 
         Horde::startBuffer();
         Horde_Util::pformInput();

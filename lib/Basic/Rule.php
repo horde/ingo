@@ -367,7 +367,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             'IngoRule.filtersurl' => strval(Ingo_Basic_Filters::url()->setRaw(true)),
         ]);
 
-        $this->header = $rule->name;
+        $this->title = $rule->name;
         $this->output = $view->render('rule');
     }
 

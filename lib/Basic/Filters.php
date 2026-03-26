@@ -341,7 +341,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             'page' => 'filters',
         ];
 
-        $this->header = _("Filter Rules");
+        $this->title = _("Filter Rules");
         $this->output = $view->render('filters');
     }
 

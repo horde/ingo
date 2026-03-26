@@ -121,7 +121,7 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
         $form_title .= ' ' . Horde_Help::link('ingo', 'vacation');
         $form->setTitle($form_title);
 
-        $this->header = _("Vacation Edit");
+        $this->title = _("Vacation Edit");
 
         Horde::startBuffer();
         Horde_Util::pformInput();
