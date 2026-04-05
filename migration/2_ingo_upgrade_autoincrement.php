@@ -21,14 +21,12 @@ class IngoUpgradeAutoIncrement extends Horde_Db_Migration_Base
     public function up()
     {
         $this->changeColumn('ingo_rules', 'rule_id', 'autoincrementKey');
-        try {
+        if (in_array('ingo_rules_seq', $this->tables())) {
             $this->dropTable('ingo_rules_seq');
-        } catch (Horde_Db_Exception $e) {
         }
         $this->changeColumn('ingo_shares', 'share_id', 'autoincrementKey');
-        try {
+        if (in_array('ingo_shares_seq', $this->tables())) {
             $this->dropTable('ingo_shares_seq');
-        } catch (Horde_Db_Exception $e) {
         }
     }
 
