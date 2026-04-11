@@ -10,36 +10,45 @@ var IngoRule = {
 
     delete_condition: function(num)
     {
-        $('actionID').setValue('rule_delete');
-        $('conditionnumber').setValue(num);
-        $('rule').submit();
+        document.getElementById('actionID').value = 'rule_delete';
+        document.getElementById('conditionnumber').value = num;
+        document.getElementById('rule').submit();
         return true;
     },
 
     onDomLoad: function()
     {
-        $('all', 'any').invoke('observe', 'click', function(e) {
-            e.stop();
-            $('rule').submit();
+        var ruleForm = document.getElementById('rule');
+
+        ['all', 'any'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    ruleForm.submit();
+                });
+            }
         });
 
-        $('rule').on('change', 'SELECT', function(e) {
-            e.stop();
-            $('rule').submit();
+        ruleForm.addEventListener('change', function(e) {
+            if (e.target.tagName === 'SELECT') {
+                e.preventDefault();
+                ruleForm.submit();
+            }
         });
 
-        $('rule_save').observe('click', function(e) {
-            e.stop();
-            $('actionID').setValue('rule_save');
-            $('rule').submit();
+        document.getElementById('rule_save').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('actionID').value = 'rule_save';
+            ruleForm.submit();
         });
 
-        $('rule_cancel').observe('click', function(e) {
-            e.stop();
+        document.getElementById('rule_cancel').addEventListener('click', function(e) {
+            e.preventDefault();
             document.location.href = this.filtersurl;
         }.bind(this));
     }
 
 };
 
-document.observe('dom:loaded', IngoRule.onDomLoad.bind(IngoRule));
+document.addEventListener('DOMContentLoaded', IngoRule.onDomLoad.bind(IngoRule));

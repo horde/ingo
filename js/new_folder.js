@@ -13,41 +13,45 @@ var IngoNewFolder = {
     changeHandler: function(e)
     {
         var folder,
-            elt = e.element(),
-            id = elt.identify() + '_new',
-            newfolder = $(id),
-            sel = $(elt[elt.selectedIndex]);
+            elt = e.target,
+            id = elt.id + '_new',
+            newfolder = document.getElementById(id),
+            sel = elt.options[elt.selectedIndex];
 
         if (!newfolder &&
-            sel.hasClassName('flistCreate') &&
-            (folder = window.prompt(this.folderprompt + '\n', ''))  &&
-            !folder.empty()) {
+            sel.classList.contains('flistCreate') &&
+            (folder = window.prompt(this.folderprompt + '\n', '')) &&
+            folder !== '') {
             this.setNewFolder(elt, folder);
-            e.stop();
+            e.preventDefault();
         }
     },
 
     setNewFolder: function(elt, folder)
     {
-        elt = $(elt);
-
         var sel,
-            id = elt.identify() + '_new';
+            id = elt.id + '_new';
 
-        elt.selectedIndex = elt.down('.flistCreate').index;
-        sel = $(elt[elt.selectedIndex]);
+        elt.selectedIndex = elt.querySelector('.flistCreate').index;
+        sel = elt.options[elt.selectedIndex];
 
-        elt.insert({
-            after: new Element('INPUT', { id: id, name: id, type: 'hidden' }).setValue(folder)
-        });
-        sel.update(sel.text + ' [' + folder.escapeHTML() + ']');
+        var hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.id = id;
+        hidden.name = id;
+        hidden.value = folder;
+        elt.after(hidden);
+
+        sel.text = sel.text + ' [' + folder + ']';
     },
 
     onDomLoad: function()
     {
-        $$('.flistSelect').invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+        document.querySelectorAll('.flistSelect').forEach(function(el) {
+            el.addEventListener('change', this.changeHandler.bind(this));
+        }, this);
     }
 
 };
 
-document.observe('dom:loaded', IngoNewFolder.onDomLoad.bind(IngoNewFolder));
+document.addEventListener('DOMContentLoaded', IngoNewFolder.onDomLoad.bind(IngoNewFolder));
