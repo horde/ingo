@@ -13,17 +13,17 @@ var IngoBlacklist = {
 
     onDomLoad: function()
     {
-        $('actionvalue').observe('change', function(e) {
-            if ($F(e.element())) {
-                $('action_folder').setValue(1);
+        document.getElementById('actionvalue').addEventListener('change', function(e) {
+            if (e.target.value) {
+                document.getElementById('action_folder').value = 1;
             }
         });
 
-        $('blacklist_return').observe('click', function(e) {
+        document.getElementById('blacklist_return').addEventListener('click', function(e) {
             document.location.href = this.filtersurl;
-            e.stop();
+            e.preventDefault();
         }.bind(this));
     }
 };
 
-document.observe('dom:loaded', IngoBlacklist.onDomLoad.bind(IngoBlacklist));
+document.addEventListener('DOMContentLoaded', IngoBlacklist.onDomLoad.bind(IngoBlacklist));

@@ -10,12 +10,12 @@ var IngoWhitelist = {
 
     onDomLoad: function()
     {
-        $('whitelist_return').observe('click', function(e) {
+        document.getElementById('whitelist_return').addEventListener('click', function(e) {
             document.location.href = this.filtersurl;
-            e.stop();
+            e.preventDefault();
         }.bind(this));
     }
 
 };
 
-document.observe('dom:loaded', IngoWhitelist.onDomLoad.bind(IngoWhitelist));
+document.addEventListener('DOMContentLoaded', IngoWhitelist.onDomLoad.bind(IngoWhitelist));
