@@ -14,49 +14,51 @@
  * Integers should be given literally (without quotes).
  * Boolean values may be true or false (never quotes).
  *
- * Generated from conf.xml on 2026-04-04
+ * Generated from conf.xml on 2026-04-13
  */
-
 // ----------------------------------------------------------------------
 // Rules Storage
 // ----------------------------------------------------------------------
-
-// What storage driver should we use?
-// Options:
-//   'prefs' - Preference System
-//   'nosql' - NoSQL
-//   'sql' - SQL
+// What storage driver should we use? ('prefs' = Preference System, 'nosql' = NoSQL, 'sql' = SQL)
 $conf['storage']['driver'] = 'sql';
-
-// Database configuration
-// Configure your database connection parameters
-$conf['storage']['params']['phptype'] = 'mysqli';
-$conf['storage']['params']['hostspec'] = 'localhost';
-$conf['storage']['params']['username'] = '';
-$conf['storage']['params']['password'] = '';
-$conf['storage']['params']['database'] = '';
-$conf['storage']['params']['charset'] = 'utf8mb4';
-$conf['storage']['params']['ssl'] = false;
-
-
+// Database connection: 'horde' uses the global Horde DB, 'custom' uses settings below
+// $conf['storage']['params']['driverconfig'] = 'custom';
+// $conf['storage']['params']['phptype'] = 'mysqli';
+// $conf['storage']['params']['hostspec'] = 'localhost';
+// $conf['storage']['params']['username'] = '';
+// $conf['storage']['params']['password'] = '';
+// $conf['storage']['params']['database'] = '';
+// $conf['storage']['params']['charset'] = 'utf8mb4';
+// $conf['storage']['params']['ssl'] = false;
+$conf['storage']['params']['driverconfig'] = 'horde';
+// When driver = 'nosql':
+// // NoSQL connection: 'horde' uses the global Horde NoSQL config, 'custom' uses settings below
+// // $conf['storage']['params']['driverconfig'] = 'custom';
+// // $conf['storage']['params']['phptype'] = 'mongo';
+// // $conf['storage']['params']['hostspec'] = '';
+// // $conf['storage']['params']['dbname'] = '';
+// $conf['storage']['params']['driverconfig'] = 'horde';
 
 // ----------------------------------------------------------------------
 // Rules Options
 // ----------------------------------------------------------------------
-
-// Allow users to manually enter Header   fields to search by in the Rule edit screen?
+// Allow users to manually enter Header fields to search by in the Rule edit screen?
 $conf['rules']['userheader'] = true;
-
 
 // ----------------------------------------------------------------------
 // Spam Filtering
 // ----------------------------------------------------------------------
-
-// Comparison type
-// Options:
-//   'numeric' - Numeric
-//   'string' - String
-//   'boolean' - Boolean
+// Comparison type ('numeric' = Numeric, 'string' = String, 'boolean' = Boolean)
 $conf['spam']['compare'] = 'string';
-
-
+// The spam header to check
+$conf['spam']['header'] = 'X-Spam-Level';
+// The character repeated in the spam header in order to indicate the spam level. For example, if the character is "*", ...
+$conf['spam']['char'] = '*';
+// When compare = 'numeric':
+// // The spam header to check
+// $conf['spam']['header'] = 'X-Spam-Score';
+// When compare = 'boolean':
+// // The spam header to check
+// $conf['spam']['header'] = 'X-Spam';
+// // The value of the spam header when a mail is identified as spam.
+// $conf['spam']['value'] = 'Yes';
