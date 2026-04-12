@@ -58,10 +58,10 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
                 }
 
                 if ($this->vars->submitbutton == _("Save and Enable")) {
-                    $forward->disable = true;
+                    $forward->disable = false;
                     $notify = _("Rule Enabled");
                 } elseif ($this->vars->submitbutton == _("Save and Disable")) {
-                    $forward->disable = false;
+                    $forward->disable = true;
                     $notify = _("Rule Disabled");
                 } else {
                     $notify = _("Changes saved.");
