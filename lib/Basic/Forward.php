@@ -93,7 +93,7 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
         $form_title .= ' ' . Horde_Help::link('ingo', 'forward');
         $form->setTitle($form_title);
 
-        $this->header = _("Forwards Edit");
+        $this->title = _("Forwards Edit");
 
         Horde::startBuffer();
         Horde_Util::pformInput();

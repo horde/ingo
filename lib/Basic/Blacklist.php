@@ -105,7 +105,7 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
             'IngoBlacklist.filtersurl' => strval(Ingo_Basic_Filters::url()->setRaw(true)),
         ]);
 
-        $this->header = _("Blacklist Edit");
+        $this->title = _("Blacklist Edit");
         $this->output = $view->render('blacklist');
     }
 

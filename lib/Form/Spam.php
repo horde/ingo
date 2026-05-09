@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -50,7 +50,7 @@ class Ingo_Form_Spam extends Ingo_Form_Base
         $this->folder_var = $this->addVariable(
             _("Folder to receive spam:"),
             'folder',
-            'ingo_folders',
+            'ingo:folders',
             true
         );
         $this->folder_var->setHelp('spam-folder');
@@ -94,40 +94,6 @@ class Ingo_Form_Spam extends Ingo_Form_Base
             $this->folder_var->type->newFolderSet = true;
         }
         return parent::validate($vars, $canAutoFill);
-    }
-
-}
-
-
-/**
- * Dummy class to hold the select box created by {@link Ingo_Flist::select()}.
- *
- * @see Horde_Core_Ui_VarRenderer_Ingo
- * @see Ingo_Flist::select()
- */
-class Horde_Form_Type_ingo_folders extends Horde_Form_Type
-{
-    public $_folder;
-    public $newFolderSet;
-
-    public function isValid($var, $vars, $value, $message)
-    {
-        if ($this->newFolderSet || strlen($value)) {
-            return true;
-        }
-
-        $this->message = _("A target folder is required.");
-        return false;
-    }
-
-    public function getFolder()
-    {
-        return $this->_folder;
-    }
-
-    public function setFolder($folder)
-    {
-        $this->_folder = $folder;
     }
 
 }

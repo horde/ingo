@@ -107,7 +107,7 @@ class Ingo_Basic_Script extends Ingo_Basic_Base
             $view->scripts = $scripts;
         }
 
-        $this->header = _("Filter Script Display");
+        $this->title = _("Filter Script Display");
         $this->output = $view->render('script');
     }
 
