@@ -124,7 +124,7 @@ class Ingo_Rule_Addresses extends Ingo_Rule implements Countable
 
     /**
      */
-    public function count()
+    public function count(): int
     {
         return count($this->_addr);
     }
