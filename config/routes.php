@@ -10,7 +10,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 $mapper->buildRoute(uri: '/responsive', name: 'ResponsiveRules')
     ->withController(ResponsiveController::class)
     ->withDefaults(['HordeAuthType' => 'authenticate'])
-    ->noMiddleware()
+    ->withMiddleware(DefaultStack::get())
     ->withSecondaryRoute('/smartmobile')
     ->withSecondaryRoute('/smartmobile.php')
     ->add();
@@ -20,5 +20,5 @@ $mapper->buildRoute(uri: '/responsive/rule/:uid', name: 'ResponsiveRule')
     ->withController(ResponsiveController::class)
     ->withDefaults(['HordeAuthType' => 'authenticate'])
     ->requires('uid', '[a-zA-Z0-9\-_]+')
-    ->noMiddleware()
+    ->withMiddleware(DefaultStack::get())
     ->add();
