@@ -1,4 +1,4 @@
----
+B---
 id: ingo
 name: Ingo
 full: Email filter rules manager application
@@ -67,5 +67,9 @@ autoload:
   classmap:
     - lib/
   psr-4:
-    Horde\Ingo\: /src
+    Horde\Ingo\: src/
 vendor: horde
+keywords:
+  - filter
+  - procmail
+  - sieve
