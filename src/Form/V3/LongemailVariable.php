@@ -33,7 +33,7 @@ class LongemailVariable extends LongtextVariable
      */
     public function isValid(Horde_Variables $vars, $value): bool
     {
-        $value = trim((string)$value);
+        $value = trim((string) $value);
 
         if ($value === '') {
             if ($this->isRequired()) {

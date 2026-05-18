@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -200,11 +200,11 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                     foreach ($rule->conditions as $val) {
                         $ob = new Horde_Imap_Client_Search_Query();
 
-                        if (!empty($val['type']) &&
-                            ($val['type'] == Ingo_Rule_User::TEST_SIZE)) {
+                        if (!empty($val['type'])
+                            && ($val['type'] == Ingo_Rule_User::TEST_SIZE)) {
                             $ob->size($val['value'], ($val['match'] == 'greater than'));
-                        } elseif (!empty($val['type']) &&
-                                  ($val['type'] == Ingo_Rule_User::TEST_BODY)) {
+                        } elseif (!empty($val['type'])
+                                  && ($val['type'] == Ingo_Rule_User::TEST_BODY)) {
                             $ob->charset('UTF-8', false);
                             $ob->text($val['value'], true, ($val['match'] == 'not contain'));
                         } else {
@@ -275,8 +275,8 @@ class Ingo_Script_Imap extends Ingo_Script_Base
 
                             case 'Ingo_Rule_User_Move':
                                 /* We need to grab the envelope first. */
-                                if ($this->_params['show_filter_msg'] &&
-                                    !($fetch = $api->fetchEnvelope($indices))) {
+                                if ($this->_params['show_filter_msg']
+                                    && !($fetch = $api->fetchEnvelope($indices))) {
                                     break;
                                 }
 
@@ -310,8 +310,8 @@ class Ingo_Script_Imap extends Ingo_Script_Base
 
                             case 'Ingo_Rule_User_Discard':
                                 /* We need to grab the envelope first. */
-                                if ($this->_params['show_filter_msg'] &&
-                                    !($fetch = $api->fetchEnvelope($indices))) {
+                                if ($this->_params['show_filter_msg']
+                                    && !($fetch = $api->fetchEnvelope($indices))) {
                                     break;
                                 }
 
@@ -400,8 +400,8 @@ class Ingo_Script_Imap extends Ingo_Script_Base
     {
         $ob = new Horde_Imap_Client_Search_Query();
         $ob->flag('\\deleted', false);
-        if ($this->_params['filter_seen'] == Ingo::FILTER_SEEN ||
-            $this->_params['filter_seen'] == Ingo::FILTER_UNSEEN) {
+        if ($this->_params['filter_seen'] == Ingo::FILTER_SEEN
+            || $this->_params['filter_seen'] == Ingo::FILTER_UNSEEN) {
             $ob->flag('\\seen', $this->_params['filter_seen'] == Ingo::FILTER_SEEN);
         }
 

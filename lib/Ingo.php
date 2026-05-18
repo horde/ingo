@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -113,8 +113,8 @@ class Ingo
         global $registry;
 
         $config = $registry->loadConfigFile('backends.php', 'backends', 'ingo');
-        if (empty($config->config['backends']) ||
-            !is_array($config->config['backends'])) {
+        if (empty($config->config['backends'])
+            || !is_array($config->config['backends'])) {
             throw new Ingo_Exception(_("No backends configured in backends.php"));
         }
 

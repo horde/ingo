@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -81,12 +81,12 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
         if (!isset($params['spam_header'])) {
             $params['spam_header'] = $conf['spam']['header'];
         }
-        if (!isset($params['spam_char']) &&
-            ($params['spam_compare'] == 'string')) {
+        if (!isset($params['spam_char'])
+            && ($params['spam_compare'] == 'string')) {
             $params['spam_char'] = $conf['spam']['char'];
         }
-        if (!isset($params['spam_value']) &&
-            ($params['spam_compare'] == 'boolean')) {
+        if (!isset($params['spam_value'])
+            && ($params['spam_compare'] == 'boolean')) {
             $params['spam_value'] = $conf['spam']['value'];
         }
 

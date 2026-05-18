@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2015-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2015-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -228,8 +228,8 @@ class Ingo_Rule_System_Vacation extends Ingo_Rule_Addresses implements Ingo_Rule
             '%NAME%' => $identity->getName(),
             '%EMAIL%' => $identity->getDefaultFromAddress(),
             '%SIGNATURE%' => $identity->getValue('signature'),
-            '%STARTDATE%' => $start ? \Horde\Date\Format::formatDate($start, $format, $GLOBALS['language'] ?? 'en_US') : '',
-            '%ENDDATE%' => $end ? \Horde\Date\Format::formatDate($end, $format, $GLOBALS['language'] ?? 'en_US') : '',
+            '%STARTDATE%' => $start ? Horde\Date\Format::formatDate($start, $format, $GLOBALS['language'] ?? 'en_US') : '',
+            '%ENDDATE%' => $end ? Horde\Date\Format::formatDate($end, $format, $GLOBALS['language'] ?? 'en_US') : '',
         ];
 
         return str_replace(

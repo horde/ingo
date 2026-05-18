@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -136,9 +136,9 @@ abstract class Ingo_Basic_Base
         $actionID = $this->vars->actionID;
 
         /* Run through the action handlers */
-        if (!empty($actions) &&
-            strlen($actionID) &&
-            in_array($actionID, $actions)) {
+        if (!empty($actions)
+            && strlen($actionID)
+            && in_array($actionID, $actions)) {
             try {
                 $session->checkToken($this->vars->get(self::INGO_TOKEN));
             } catch (Horde_Exception $e) {

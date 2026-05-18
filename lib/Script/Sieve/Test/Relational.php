@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -47,9 +47,9 @@ class Ingo_Script_Sieve_Test_Relational extends Ingo_Script_Sieve_Test
      */
     public function generate()
     {
-        $code = 'header :value "' .
-            $this->_vars['comparison'] . '" ' .
-            ':comparator "i;ascii-numeric" ';
+        $code = 'header :value "'
+            . $this->_vars['comparison'] . '" '
+            . ':comparator "i;ascii-numeric" ';
 
         $headers = preg_split('(\r\n|\n|\r)', $this->_vars['headers']);
         $header_count = count($headers);
@@ -59,8 +59,8 @@ class Ingo_Script_Sieve_Test_Relational extends Ingo_Script_Sieve_Test
             $headerstr = '';
 
             foreach ($headers as $val) {
-                $headerstr .= (empty($headerstr) ? '"' : ', "') .
-                    Ingo_Script_Sieve::escapeString($val) . '"';
+                $headerstr .= (empty($headerstr) ? '"' : ', "')
+                    . Ingo_Script_Sieve::escapeString($val) . '"';
             }
 
             $code .= $headerstr . '] ';

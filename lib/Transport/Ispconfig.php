@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -154,16 +154,16 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
         }
 
         $user = $users[0];
-        $this->_details['vacation'] =
-            ($user['autoresponder'] === 'y') ? 'Y' : 'N';
+        $this->_details['vacation']
+            = ($user['autoresponder'] === 'y') ? 'Y' : 'N';
         $this->_details['message'] = $user['autoresponder_text'];
         $this->_details['mailuser_id'] = $user['mailuser_id'];
         // 0 == admin
         $this->_details['client_id'] = 0;
-        $this->_details['autoresponder_start_date'] =
-            $user['autoresponder_start_date'];
-        $this->_details['autoresponder_end_date'] =
-            $user['autoresponder_end_date'];
+        $this->_details['autoresponder_start_date']
+            = $user['autoresponder_start_date'];
+        $this->_details['autoresponder_end_date']
+            = $user['autoresponder_end_date'];
         return $this->_details;
     }
 
@@ -176,8 +176,8 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
      */
     protected function _checkConfig()
     {
-        if (empty($this->_params['soap_uri']) ||
-            empty($this->_params['soap_user'])) {
+        if (empty($this->_params['soap_uri'])
+            || empty($this->_params['soap_user'])) {
             throw new Ingo_Exception('The Ingo Ispconfig transport is not properly configured, edit your ingo/config/backends.local.php.');
         }
     }

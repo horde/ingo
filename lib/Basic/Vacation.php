@@ -1,7 +1,9 @@
 <?php
 
+use Horde\Util\Util;
+
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -124,7 +126,7 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
         $this->title = _("Vacation Edit");
 
         Horde::startBuffer();
-        Horde_Util::pformInput();
+        Util::pformInput();
         $form->renderActive(
             new Horde_Form_Renderer([
                 'encode_title' => false,

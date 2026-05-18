@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2013-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -58,8 +58,8 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
                         break;
                 }
 
-                if (!$flagonly &&
-                    ($folder == Ingo_Rule_System_Blacklist::DELETE_MARKER)) {
+                if (!$flagonly
+                    && ($folder == Ingo_Rule_System_Blacklist::DELETE_MARKER)) {
                     $notification->push("Not supported by this script generator.", 'horde.error');
                 } else {
                     try {

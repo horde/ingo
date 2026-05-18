@@ -1,11 +1,11 @@
 <?php
 
-$o = $this->optionTag('', _("Select target folder:")) .
-     $this->optionTag(null, '- - - - - - - - - -', false, ['disabled' => true]);
+$o = $this->optionTag('', _("Select target folder:"))
+     . $this->optionTag(null, '- - - - - - - - - -', false, ['disabled' => true]);
 
 if ($this->create) {
-    $o .= $this->optionTag('', _("Create new folder"), false, ['class' => 'flistCreate']) .
-          $this->optionTag(null, '- - - - - - - - - -', false, ['disabled' => true]);
+    $o .= $this->optionTag('', _("Create new folder"), false, ['class' => 'flistCreate'])
+          . $this->optionTag(null, '- - - - - - - - - -', false, ['disabled' => true]);
 }
 
 foreach ($this->mboxes as $v) {

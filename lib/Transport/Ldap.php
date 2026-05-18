@@ -1,7 +1,9 @@
 <?php
 
+use Horde\Util\Util;
+
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -32,7 +34,7 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
      */
     public function __construct(array $params = [])
     {
-        if (!Horde_Util::extensionExists('ldap')) {
+        if (!Util::extensionExists('ldap')) {
             throw new Ingo_Exception(_("LDAP support is required but the LDAP module is not available or not loaded."));
         }
 
@@ -102,8 +104,8 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
         }
 
         /* Start TLS if we're using it. */
-        if (!empty($this->_params['tls']) &&
-            !@ldap_start_tls($ldapcn)) {
+        if (!empty($this->_params['tls'])
+            && !@ldap_start_tls($ldapcn)) {
             throw new Ingo_Exception(sprintf(
                 _("STARTTLS failed: (%s) %s"),
                 ldap_errno($ldapcn),
@@ -205,8 +207,8 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
 
         /* Attribute can be in any case, and can have a ";binary"
          * specifier. */
-        $regexp = '/^' . preg_quote($this->_params['script_attribute'], '/') .
-                  '(?:;.*)?$/i';
+        $regexp = '/^' . preg_quote($this->_params['script_attribute'], '/')
+                  . '(?:;.*)?$/i';
         unset($attrs['count']);
         foreach ($attrs as $name => $values) {
             if (preg_match($regexp, $name)) {

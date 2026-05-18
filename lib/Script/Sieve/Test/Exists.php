@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -63,8 +63,8 @@ class Ingo_Script_Sieve_Test_Exists extends Ingo_Script_Sieve_Test
             $code .= "[";
             $headerstr = '';
             foreach ($headers as $header) {
-                $headerstr .= (empty($headerstr) ? '"' : ', "') .
-                    Ingo_Script_Sieve::escapeString($header) . '"';
+                $headerstr .= (empty($headerstr) ? '"' : ', "')
+                    . Ingo_Script_Sieve::escapeString($header) . '"';
             }
             $code .= $headerstr . "] ";
         } elseif (count($headers) == 1) {

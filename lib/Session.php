@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2014-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -132,13 +132,13 @@ class Ingo_Session
             } elseif (!empty($val['preferred'])) {
                 if (is_array($val['preferred'])) {
                     foreach ($val['preferred'] as $v) {
-                        if (($v == $_SERVER['SERVER_NAME']) ||
-                            ($v == $_SERVER['HTTP_HOST'])) {
+                        if (($v == $_SERVER['SERVER_NAME'])
+                            || ($v == $_SERVER['HTTP_HOST'])) {
                             $backend = $val;
                         }
                     }
-                } elseif (($val['preferred'] == $_SERVER['SERVER_NAME']) ||
-                          ($val['preferred'] == $_SERVER['HTTP_HOST'])) {
+                } elseif (($val['preferred'] == $_SERVER['SERVER_NAME'])
+                          || ($val['preferred'] == $_SERVER['HTTP_HOST'])) {
                     $backend = $val;
                 }
             }

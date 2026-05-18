@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
+ * Copyright 2005-2026 Matt Weyland <mathias@weyland.ch>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
+ * Copyright 2005-2026 Matt Weyland <mathias@weyland.ch>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -115,8 +115,8 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
         );
 
         /* Add variable information, if present. */
-        if (!empty($this->_params['variables']) &&
-            is_array($this->_params['variables'])) {
+        if (!empty($this->_params['variables'])
+            && is_array($this->_params['variables'])) {
             foreach ($this->_params['variables'] as $key => $val) {
                 $this->_addItem(
                     Ingo::RULE_ALL,

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -66,10 +66,10 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
             $v->setHelp('vacation-reason');
         }
 
-        if ($this->hasFeature('addresses') ||
-            $this->hasFeature('excludes') ||
-            $this->hasFeature('ignorelist') ||
-            $this->hasFeature('days')) {
+        if ($this->hasFeature('addresses')
+            || $this->hasFeature('excludes')
+            || $this->hasFeature('ignorelist')
+            || $this->hasFeature('days')) {
             $this->setSection('advanced', _("Advanced Settings"));
             if ($this->hasFeature('addresses')) {
                 $v = $this->addVariable(_("My email addresses:"), 'addresses', 'ingo:Longemail', true, false, null, [5, 40]);

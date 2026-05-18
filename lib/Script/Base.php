@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -128,14 +128,14 @@ abstract class Ingo_Script_Base
         $this->setParams($params);
 
         /* Determine if ingo should handle the blacklist. */
-        if ((($key = array_search('Ingo_Rule_System_Blacklist', $this->_categories)) !== false) &&
-            ($registry->hasMethod('mail/blacklistFrom') != 'ingo')) {
+        if ((($key = array_search('Ingo_Rule_System_Blacklist', $this->_categories)) !== false)
+            && ($registry->hasMethod('mail/blacklistFrom') != 'ingo')) {
             unset($this->_categories[$key]);
         }
 
         /* Determine if ingo should handle the whitelist. */
-        if ((($key = array_search('Ingo_Rule_System_Whitelist', $this->_categories)) !== false) &&
-            ($registry->hasMethod('mail/whitelistFrom') != 'ingo')) {
+        if ((($key = array_search('Ingo_Rule_System_Whitelist', $this->_categories)) !== false)
+            && ($registry->hasMethod('mail/whitelistFrom') != 'ingo')) {
             unset($this->_categories[$key]);
         }
     }
@@ -392,8 +392,8 @@ abstract class Ingo_Script_Base
     {
         global $injector, $prefs;
 
-        if (!$this->hasFeature('script_file') ||
-            ($auto_update && !$prefs->getValue('auto_update'))) {
+        if (!$this->hasFeature('script_file')
+            || ($auto_update && !$prefs->getValue('auto_update'))) {
             return;
         }
 
