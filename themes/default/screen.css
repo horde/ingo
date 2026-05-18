@@ -20,6 +20,13 @@
 .filtersEdit {
     width: 50px;
 }
+/* Horde core delete.png is 48x48 (Hi-DPI); layout expects 20x20 icons. */
+.filtersEdit img,
+.ruleMatchRowDelete img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
 .filtersEnable {
     padding-left: 12px;
 }
