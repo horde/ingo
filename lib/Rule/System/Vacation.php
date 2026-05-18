@@ -228,8 +228,8 @@ class Ingo_Rule_System_Vacation extends Ingo_Rule_Addresses implements Ingo_Rule
             '%NAME%' => $identity->getName(),
             '%EMAIL%' => $identity->getDefaultFromAddress(),
             '%SIGNATURE%' => $identity->getValue('signature'),
-            '%STARTDATE%' => $start ? strftime($format, $start) : '',
-            '%ENDDATE%' => $end ? strftime($format, $end) : '',
+            '%STARTDATE%' => $start ? \Horde\Date\Format::formatDate($start, $format, $GLOBALS['language'] ?? 'en_US') : '',
+            '%ENDDATE%' => $end ? \Horde\Date\Format::formatDate($end, $format, $GLOBALS['language'] ?? 'en_US') : '',
         ];
 
         return str_replace(
