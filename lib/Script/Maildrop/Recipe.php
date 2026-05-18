@@ -125,14 +125,8 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
                         'value' => '! /^From:.*(' . $exclude . ')/']);
                 }
 
-                $start = strftime($params['action-value']['start']);
-                if ($start === false) {
-                    $start = 0;
-                }
-                $end = strftime($params['action-value']['end']);
-                if ($end === false) {
-                    $end = 0;
-                }
+                $start = (int)$params['action-value']['start'];
+                $end = (int)$params['action-value']['end'];
 
                 // Rule : Do not send responses to bulk or list messages
                 if ($params['action-value']['ignorelist'] == 1) {
