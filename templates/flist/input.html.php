@@ -1,1 +1,3 @@
-<?php echo $this->textFieldTag($this->tagname, $this->escape($this->val), ['size' => 40]);
+<?php
+
+echo $this->textFieldTag($this->tagname, $this->escape($this->val), ['size' => 40]);

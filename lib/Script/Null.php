@@ -168,7 +168,7 @@ class Ingo_Script_Null extends Ingo_Script_Base
         // Load filters using iterator
         $filters = Ingo_Storage_FilterIterator_Skip::create(
             $this->_params['storage'],
-            isset($this->_params['skip']) ? $this->_params['skip'] : []
+            $this->_params['skip'] ?? []
         );
 
         $ruleCount = 0;
@@ -299,8 +299,8 @@ class Ingo_Script_Null extends Ingo_Script_Base
         $output[] = 'VACATION AUTO-REPLY:';
 
         if (!empty($rule->start) && !empty($rule->end)) {
-            $output[] = '  Period: ' . date('Y-m-d', $rule->start) .
-                       ' to ' . date('Y-m-d', $rule->end);
+            $output[] = '  Period: ' . date('Y-m-d', $rule->start)
+                       . ' to ' . date('Y-m-d', $rule->end);
         }
 
         if (!empty($rule->subject)) {
@@ -432,9 +432,9 @@ class Ingo_Script_Null extends Ingo_Script_Base
      */
     protected function _formatCondition($condition)
     {
-        $field = isset($condition['field']) ? $condition['field'] : 'Unknown';
-        $match = isset($condition['match']) ? $condition['match'] : 'is';
-        $value = isset($condition['value']) ? $condition['value'] : '';
+        $field = $condition['field'] ?? 'Unknown';
+        $match = $condition['match'] ?? 'is';
+        $value = $condition['value'] ?? '';
 
         return $field . ' ' . $match . ' "' . $value . '"';
     }

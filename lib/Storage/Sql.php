@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -222,8 +222,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
                     $columns = $this->_params['db']->columns($this->_params['table_rules']);
                     $ob->combine = intval($row['rule_combine']);
                     $ob->conditions = empty($row['rule_conditions'])
-                        ? null :
-                        Horde_String::convertCharset(
+                        ? null
+                        : Horde_String::convertCharset(
                             unserialize(
                                 $columns['rule_conditions']->binaryToString(
                                     $row['rule_conditions']
@@ -301,10 +301,10 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 }
 
                 $query = sprintf(
-                    'INSERT INTO %s (rule_owner, rule_name, rule_action, ' .
-                    'rule_value, rule_flags, rule_conditions, rule_combine, ' .
-                    'rule_stop, rule_active, rule_order) ' .
-                    'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    'INSERT INTO %s (rule_owner, rule_name, rule_action, '
+                    . 'rule_value, rule_flags, rule_conditions, rule_combine, '
+                    . 'rule_stop, rule_active, rule_order) '
+                    . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                     $this->_params['table_rules']
                 );
 
@@ -347,10 +347,10 @@ class Ingo_Storage_Sql extends Ingo_Storage
 
             case self::STORE_UPDATE:
                 $query = sprintf(
-                    'UPDATE %s SET rule_name = ?, rule_action = ?, ' .
-                    'rule_value = ?, rule_flags = ?, rule_conditions = ?, ' .
-                    'rule_combine = ?, rule_stop = ?, rule_active = ? ' .
-                    'WHERE rule_id = ? AND rule_owner = ?',
+                    'UPDATE %s SET rule_name = ?, rule_action = ?, '
+                    . 'rule_value = ?, rule_flags = ?, rule_conditions = ?, '
+                    . 'rule_combine = ?, rule_stop = ?, rule_active = ? '
+                    . 'WHERE rule_id = ? AND rule_owner = ?',
                     $this->_params['table_rules']
                 );
 
@@ -405,8 +405,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
                     case 'Ingo_Rule_System_Blacklist':
                     case 'Ingo_Rule_System_Whitelist':
                         $query = sprintf(
-                            'DELETE FROM %s WHERE list_owner = ? AND ' .
-                            'list_blacklist = ?',
+                            'DELETE FROM %s WHERE list_owner = ? AND '
+                            . 'list_blacklist = ?',
                             $this->_params['table_lists']
                         );
                         $values = [
@@ -422,8 +422,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
                         }
 
                         $query = sprintf(
-                            'INSERT INTO %s (list_owner, list_blacklist, ' .
-                            'list_address) VALUES (?, ?, ?)',
+                            'INSERT INTO %s (list_owner, list_blacklist, '
+                            . 'list_address) VALUES (?, ?, ?)',
                             $this->_params['table_lists']
                         );
 
@@ -455,15 +455,15 @@ class Ingo_Storage_Sql extends Ingo_Storage
                         try {
                             if ($action === self::STORE_ADD) {
                                 $query = sprintf(
-                                    'INSERT INTO %s (forward_addresses, ' .
-                                    'forward_keep, forward_owner) VALUES (?, ?, ?)',
+                                    'INSERT INTO %s (forward_addresses, '
+                                    . 'forward_keep, forward_owner) VALUES (?, ?, ?)',
                                     $this->_params['table_forwards']
                                 );
                                 $this->_params['db']->insert($query, $values);
                             } else {
                                 $query = sprintf(
-                                    'UPDATE %s SET forward_addresses = ?, ' .
-                                    'forward_keep = ? WHERE forward_owner = ?',
+                                    'UPDATE %s SET forward_addresses = ?, '
+                                    . 'forward_keep = ? WHERE forward_owner = ?',
                                     $this->_params['table_forwards']
                                 );
                                 $this->_params['db']->update($query, $values);
@@ -483,16 +483,16 @@ class Ingo_Storage_Sql extends Ingo_Storage
                         try {
                             if ($action === self::STORE_ADD) {
                                 $query = sprintf(
-                                    'INSERT INTO %s (spam_level, spam_folder, ' .
-                                    'spam_owner) VALUES (?, ?, ?)',
+                                    'INSERT INTO %s (spam_level, spam_folder, '
+                                    . 'spam_owner) VALUES (?, ?, ?)',
                                     $this->_params['table_spam']
                                 );
                                 $this->_params['db']->insert($query, $values);
 
                             } else {
                                 $query = sprintf(
-                                    'UPDATE %s SET spam_level = ?, ' .
-                                    'spam_folder = ? WHERE spam_owner = ?',
+                                    'UPDATE %s SET spam_level = ?, '
+                                    . 'spam_folder = ? WHERE spam_owner = ?',
                                     $this->_params['table_spam']
                                 );
                                 $this->_params['db']->update($query, $values);
@@ -526,23 +526,23 @@ class Ingo_Storage_Sql extends Ingo_Storage
                         try {
                             if ($action === self::STORE_ADD) {
                                 $query = sprintf(
-                                    'INSERT INTO %s (vacation_addresses, ' .
-                                    'vacation_subject, vacation_reason, ' .
-                                    'vacation_days, vacation_start, vacation_end, ' .
-                                    'vacation_excludes, vacation_ignorelists, ' .
-                                    'vacation_owner) VALUES ' .
-                                    '(?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                    'INSERT INTO %s (vacation_addresses, '
+                                    . 'vacation_subject, vacation_reason, '
+                                    . 'vacation_days, vacation_start, vacation_end, '
+                                    . 'vacation_excludes, vacation_ignorelists, '
+                                    . 'vacation_owner) VALUES '
+                                    . '(?, ?, ?, ?, ?, ?, ?, ?, ?)',
                                     $this->_params['table_vacations']
                                 );
                                 $this->_params['db']->insert($query, $values);
                             } else {
                                 $query = sprintf(
-                                    'UPDATE %s SET vacation_addresses = ?, ' .
-                                    'vacation_subject = ?, vacation_reason = ?, ' .
-                                    'vacation_days = ?, vacation_start = ?, ' .
-                                    'vacation_end = ?, vacation_excludes = ?, ' .
-                                    'vacation_ignorelists = ? WHERE ' .
-                                    'vacation_owner = ?',
+                                    'UPDATE %s SET vacation_addresses = ?, '
+                                    . 'vacation_subject = ?, vacation_reason = ?, '
+                                    . 'vacation_days = ?, vacation_start = ?, '
+                                    . 'vacation_end = ?, vacation_excludes = ?, '
+                                    . 'vacation_ignorelists = ? WHERE '
+                                    . 'vacation_owner = ?',
                                     $this->_params['table_vacations']
                                 );
                                 $this->_params['db']->update($query, $values);

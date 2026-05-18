@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -56,8 +56,8 @@ class Ingo_Script_Sieve_Test_Size extends Ingo_Script_Sieve_Test
      */
     public function check()
     {
-        if (!(isset($this->_vars['comparison']) &&
-              isset($this->_vars['size']))) {
+        if (!(isset($this->_vars['comparison'])
+              && isset($this->_vars['size']))) {
             return false;
         }
 

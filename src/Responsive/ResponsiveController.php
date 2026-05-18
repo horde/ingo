@@ -12,6 +12,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Exception;
+use Horde_Themes_Image;
+use Ingo_Storage_FilterIterator_Match;
 
 /**
  * Responsive Rules Controller
@@ -45,8 +48,7 @@ class ResponsiveController implements RequestHandlerInterface
         private UriFactoryInterface $uriFactory,
         private ResponseFactoryInterface $responseFactory,
         private StreamFactoryInterface $streamFactory
-    ) {
-    }
+    ) {}
 
     /**
      * Get application name for topbar display
@@ -144,7 +146,7 @@ class ResponsiveController implements RequestHandlerInterface
         $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 
         // Get filters matching current script categories
-        $filters = \Ingo_Storage_FilterIterator_Match::create(
+        $filters = Ingo_Storage_FilterIterator_Match::create(
             $storage,
             $session->get('ingo', 'script_categories')
         );
@@ -231,8 +233,8 @@ class ResponsiveController implements RequestHandlerInterface
         if (isset($iconMap[$class])) {
             // Use Horde_Themes_Image to generate proper image tag
             try {
-                return \Horde_Themes_Image::tag($iconMap[$class]);
-            } catch (\Exception $e) {
+                return Horde_Themes_Image::tag($iconMap[$class]);
+            } catch (Exception $e) {
                 // Fallback to empty string (template will use emoji)
                 return '';
             }

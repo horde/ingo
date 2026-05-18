@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -31,7 +31,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
     /**
      * The ManageSieve object.
      *
-     * @var \Horde\ManageSieve\Client
+     * @var ManageSieve
      */
     protected $_sieve;
 

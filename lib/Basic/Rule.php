@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -147,9 +147,9 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             $condition['match'] = $this->vars->match[$key]
                 ?? '';
 
-            if (($actionID == 'rule_save') &&
-                empty($this->vars->value[$key]) &&
-                !in_array($condition['match'], ['exists', 'not exist'])) {
+            if (($actionID == 'rule_save')
+                && empty($this->vars->value[$key])
+                && !in_array($condition['match'], ['exists', 'not exist'])) {
                 $notification->push(
                     sprintf(
                         _("You cannot create empty conditions. Please fill in a value for \"%s\"."),
@@ -188,8 +188,8 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
 
                         default:
                             $rule->value = $this->vars->actionvalue;
-                            if (!$this->vars->actionvalue &&
-                                isset($this->vars->actionvalue_new)) {
+                            if (!$this->vars->actionvalue
+                                && isset($this->vars->actionvalue_new)) {
                                 $page_output->addInlineScript([
                                     'IngoNewFolder.setNewFolder("actionvalue", ' . Horde_Serialize::serialize($this->vars->actionvalue_new, Horde_Serialize::JSON) . ')',
                                 ], true);
@@ -277,10 +277,10 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
                 'lastfield' => ($lastcond == $cond_num),
             ];
 
-            if ($view->userheader &&
-                isset($condition['type']) &&
-                ($condition['type'] == Ingo_Rule_User::TEST_HEADER) &&
-                !isset($ingo_fields[$tmp['field']])) {
+            if ($view->userheader
+                && isset($condition['type'])
+                && ($condition['type'] == Ingo_Rule_User::TEST_HEADER)
+                && !isset($ingo_fields[$tmp['field']])) {
                 $tmp['userheader'] = $tmp['field'];
             }
 
@@ -290,9 +290,9 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             }
 
             /* Create the match listing. */
-            if (!isset($condition['field']) ||
-                ($condition['field'] == Ingo::USER_HEADER) ||
-                !isset($ingo_fields[$condition['field']]['tests'])) {
+            if (!isset($condition['field'])
+                || ($condition['field'] == Ingo::USER_HEADER)
+                || !isset($ingo_fields[$condition['field']]['tests'])) {
                 $avail_tests = $ingo_script->availableTests();
             } else {
                 $avail_tests = $ingo_fields[$condition['field']]['tests'];
@@ -358,8 +358,8 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
                 break;
         }
 
-        $view->flags = (($rule->flags && Ingo_Rule_User::FLAG_AVAILABLE) &&
-                        $ingo_script->hasFeature('imap_flags'));
+        $view->flags = (($rule->flags && Ingo_Rule_User::FLAG_AVAILABLE)
+                        && $ingo_script->hasFeature('imap_flags'));
         $view->stop = $ingo_script->hasFeature('stop_script');
 
         $page_output->addScriptFile('rule.js');

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
+ * Copyright 2005-2026 Matt Weyland <mathias@weyland.ch>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -125,8 +125,8 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
                         'value' => '! /^From:.*(' . $exclude . ')/']);
                 }
 
-                $start = (int)$params['action-value']['start'];
-                $end = (int)$params['action-value']['end'];
+                $start = (int) $params['action-value']['start'];
+                $end = (int) $params['action-value']['end'];
 
                 // Rule : Do not send responses to bulk or list messages
                 if ($params['action-value']['ignorelist'] == 1) {
@@ -202,8 +202,8 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
 
         $this->_action[] = '}';
 
-        if (isset($params['combine']) &&
-            ($params['combine'] == Ingo_Rule_User::COMBINE_ALL)) {
+        if (isset($params['combine'])
+            && ($params['combine'] == Ingo_Rule_User::COMBINE_ALL)) {
             $this->_combine = '&& ';
         } else {
             $this->_combine = '|| ';
@@ -365,8 +365,8 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
                 if (empty($folder) || ($folder == 'INBOX')) {
                     return '"${DEFAULT}"';
                 }
-                if ($this->_params['strip_inbox'] &&
-                    substr($folder, 0, 6) == 'INBOX.') {
+                if ($this->_params['strip_inbox']
+                    && substr($folder, 0, 6) == 'INBOX.') {
                     $folder = substr($folder, 6);
                 }
                 $mbox = new Horde_Imap_Client_Mailbox($folder);

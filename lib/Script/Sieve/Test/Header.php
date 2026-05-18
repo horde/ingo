@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -51,8 +51,8 @@ class Ingo_Script_Sieve_Test_Header extends Ingo_Script_Sieve_Test
      */
     public function check()
     {
-        return preg_split('((?<!\\\)\,|\r\n|\n|\r)', $this->_vars['headers']) &&
-               preg_split('((?<!\\\)\,|\r\n|\n|\r)', $this->_vars['strings']);
+        return preg_split('((?<!\\\)\,|\r\n|\n|\r)', $this->_vars['headers'])
+               && preg_split('((?<!\\\)\,|\r\n|\n|\r)', $this->_vars['strings']);
     }
 
     /**
@@ -62,9 +62,9 @@ class Ingo_Script_Sieve_Test_Header extends Ingo_Script_Sieve_Test
      */
     public function generate()
     {
-        $code = 'header ' .
-            ':comparator "' . $this->_vars['comparator'] . '" ' .
-            $this->_vars['match-type'] . ' ';
+        $code = 'header '
+            . ':comparator "' . $this->_vars['comparator'] . '" '
+            . $this->_vars['match-type'] . ' ';
 
         $headers = preg_split('(\r\n|\n|\r)', $this->_vars['headers']);
         $headers = array_filter($headers);

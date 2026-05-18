@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -80,8 +80,8 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                             self::url()->redirect();
                         }
 
-                        if (($tmp = $ingo_storage->getRuleByUid($this->vars->uid)) &&
-                            $ingo_storage->deleteRule($tmp)) {
+                        if (($tmp = $ingo_storage->getRuleByUid($this->vars->uid))
+                            && $ingo_storage->deleteRule($tmp)) {
                             $notification->push(
                                 sprintf(_("Rule \"%s\" deleted."), $tmp->name),
                                 'horde.success'
@@ -109,8 +109,8 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                                 break 2;
                         }
 
-                        if (($tmp = $ingo_storage->getRuleByUid($this->vars->uid)) &&
-                            $ingo_storage->copyRule($tmp)) {
+                        if (($tmp = $ingo_storage->getRuleByUid($this->vars->uid))
+                            && $ingo_storage->copyRule($tmp)) {
                             $notification->push(
                                 sprintf(_("Rule \"%s\" copied."), $tmp->name),
                                 'horde.success'

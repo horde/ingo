@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -55,11 +55,11 @@ class Ingo_Script_Sieve_Action_Notify extends Ingo_Script_Sieve_Action
         $addr = Ingo_Script_Sieve::escapeString($this->_vars['address']);
 
         if ($this->_vars['notify']) {
-            return 'notify :method "mailto" :options "' . $addr .
-                '" :message "' . _("You have received a new message") . "\n" .
-                    _("From:") . " \$from\$ \n" .
-                    _("Subject:") . " \$subject\$ \n" .
-                    _("Rule:") . ' ' . $this->_vars['name'] . '";';
+            return 'notify :method "mailto" :options "' . $addr
+                . '" :message "' . _("You have received a new message") . "\n"
+                    . _("From:") . " \$from\$ \n"
+                    . _("Subject:") . " \$subject\$ \n"
+                    . _("Rule:") . ' ' . $this->_vars['name'] . '";';
         }
 
         // RFC 5436 defines mailto: behavior. Use the default

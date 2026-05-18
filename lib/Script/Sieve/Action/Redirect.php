@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2012-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -39,8 +39,8 @@ class Ingo_Script_Sieve_Action_Redirect extends Ingo_Script_Sieve_Action
      */
     public function generate($depth = 0)
     {
-        return str_repeat(' ', $depth * 4) . 'redirect ' .
-            '"' . Ingo_Script_Sieve::escapeString($this->_vars['address']) . '";';
+        return str_repeat(' ', $depth * 4) . 'redirect '
+            . '"' . Ingo_Script_Sieve::escapeString($this->_vars['address']) . '";';
     }
 
     /**

@@ -253,8 +253,8 @@ class ScriptTester_sieve extends ScriptTester
     public function assertMovesMessage($fixture, $to_folder)
     {
         $this->_run();
-        $this->_assertOutput("FILEINTO on msg uid " . $this->uids[$fixture] .
-                             ": delivering into " . $to_folder);
+        $this->_assertOutput("FILEINTO on msg uid " . $this->uids[$fixture]
+                             . ": delivering into " . $to_folder);
     }
 
     public function _assertOutput($want)
@@ -325,8 +325,8 @@ class ScriptTester_sieve extends ScriptTester
     public function _runSieve()
     {
         $this->output = '';
-        $ph = popen("sieve -vv -n -f " . escapeshellarg($this->mbox) . " " .
-                    escapeshellarg($this->sieve) . ' 2>&1', 'r');
+        $ph = popen("sieve -vv -n -f " . escapeshellarg($this->mbox) . " "
+                    . escapeshellarg($this->sieve) . ' 2>&1', 'r');
         while (!feof($ph)) {
             $data = fread($ph, 512);
             if (is_string($data)) {

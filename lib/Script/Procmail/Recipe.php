@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -160,15 +160,15 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                     $this->_action[] = '    DATE=`' . $this->_params['date']
                         . ' +%s`';
                     if ($days) {
-                        $this->_action[] =
-                            '    FILEDATE=`test -f ${VACATION_DIR:-.}/\'.vacation.'
+                        $this->_action[]
+                            = '    FILEDATE=`test -f ${VACATION_DIR:-.}/\'.vacation.'
                             . $address . '\' && '
                             . $this->_params['ls']
                             . ' -lcn --time-style=+%s ${VACATION_DIR:-.}/\'.vacation.'
                             . $address . '\' | '
                             . 'awk \'{ print $6 + (' . $days * 86400 . ') }\'`';
-                        $this->_action[] =
-                            '    DUMMY=`test -f ${VACATION_DIR:-.}/\'.vacation.'
+                        $this->_action[]
+                            = '    DUMMY=`test -f ${VACATION_DIR:-.}/\'.vacation.'
                             . $address . '\' && '
                             . 'test $FILEDATE -le $DATE && '
                             . 'rm ${VACATION_DIR:-.}/\'.vacation.' . $address . '\'`';
@@ -185,16 +185,16 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                     $this->_action[] = '    :0 h';
                     $this->_action[] = '    SUBJECT=| formail -xSubject:';
                     $this->_action[] = '';
-                    $this->_action[] =
-                        '    :0 Wc: ${VACATION_DIR:-.}/vacation.lock';
-                    if (!empty($params['action-value']['start']) ||
-                        !empty($params['action-value']['end'])) {
+                    $this->_action[]
+                        = '    :0 Wc: ${VACATION_DIR:-.}/vacation.lock';
+                    if (!empty($params['action-value']['start'])
+                        || !empty($params['action-value']['end'])) {
                         $test = '    * ?';
                         if (!empty($params['action-value']['start'])) {
                             $test .= ' test $DATE -gt $START';
                         }
-                        if (!empty($params['action-value']['start']) &&
-                            !empty($params['action-value']['end'])) {
+                        if (!empty($params['action-value']['start'])
+                            && !empty($params['action-value']['end'])) {
                             $test .= ' &&';
                         }
                         if (!empty($params['action-value']['end'])) {
@@ -217,8 +217,8 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                     if ($params['action-value']['ignorelist']) {
                         $this->_action[] = '      * !^FROM_DAEMON';
                     }
-                    $this->_action[] =
-                        '      | formail -rD 8192 ${VACATION_DIR:-.}/.vacation.'
+                    $this->_action[]
+                        = '      | formail -rD 8192 ${VACATION_DIR:-.}/.vacation.'
                         . $address;
                     $this->_action[] = '      :0 eh';
                     $this->_action[] = '      | (formail -rI"Precedence: junk" \\';
@@ -235,10 +235,10 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                                 $params['action-value']['subject'] . ' (Re: $SUBJECT)'
                             )
                             . '" \\';
-                        $this->_action[] =
-                            '       -i"Content-Transfer-Encoding: quoted-printable" \\';
-                        $this->_action[] =
-                            '       -i"Content-Type: text/plain; charset=UTF-8" ; \\';
+                        $this->_action[]
+                            = '       -i"Content-Transfer-Encoding: quoted-printable" \\';
+                        $this->_action[]
+                            = '       -i"Content-Type: text/plain; charset=UTF-8" ; \\';
                         $reason = Horde_Mime_QuotedPrintable::encode($reason);
                     } else {
                         $this->_action[] = '       -i"Subject: '

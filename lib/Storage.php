@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2002-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -124,8 +124,8 @@ abstract class Ingo_Storage implements Countable, IteratorAggregate
         $this->_load();
 
         foreach ($this->_rules as $val) {
-            if (($val instanceof $rule) &&
-                ($val instanceof Ingo_Rule_System)) {
+            if (($val instanceof $rule)
+                && ($val instanceof Ingo_Rule_System)) {
                 return $val;
             }
         }
@@ -220,8 +220,8 @@ abstract class Ingo_Storage implements Countable, IteratorAggregate
      */
     public function deleteRule(Ingo_Rule $rule)
     {
-        if (!($rule instanceof Ingo_Rule_System) &&
-            (($key = $this->_getRule($rule)) !== null)) {
+        if (!($rule instanceof Ingo_Rule_System)
+            && (($key = $this->_getRule($rule)) !== null)) {
             unset($this->_rules[$key]);
             $this->_store(self::STORE_DELETE, $rule);
             return true;
@@ -241,8 +241,8 @@ abstract class Ingo_Storage implements Countable, IteratorAggregate
      */
     public function copyRule(Ingo_Rule $rule)
     {
-        if (($rule instanceof Ingo_Rule_System) ||
-            (($key = $this->_getRule($rule)) === null)) {
+        if (($rule instanceof Ingo_Rule_System)
+            || (($key = $this->_getRule($rule)) === null)) {
             return false;
         }
 
@@ -367,8 +367,8 @@ abstract class Ingo_Storage implements Countable, IteratorAggregate
                 if ($val->uid == $rule->uid) {
                     return $key;
                 }
-            } elseif (($rule instanceof Ingo_Rule_System) &&
-                      ($rule instanceof $val)) {
+            } elseif (($rule instanceof Ingo_Rule_System)
+                      && ($rule instanceof $val)) {
                 $rule->uid = $val->uid;
                 return $key;
             }

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Copyright 2003-2017 Horde LLC (http://www.horde.org/)
- * Copyright 2004-2007 Liam Hoekenga <liamr@umich.edu>
+ * Copyright 2003-2026 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2026 Liam Hoekenga <liamr@umich.edu>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -97,8 +97,8 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
         $command = '';
         $error_return = null;
 
-        if (Horde_String::lower($this->_params['logintype']) == 'gssapi' &&
-            isset($_SERVER['KRB5CCNAME'])) {
+        if (Horde_String::lower($this->_params['logintype']) == 'gssapi'
+            && isset($_SERVER['KRB5CCNAME'])) {
             $command .= 'KRB5CCNAME=' . $_SERVER['KRB5CCNAME'] . ' ';
         }
 
@@ -128,7 +128,7 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
                 }
             }
             try {
-                $socket = new \Horde\Socket\Client($domain_socket, 0, 30);
+                $socket = new Horde\Socket\Client($domain_socket, 0, 30);
             } catch (Horde_Exception $error_return) {
                 break;
             }

@@ -1,7 +1,9 @@
 <?php
 
+use Horde\Util\Util;
+
 /**
- * Copyright 2010-2017 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2026 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -81,17 +83,17 @@ class Ingo_Application extends Horde_Registry_Application
 
         if ($sig = $session->get('ingo', 'personal_share')) {
             $curr_share = $session->get('ingo', 'current_share');
-            $ruleset = Horde_Util::getFormData('ruleset');
+            $ruleset = Util::getFormData('ruleset');
 
             /* Select current share. */
-            if (is_null($curr_share) ||
-                (!empty($ruleset) && $ruleset != $curr_share)) {
+            if (is_null($curr_share)
+                || (!empty($ruleset) && $ruleset != $curr_share)) {
                 $session->set('ingo', 'current_share', $ruleset);
                 $all_rulesets = $this->_listRulesets();
 
-                if (is_null($curr_share) ||
-                    empty($all_rulesets[$ruleset]) ||
-                    !$all_rulesets[$ruleset]->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
+                if (is_null($curr_share)
+                    || empty($all_rulesets[$ruleset])
+                    || !$all_rulesets[$ruleset]->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
                     $session->set('ingo', 'current_share', $sig);
                 }
             }
@@ -192,9 +194,9 @@ class Ingo_Application extends Horde_Registry_Application
             );
         }
 
-        if ((!$prefs->isLocked('auto_update') ||
-             !$prefs->getValue('auto_update')) &&
-            $injector->getInstance('Ingo_Factory_Script')->hasFeature('script_file')) {
+        if ((!$prefs->isLocked('auto_update')
+             || !$prefs->getValue('auto_update'))
+            && $injector->getInstance('Ingo_Factory_Script')->hasFeature('script_file')) {
             $menu->add(
                 Ingo_Basic_Script::url(),
                 _("_Script"),
@@ -206,8 +208,8 @@ class Ingo_Application extends Horde_Registry_Application
             );
         }
 
-        if (($shares = $injector->getInstance('Ingo_Shares')) &&
-            empty($conf['share']['no_sharing'])) {
+        if (($shares = $injector->getInstance('Ingo_Shares'))
+            && empty($conf['share']['no_sharing'])) {
             if ($shares->getShare($session->get('ingo', 'current_share'))->get('owner') == $registry->getAuth()) {
                 $share = $session->get('ingo', 'current_share');
             } else {
@@ -252,13 +254,13 @@ class Ingo_Application extends Horde_Registry_Application
             $actions = array_merge($actions, $script->availableActions());
         }
 
-        if (!empty($actions) &&
-            !$injector->getInstance('Ingo_Factory_Storage')->create()->maxRules()) {
+        if (!empty($actions)
+            && !$injector->getInstance('Ingo_Factory_Storage')->create()->maxRules()) {
             $sidebar->addNewButton(_("New Rule"), Ingo_Basic_Rule::url());
         }
 
-        if ($injector->getInstance('Ingo_Shares') &&
-            (count($all_rulesets = $this->_listRulesets()) > 1)) {
+        if ($injector->getInstance('Ingo_Shares')
+            && (count($all_rulesets = $this->_listRulesets()) > 1)) {
             $url = Ingo_Basic_Filters::url();
             $current = $session->get('ingo', 'current_share');
 
