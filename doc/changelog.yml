@@ -143,6 +143,38 @@
     [mms] Rule code has been separated from the storage backend drivers.
     [jan] Use Horde\ManageSieve instead of Net_Sieve.
     [mms] Rearrange the default order of filter rules.
+4.0.0-RC1:
+  api: 4.0.0-RC1
+  state:
+    release: RC
+    api: RC
+  date: 2026-05-19
+  license:
+    identifier: Apache-1.0
+    uri: https://spdx.org/licenses/Apache-1.0.html
+  notes: |-
+    refactor(injector): Widen type hints from Horde_Injector to Horde_Injector|Injector
+    chore: update composer.json
+    Set image dimensions for filter edit icons
+    chore: update metadata
+    style: php-cs-fixer
+    fix: Add missing use statement for defaultstack
+    Merge pull request #25 from horde/refactor/modern-controller-migration
+    refactor(strftime): Migrate to native usage of IntlDateFormatter and DateTime
+    refactor: Explicitly declare the default stack as a prestep to removing fallback logic
+    refactor: Explicitly declare the default stack as a prestep to removing fallback logic
+    fix: Add return type 'int' to Ingo_Rule_Addresses::count()
+    Merge pull request #20 from horde6/ingo_fixes
+    chore: Migrate to V3 classes
+    fix: Use Ingo as namespace prefix for classes in src/ folder
+    fix: replace undeclared $header with $title in Basic view subclasses
+    Fix folder retrieval in _renderVarInput_ingo_folders
+    fix: swapped forwarder rule UI for enable and disable
+    docs: create/update conf.php.dist
+    docs: Provide example config
+    refactor: Remove most reliance on prototype.js
+    fix: More defensive code when trying to drop tables
+    fix: Support both modern and old-style Variables
 3.2.17:
   api: 3.2.0
   state:

@@ -52,7 +52,7 @@ class Ingo_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = '4.0.0-alpha10';
+    public $version = '4.0.0-RC1';
 
     /**
      * Cached list of all rulesets.
