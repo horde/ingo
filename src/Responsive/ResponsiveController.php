@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ingo\Responsive;
+namespace Horde\Ingo\Responsive;
 
 use Horde\Core\Controller\ResponsiveControllerTrait;
 use Horde_Registry;
