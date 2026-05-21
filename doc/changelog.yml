@@ -143,6 +143,19 @@
     [mms] Rule code has been separated from the storage backend drivers.
     [jan] Use Horde\ManageSieve instead of Net_Sieve.
     [mms] Rearrange the default order of filter rules.
+4.0.0-RC2:
+  api: 4.0.0-RC2
+  state:
+    release: RC
+    api: RC
+  date: 2026-05-21
+  license:
+    identifier: Apache-1.0
+    uri: https://spdx.org/licenses/Apache-1.0.html
+  notes: |-
+    feat(sieve): add XOAUTH2 authentication support
+    Change namespace from Ingo to Horde\Ingo
+    Change namespace and update controller references
 4.0.0-RC1:
   api: 4.0.0-RC1
   state:
