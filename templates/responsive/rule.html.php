@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="<?php echo $this->escape($url) ?>">
     <?php endforeach ?>
 </head>
-<body>
+<body class="horde-responsive">
     <?php echo $this->topbarHtml ?>
 
     <div class="container">

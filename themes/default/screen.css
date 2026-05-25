@@ -139,3 +139,340 @@
 .ingo-blacklist {
     background-image: url('graphics/blacklist.png');
 }
+
+/* ============================================================================
+   Responsive View (scoped under .horde-responsive)
+   ============================================================================ */
+
+/* App Icon */
+.horde-responsive .topbar-menu-app-ingo::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url('graphics/ingo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+}
+
+/* Page Header */
+.horde-responsive .page-header {
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--border-light);
+}
+
+.horde-responsive .page-header h1 {
+    margin: 0;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+}
+
+.horde-responsive .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--horde-primary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+}
+
+.horde-responsive .back-link:hover {
+    background-color: var(--bg-hover);
+}
+
+.horde-responsive .back-arrow {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+}
+
+/* Rule status badges */
+.horde-responsive .rule-status {
+    display: inline-block;
+    margin-left: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-sm);
+}
+
+.horde-responsive .rule-status-active {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.horde-responsive .rule-status-disabled {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Search Widget */
+.horde-responsive .search-widget {
+    margin-bottom: var(--space-lg);
+}
+
+.horde-responsive .search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.horde-responsive .search-widget input[type="search"] {
+    padding-right: 2.5rem;
+}
+
+.horde-responsive .btn-clear {
+    position: absolute;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 0.25rem 0.5rem;
+    transition: color var(--transition-fast);
+}
+
+.horde-responsive .btn-clear:hover {
+    color: var(--text-primary);
+}
+
+.horde-responsive .btn-clear:focus {
+    outline: 2px solid var(--horde-primary);
+    outline-offset: 2px;
+}
+
+.horde-responsive .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Rules List */
+.horde-responsive .rule-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.horde-responsive .rule-item {
+    border-bottom: 1px solid var(--border-light);
+}
+
+.horde-responsive .rule-item:last-child {
+    border-bottom: none;
+}
+
+.horde-responsive .rule-link {
+    display: flex;
+    align-items: center;
+    padding: var(--space-md);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: background-color var(--transition-fast);
+    gap: var(--space-md);
+}
+
+.horde-responsive .rule-link:hover {
+    background-color: var(--bg-hover);
+}
+
+.horde-responsive .rule-link:focus {
+    outline: 2px solid var(--horde-primary);
+    outline-offset: -2px;
+    background-color: var(--bg-hover);
+}
+
+.horde-responsive .rule-link:active {
+    background-color: var(--bg-accent);
+}
+
+.horde-responsive .rule-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.horde-responsive .rule-icon img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.horde-responsive .rule-icon-default {
+    color: var(--text-secondary);
+}
+
+.horde-responsive .rule-name {
+    flex: 1;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+}
+
+.horde-responsive .rule-chevron {
+    flex-shrink: 0;
+    font-size: var(--font-size-lg);
+    color: var(--text-tertiary);
+    font-weight: var(--font-weight-bold);
+}
+
+.horde-responsive .rule-item[hidden] {
+    display: none;
+}
+
+/* Empty States */
+.horde-responsive .empty-state,
+.horde-responsive .empty-state-filtered {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-md);
+    color: var(--text-secondary);
+}
+
+.horde-responsive .empty-state-icon {
+    font-size: 64px;
+    margin-bottom: var(--space-lg);
+    opacity: 0.5;
+}
+
+.horde-responsive .empty-state h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-primary);
+    margin: 0 0 var(--space-sm) 0;
+}
+
+.horde-responsive .empty-state p,
+.horde-responsive .empty-state-filtered p {
+    font-size: var(--font-size-base);
+    margin: 0;
+    line-height: var(--line-height-relaxed);
+}
+
+.horde-responsive .empty-state-filtered {
+    padding: var(--space-xl) var(--space-md);
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    border: 2px dashed var(--border-medium);
+}
+
+/* Rule Detail Page */
+.horde-responsive .rule-detail {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-lg);
+}
+
+.horde-responsive .rule-section {
+    margin-bottom: var(--space-lg);
+}
+
+.horde-responsive .rule-section:last-child {
+    margin-bottom: 0;
+}
+
+.horde-responsive .rule-section h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-md) 0;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.horde-responsive .rule-description {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-bottom: var(--space-lg);
+}
+
+.horde-responsive .rule-description h2 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-sm) 0;
+}
+
+.horde-responsive .rule-description p {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.horde-responsive .empty-text {
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+.horde-responsive .rule-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
+    margin: 0 0 var(--space-lg) 0;
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--border-light);
+}
+
+.horde-responsive .rule-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: flex-start;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 768px) {
+    .horde-responsive .page-header h1 {
+        font-size: var(--font-size-2xl);
+    }
+
+    .horde-responsive .rule-link {
+        padding: var(--space-lg);
+    }
+
+    .horde-responsive .rule-detail {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .horde-responsive .search-widget {
+        max-width: 500px;
+    }
+
+    .horde-responsive .empty-state,
+    .horde-responsive .empty-state-filtered {
+        padding: var(--space-2xl);
+    }
+}
