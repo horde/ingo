@@ -227,7 +227,8 @@ class Ingo_Storage_Sql extends Ingo_Storage
                             unserialize(
                                 $columns['rule_conditions']->binaryToString(
                                     $row['rule_conditions']
-                                )
+                                ),
+                                ['allowed_classes' => false]
                             ),
                             $this->_params['charset'],
                             'UTF-8'
