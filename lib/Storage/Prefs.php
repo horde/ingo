@@ -29,7 +29,25 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _loadFromBackend()
     {
-        if ($rules = @unserialize($this->_prefs()->getValue('rules'))) {
+        if ($rules = @unserialize($this->_prefs()->getValue('rules'), ['allowed_classes' => [
+            'Ingo_Rule',
+            'Ingo_Rule_Addresses',
+            'Ingo_Rule_System_Blacklist',
+            'Ingo_Rule_System_Forward',
+            'Ingo_Rule_System_Spam',
+            'Ingo_Rule_System_Vacation',
+            'Ingo_Rule_System_Whitelist',
+            'Ingo_Rule_User',
+            'Ingo_Rule_User_Discard',
+            'Ingo_Rule_User_FlagOnly',
+            'Ingo_Rule_User_Keep',
+            'Ingo_Rule_User_Move',
+            'Ingo_Rule_User_MoveKeep',
+            'Ingo_Rule_User_Notify',
+            'Ingo_Rule_User_Redirect',
+            'Ingo_Rule_User_RedirectKeep',
+            'Ingo_Rule_User_Reject',
+        ]])) {
             $this->_rules = $rules;
         }
     }

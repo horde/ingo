@@ -59,7 +59,7 @@ class Ingo_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTas
     {
         global $prefs;
 
-        if (!($old_rules = @unserialize($prefs->getValue('rules')))) {
+        if (!($old_rules = @unserialize($prefs->getValue('rules'), ['allowed_classes' => false]))) {
             $old_rules = [];
         }
 
@@ -85,7 +85,7 @@ class Ingo_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTas
             switch ($val['action']) {
                 case 7: // ACTION_BLACKLIST
                     $ob = new Ingo_Rule_System_Blacklist();
-                    if ($data = @unserialize($prefs->getValue('blacklist'))) {
+                    if ($data = @unserialize($prefs->getValue('blacklist'), ['allowed_classes' => false])) {
                         $ob->addresses = $data['a'];
                         $ob->mailbox = $data['f'];
                     }
@@ -101,7 +101,7 @@ class Ingo_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTas
 
                 case 10: // ACTION_FORWARD
                     $ob = new Ingo_Rule_System_Forward();
-                    if ($data = @unserialize($prefs->getValue('forward'))) {
+                    if ($data = @unserialize($prefs->getValue('forward'), ['allowed_classes' => false])) {
                         $ob->addresses = $data['a'];
                         $ob->keep = !empty($data['k']);
                     }
@@ -137,7 +137,7 @@ class Ingo_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTas
 
                 case 14: // ACTION_SPAM
                     $ob = new Ingo_Rule_System_Spam();
-                    if ($data = @unserialize($prefs->getValue('spam'))) {
+                    if ($data = @unserialize($prefs->getValue('spam'), ['allowed_classes' => false])) {
                         $ob->level = $data['level'];
                         $ob->mailbox = $data['folder'];
                     } else {
@@ -147,7 +147,7 @@ class Ingo_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTas
 
                 case 8: // ACTION_VACATION
                     $ob = new Ingo_Rule_System_Vacation();
-                    if ($data = @unserialize($prefs->getValue('vacation'))) {
+                    if ($data = @unserialize($prefs->getValue('vacation'), ['allowed_classes' => false])) {
                         $ob->addresses = $data['addresses'];
                         $ob->days = $data['days'];
                         $ob->exclude = $data['excludes'];
@@ -167,7 +167,7 @@ class Ingo_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTas
 
                 case 9: // ACTION_WHITELIST
                     $ob = new Ingo_Rule_System_Whitelist();
-                    if ($data = @unserialize($prefs->getValue('whitelist'))) {
+                    if ($data = @unserialize($prefs->getValue('whitelist'), ['allowed_classes' => false])) {
                         $ob->addresses = $data;
                     }
                     break;
