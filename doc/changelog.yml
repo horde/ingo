@@ -143,6 +143,19 @@
     [mms] Rule code has been separated from the storage backend drivers.
     [jan] Use Horde\ManageSieve instead of Net_Sieve.
     [mms] Rearrange the default order of filter rules.
+4.0.0-RC3:
+  api: 4.0.0-RC3
+  state:
+    release: RC
+    api: RC
+  date: 2026-05-28
+  license:
+    identifier: Apache-1.0
+    uri: https://spdx.org/licenses/Apache-1.0.html
+  notes: |-
+    fix(security): restrict unserialize allowed_classes (ZDI-20-1051)
+    refactor: Transition from separate responsive.css to unified screen.css
+    chore: Update workflow dependency
 4.0.0-RC2:
   api: 4.0.0-RC2
   state:

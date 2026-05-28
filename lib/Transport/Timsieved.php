@@ -75,10 +75,10 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
 
         try {
             // Check if we have XOAUTH2 token
-            if (isset($this->_params['xoauth2_token']) &&
-                $this->_params['xoauth2_token'] instanceof \Horde\ManageSieve\Password\Xoauth2) {
+            if (isset($this->_params['xoauth2_token'])
+                && $this->_params['xoauth2_token'] instanceof Horde\ManageSieve\Password\Xoauth2) {
                 // XOAUTH2 authentication - pass token directly
-                $authMethod = \Horde\ManageSieve\Client::AUTH_XOAUTH2;
+                $authMethod = ManageSieve::AUTH_XOAUTH2;
 
                 $this->_sieve = new ManageSieve([
                     'user'         => $auth,
