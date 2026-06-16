@@ -2,6 +2,7 @@
 
 namespace Ingo\Form\V3;
 
+use Horde\Util\Variables;
 use Horde\Form\V3\LongtextVariable;
 use Horde_Variables;
 
@@ -31,7 +32,7 @@ class LongemailVariable extends LongtextVariable
 {
     /**
      */
-    public function isValid(Horde_Variables $vars, $value): bool
+    public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
         $value = trim((string) $value);
 
