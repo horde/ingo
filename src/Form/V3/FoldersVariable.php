@@ -2,6 +2,7 @@
 
 namespace Ingo\Form\V3;
 
+use Horde\Util\Variables;
 use Horde\Form\V3\BaseVariable;
 use Horde_Variables;
 
@@ -29,7 +30,7 @@ class FoldersVariable extends BaseVariable
     public $_folder;
     public $newFolderSet;
 
-    public function isValid($vars, $value): bool
+    public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
         if ($this->newFolderSet || strlen($value)) {
             return true;
