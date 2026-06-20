@@ -58,7 +58,8 @@
             "lib/"
         ],
         "psr-4": {
-            "Horde\\Ingo\\": "src/"
+            "Horde\\Ingo\\": "src/",
+            "Ingo\\": "src/"
         }
     },
     "autoload-dev": {
