@@ -68,6 +68,7 @@ autoload:
     - lib/
   psr-4:
     Horde\Ingo\: src/
+    Ingo\: src/
 vendor: horde
 keywords:
   - filter
