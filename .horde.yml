@@ -48,7 +48,7 @@ dependencies:
       horde/core: ^3
       horde/exception: ^3
       horde/group: ^3
-      horde/form: ^3
+      horde/form: ^3.1
       horde/imap_client: ^3
       horde/managesieve: ^2
       horde/mime: ^3

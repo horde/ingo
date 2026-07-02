@@ -37,7 +37,7 @@
         "horde/core": "^3 || dev-FRAMEWORK_6_0",
         "horde/exception": "^3 || dev-FRAMEWORK_6_0",
         "horde/group": "^3 || dev-FRAMEWORK_6_0",
-        "horde/form": "^3 || dev-FRAMEWORK_6_0",
+        "horde/form": "^3.1 || dev-FRAMEWORK_6_0",
         "horde/imap_client": "^3 || dev-FRAMEWORK_6_0",
         "horde/managesieve": "^2 || dev-FRAMEWORK_6_0",
         "horde/mime": "^3 || dev-FRAMEWORK_6_0",
