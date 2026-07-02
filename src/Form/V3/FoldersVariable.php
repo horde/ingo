@@ -1,6 +1,6 @@
 <?php
 
-namespace Ingo\Form\V3;
+namespace Horde\Ingo\Form\V3;
 
 use Horde\Util\Variables;
 use Horde\Form\V3\BaseVariable;

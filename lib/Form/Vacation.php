@@ -72,11 +72,11 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
             || $this->hasFeature('days')) {
             $this->setSection('advanced', _("Advanced Settings"));
             if ($this->hasFeature('addresses')) {
-                $v = $this->addVariable(_("My email addresses:"), 'addresses', 'ingo:Longemail', true, false, null, [5, 40]);
+                $v = $this->addVariable(_("My email addresses:"), 'addresses', \Horde\Ingo\Form\V3\LongemailVariable::class, true, false, null, [5, 40]);
                 $v->setHelp('vacation-myemail');
             }
             if ($this->hasFeature('excludes')) {
-                $v = $this->addVariable(_("Addresses to not send responses to:"), 'excludes', 'ingo:Longemail', false, false, null, [10, 40]);
+                $v = $this->addVariable(_("Addresses to not send responses to:"), 'excludes', \Horde\Ingo\Form\V3\LongemailVariable::class, false, false, null, [10, 40]);
                 $v->setHelp('vacation-noresponse');
             }
             if ($this->hasFeature('ignorelist')) {
