@@ -30,6 +30,16 @@ class FoldersVariable extends BaseVariable
     public $_folder;
     public $newFolderSet;
 
+    /**
+     * Return the legacy type name so Ingo_Ui_VarRenderer_Html's
+     * _renderVarInput_ingo_form_type_folders() is still dispatched to after
+     * the class was moved from Ingo\Form\V3 to Horde\Ingo\Form\V3.
+     */
+    public function getTypeName(): string
+    {
+        return 'ingo_form_type_folders';
+    }
+
     public function isValid(Horde_Variables|Variables $vars, $value): bool
     {
         if ($this->newFolderSet || strlen($value)) {
