@@ -11,29 +11,26 @@ list: ~
 type: application
 homepage: https://www.horde.org/apps/ingo
 authors:
-  -
-    name: Jan Schneider
+  - name: Jan Schneider
     user: jan
     email: jan@horde.org
     active: true
     role: lead
-  -
-    name: Michael Slusarz
+  - name: Michael Slusarz
     user: slusarz
     email: slusarz@horde.org
     active: false
     role: lead
-  -
-    name: Chuck Hagenbuch
+  - name: Chuck Hagenbuch
     user: chuck
     email: chuck@horde.org
     active: false
     role: lead
 version:
-  release: 4.0.0-RC3
+  release: 4.0.0
   api: 4.0.0alpha1
 state:
-  release: RC
+  release: ''
   api: alpha
 license:
   identifier: Apache-1.0
@@ -73,3 +70,132 @@ keywords:
   - filter
   - procmail
   - sieve
+ci-platform:
+  '8.0':
+    - php: '>=8.1'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-mbstring
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.1':
+    - php: '>=8.1'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-mbstring
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.2':
+    - php: '>=8.1'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-mbstring
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.3':
+    - php: '>=8.1'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-mbstring
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.4':
+    - php: '>=8.1'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-mbstring
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.5':
+    - php: '>=8.1'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-mbstring
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+  '8.6':
+    - php: '>=8.1'
+    - composer-plugin-api: ^2.2.0
+    - ext-ctype
+    - ext-dom
+    - ext-filter
+    - ext-gettext
+    - ext-hash
+    - ext-iconv
+    - ext-intl
+    - ext-json
+    - ext-mbstring
+    - ext-openssl
+    - ext-pcre
+    - ext-session
+    - ext-simplexml
+    - ext-spl
+    - ext-xml
+ci-platform-flags:
+  needs_installer_plugin: true
