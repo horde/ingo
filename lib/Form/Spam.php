@@ -91,7 +91,7 @@ class Ingo_Form_Spam extends Ingo_Form_Base
             $vars = $this->_vars;
         }
         if (strlen($vars->get('folder_new'))) {
-            $this->folder_var->type->newFolderSet = true;
+            $this->folder_var->newFolderSet = true;
         }
         return parent::validate($vars, $canAutoFill);
     }

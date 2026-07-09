@@ -87,7 +87,7 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
         $form->setCustomButtons($spam->disable);
 
         /* Set default values. */
-        $form->folder_var->type->setFolder($spam->mailbox);
+        $form->folder_var->setFolder($spam->mailbox);
         if (!$form->isSubmitted()) {
             $this->vars->level = $spam->level;
             $this->vars->folder = $spam->mailbox;
