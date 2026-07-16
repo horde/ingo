@@ -54,9 +54,9 @@ class Ingo_Rule_Addresses extends Ingo_Rule implements Countable
     {
         switch ($name) {
             case 'addresses':
-                return $this->_addr->bare_addresses;
+                return $this->_addressList()->bare_addresses;
             case 'addressList':
-                return $this->_addr;
+                return $this->_addressList();
         }
     }
 
@@ -81,6 +81,20 @@ class Ingo_Rule_Addresses extends Ingo_Rule implements Countable
     }
 
     /**
+     * Ensure $_addr is a usable list (guards incomplete unserialize).
+     *
+     * @return Horde_Mail_Rfc822_List
+     */
+    protected function _addressList()
+    {
+        if (!($this->_addr instanceof Horde_Mail_Rfc822_List)) {
+            $this->_addr = new Horde_Mail_Rfc822_List();
+        }
+
+        return $this->_addr;
+    }
+
+    /**
      * Add addresses to the current address list.
      *
      * @param mixed $add  Addresses to add.
@@ -91,7 +105,7 @@ class Ingo_Rule_Addresses extends Ingo_Rule implements Countable
     {
         global $injector;
 
-        $addr = clone $this->_addr;
+        $addr = clone $this->_addressList();
 
         $addr->add($to_add);
         $addr->unique();
@@ -126,7 +140,7 @@ class Ingo_Rule_Addresses extends Ingo_Rule implements Countable
      */
     public function count(): int
     {
-        return count($this->_addr);
+        return count($this->_addressList());
     }
 
 }
