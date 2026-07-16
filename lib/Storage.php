@@ -38,6 +38,43 @@ abstract class Ingo_Storage implements Countable, IteratorAggregate
     public const MAX_OVER = 2;
 
     /**
+     * Classes allowed when unserializing stored rules (prefs/Mongo).
+     *
+     * Must include nested Horde_Mail_Rfc822_* objects held by
+     * Ingo_Rule_Addresses::$_addr — omitting them yields
+     * __PHP_Incomplete_Class and TypeError on count().
+     *
+     * @return string[]
+     */
+    public static function unserializeAllowedClasses()
+    {
+        return [
+            'Ingo_Rule',
+            'Ingo_Rule_Addresses',
+            'Ingo_Rule_System_Blacklist',
+            'Ingo_Rule_System_Forward',
+            'Ingo_Rule_System_Spam',
+            'Ingo_Rule_System_Vacation',
+            'Ingo_Rule_System_Whitelist',
+            'Ingo_Rule_User',
+            'Ingo_Rule_User_Discard',
+            'Ingo_Rule_User_FlagOnly',
+            'Ingo_Rule_User_Keep',
+            'Ingo_Rule_User_Move',
+            'Ingo_Rule_User_MoveKeep',
+            'Ingo_Rule_User_Notify',
+            'Ingo_Rule_User_Redirect',
+            'Ingo_Rule_User_RedirectKeep',
+            'Ingo_Rule_User_Reject',
+            // Nested inside Ingo_Rule_Addresses::$_addr
+            'Horde_Mail_Rfc822_Address',
+            'Horde_Mail_Rfc822_Group',
+            'Horde_Mail_Rfc822_GroupList',
+            'Horde_Mail_Rfc822_List',
+        ];
+    }
+
+    /**
      * Configuration parameters.
      *
      * @var array

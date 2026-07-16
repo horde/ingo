@@ -80,25 +80,10 @@ class Ingo_Storage_Mongo extends Ingo_Storage implements Horde_Mongo_Collection_
 
             if (isset($res['result'])) {
                 foreach ($res['result'] as $val) {
-                    if ($ob = @unserialize($val[self::DATA], ['allowed_classes' => [
-                        'Ingo_Rule',
-                        'Ingo_Rule_Addresses',
-                        'Ingo_Rule_System_Blacklist',
-                        'Ingo_Rule_System_Forward',
-                        'Ingo_Rule_System_Spam',
-                        'Ingo_Rule_System_Vacation',
-                        'Ingo_Rule_System_Whitelist',
-                        'Ingo_Rule_User',
-                        'Ingo_Rule_User_Discard',
-                        'Ingo_Rule_User_FlagOnly',
-                        'Ingo_Rule_User_Keep',
-                        'Ingo_Rule_User_Move',
-                        'Ingo_Rule_User_MoveKeep',
-                        'Ingo_Rule_User_Notify',
-                        'Ingo_Rule_User_Redirect',
-                        'Ingo_Rule_User_RedirectKeep',
-                        'Ingo_Rule_User_Reject',
-                    ]])) {
+                    if ($ob = @unserialize(
+                        $val[self::DATA],
+                        ['allowed_classes' => self::unserializeAllowedClasses()]
+                    )) {
                         $ob->uid = strval($val[self::MONGO_ID]);
                         $this->_rules[] = $ob;
                     }
