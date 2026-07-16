@@ -14,15 +14,22 @@
  * @subpackage UnitTests
  */
 
-use PHPUnit\Framework\TestCase;
-
 /**
  * Ensure prefs/Mongo unserialize allowlist includes nested mail objects.
  *
  * Regression for TypeError on count() when Horde_Mail_Rfc822_List became
  * __PHP_Incomplete_Class after the ZDI-20-1051 allowed_classes lockdown.
+ *
+ * @author     Torben Dannhauer <torben@dannhauer.de>
+ * @category   Horde
+ * @copyright  2026 The Horde Project
+ * @ignore
+ * @license    http://www.horde.org/licenses/apache ASL
+ * @package    Ingo
+ * @subpackage UnitTests
+ * @coversNothing
  */
-class Ingo_Unit_StorageUnserializeTest extends TestCase
+class Ingo_Unit_StorageUnserializeTest extends Ingo_Unit_TestBase
 {
     public function testWhitelistRoundtripPreservesAddresses()
     {
