@@ -1,4 +1,14 @@
 ---
+4.0.1:
+  api: 4.0.1
+  state:
+    release: stable
+    api: stable
+  date: 2026-07-18
+  license:
+    identifier: Apache-1.0
+    uri: https://spdx.org/licenses/Apache-1.0.html
+  notes: "Merge pull request #38 from horde/fix/unserialize-mail-allowed-classes\ntest(storage): extend Ingo_Unit_TestBase in unserialize test\nfix(storage): allow nested mail classes in rule unserialize\nMerge pull request #37 from horde/fix/form-v3-deprecation-warnings\nfix(ingo): remove deprecated ->type indirection in spam form\nfix(ingo): remove deprecated getInfo() $info argument in vacation form"
 4.0.0:
   api: 4.0.0
   state:
