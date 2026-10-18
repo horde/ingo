@@ -1,4 +1,5 @@
 <?php
+use Horde\Ingo\IngoConfig;
 
 /**
  * Copyright 2017-2026 Horde LLC (http://www.horde.org/)
@@ -33,6 +34,7 @@ class Ingo_Transport_Sieveconnect extends Ingo_Transport_Base
      */
     public function __construct(array $params = [])
     {
+        $config = $injector->get('IngoConfig');
         parent::__construct(array_merge([
             'admin'      => '',
             'debug'      => false,
@@ -43,7 +45,7 @@ class Ingo_Transport_Sieveconnect extends Ingo_Transport_Base
             'scriptname' => 'ingo',
             'usetls'     => true,
             'script'     => '/usr/bin/sieve-connect',
-            'tmpdir'     => $GLOBALS['conf']['tmpdir'],
+            'tmpdir'     => $config->get('tmpdir'),
         ], $params));
     }
 
