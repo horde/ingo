@@ -27,38 +27,51 @@
  * @coversNothing
  */
 
-class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
+namespace Horde\Ingo\Test\Unit;
+use PHPUnit\Framework\TestCase;
+
+
+abstract class TestBase extends TestCase
 {
     protected $script;
     protected $storage;
 
-    public function setUp()
+    protected function setUp(): void
     {
-        $injector = $this->getMock('Horde_Injector', [], [], '', false);
-        $injector->expects($this->any())
-            ->method('getInstance')
-            ->will($this->returnCallback([$this, '_injectorGetInstance']));
+        $injector = $this->getMockBuilder('Horde_Injector')
+                 ->disableOriginalConstructor()
+                 ->getMock();
+
+        $injector->method('getInstance')
+         ->willReturnCallback(fn(...$args) => $this->_injectorGetInstance(...$args));
+
         $GLOBALS['injector'] = $injector;
 
-        $prefs = $this->getMock('Horde_Prefs', [], [], '', false);
-        $prefs->expects($this->any())
-            ->method('getValue')
-            ->will($this->returnValue(false));
+        $prefs = $this->getMockBuilder('Horde_Prefs')
+                 ->disableOriginalConstructor()
+                 ->getMock();
+
+        $prefs->method('getValue')
+            ->willReturn(false);
+
         $GLOBALS['prefs'] = $prefs;
 
-        $registry = $this->getMock('Horde_Registry', [], [], '', false);
-        $registry->expects($this->any())
-            ->method('hasMethod')
-            ->will($this->returnValue(true));
+        $registry = $this->getMockBuilder('Horde_Registry')
+                 ->disableOriginalConstructor()
+                 ->getMock();
+
+        $registry->method('hasMethod')
+             ->willReturn(true);
+
         $GLOBALS['registry'] = $registry;
 
-        $GLOBALS['session'] = $this->getMock('Horde_Session');
+        $GLOBALS['session'] = $this->createMock('Horde_Session');
 
         if (!defined('INGO_BASE')) {
             define('INGO_BASE', realpath(__DIR__ . '/../../..'));
         }
 
-        $this->storage = new Ingo_Storage_Memory();
+        $this->storage = new \Ingo_Storage_Memory();
 
         $GLOBALS['conf']['spam'] = [
             'enabled' => true,
@@ -71,48 +84,53 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
     {
         switch ($interface) {
             case 'Horde_Core_Factory_Identity':
-                $identity = $this->getMock('Horde_Core_Prefs_Identity', [], [], '', false);
-                $identity->expects($this->any())
-                    ->method('getName')
-                    ->will($this->returnValue('Foo'));
-                $identity->expects($this->any())
-                    ->method('getDefaultFromAddress')
-                    ->will($this->returnValue('foo@example.com'));
-                $identity->expects($this->any())
-                    ->method('getValue')
-                    ->will($this->returnValue('XYZ'));
+                $identity = $this->getMockBuilder('Horde_Core_Prefs_Identity')
+                     ->disableOriginalConstructor()
+                     ->getMock();
 
-                $factory = $this->getMock($interface, [], [], '', false);
-                $factory->expects($this->any())
-                    ->method('create')
-                    ->will($this->returnValue($identity));
+                $identity->method('getName')
+                         ->willReturn('Foo');
+
+                $identity->method('getDefaultFromAddress')
+                         ->willReturn('foo@example.com');
+
+                $identity->method('getValue')
+                         ->willReturn('XYZ');
+
+                $factory = $this->getMockBuilder($interface)
+                     ->disableOriginalConstructor()
+                     ->getMock();
+
+                $factory->method('create')
+                        ->willReturn($identity);
 
                 return $factory;
 
             case 'Horde_Core_Hooks':
-                $hooks = $this->getMock(
-                    'Horde_Core_Hooks',
-                    [],
-                    [],
-                    '',
-                    false
-                );
-                $hooks->expects($this->any())
-                    ->method('callHook')
-                    ->will($this->returnCallback([$this, '_hooksCallback']));
+                $hooks = $this->getMockBuilder('Horde_Core_Hooks')
+                     ->disableOriginalConstructor()
+                     ->getMock();
+
+                $hooks->method('callHook')
+                      ->willReturnCallback(fn(...$args) => $this->_hooksCallback(...$args));
 
                 return $hooks;
 
             case 'Horde_Core_Perms':
-                $perms = $this->getMock('Horde_Core_Perms', [], [], '', false);
-                $perms->method('hasAppPermission')->will($this->returnValue(true));
+                $perms = $this->getMockBuilder('Horde_Core_Perms')
+                     ->disableOriginalConstructor()
+                     ->getMock();
+
+                $perms->method('hasAppPermission')
+                      ->willReturn(true);
+
                 return $perms;
         }
     }
 
     public function _hooksCallback()
     {
-        throw new Horde_Exception_HookNotSet();
+        throw new \Horde_Exception_HookNotSet();
     }
 
     protected function _assertScript($expect)

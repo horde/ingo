@@ -25,7 +25,7 @@ class Ingo_Storage_FilterIterator_Skip extends Ingo_Storage_FilterIterator
 {
     /**
      */
-    public function accept()
+    public function accept(): bool
     {
         $ob = $this->current();
 

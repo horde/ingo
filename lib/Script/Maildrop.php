@@ -338,7 +338,7 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
         $recipe = new Ingo_Script_Maildrop_Recipe(
             [
                 'action-value' => $rule->mailbox,
-                'action' => strlen($rule->mailbox) ? 'Ingo_Rule_User_Move' : 'Ingo_Rule_User_Discard',
+                'action' => strlen($rule->mailbox ?? '') ? 'Ingo_Rule_User_Move' : 'Ingo_Rule_User_Discard',
                 'disable' => $rule->disable,
             ],
             $this->_params

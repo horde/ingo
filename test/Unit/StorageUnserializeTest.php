@@ -29,39 +29,46 @@
  * @subpackage UnitTests
  * @coversNothing
  */
-class Ingo_Unit_StorageUnserializeTest extends Ingo_Unit_TestBase
+
+namespace Horde\Ingo\Test\Unit;
+
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+
+#[AllowMockObjectsWithoutExpectations]
+
+class StorageUnserializeTest extends TestBase
 {
     public function testWhitelistRoundtripPreservesAddresses()
     {
-        $rule = new Ingo_Rule_System_Whitelist();
-        $ref = new ReflectionProperty(Ingo_Rule_Addresses::class, '_addr');
+        $rule = new \Ingo_Rule_System_Whitelist();
+        $ref = new \ReflectionProperty(\Ingo_Rule_Addresses::class, '_addr');
         $ref->setAccessible(true);
         $ref->setValue(
             $rule,
-            new Horde_Mail_Rfc822_List(['alice@example.com', 'bob@example.com'])
+            new \Horde_Mail_Rfc822_List(['alice@example.com', 'bob@example.com'])
         );
 
         $serialized = serialize([$rule]);
         $rules = unserialize($serialized, [
-            'allowed_classes' => Ingo_Storage::unserializeAllowedClasses(),
+            'allowed_classes' => \Ingo_Storage::unserializeAllowedClasses(),
         ]);
 
         $this->assertCount(1, $rules);
-        $this->assertInstanceOf(Ingo_Rule_System_Whitelist::class, $rules[0]);
+        $this->assertInstanceOf(\Ingo_Rule_System_Whitelist::class, $rules[0]);
         $this->assertSame(2, count($rules[0]));
         $this->assertSame(
             ['alice@example.com', 'bob@example.com'],
             $rules[0]->addresses
         );
         $this->assertInstanceOf(
-            Horde_Mail_Rfc822_List::class,
+            \Horde_Mail_Rfc822_List::class,
             $rules[0]->addressList
         );
     }
 
     public function testAllowlistIncludesNestedMailClasses()
     {
-        $allowed = Ingo_Storage::unserializeAllowedClasses();
+        $allowed = \Ingo_Storage::unserializeAllowedClasses();
 
         $this->assertContains('Horde_Mail_Rfc822_List', $allowed);
         $this->assertContains('Horde_Mail_Rfc822_Address', $allowed);

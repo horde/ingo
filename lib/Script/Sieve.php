@@ -383,7 +383,7 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
         ]);
 
         if ($rule->ignore_list) {
-            $lheaders = new Horde_ListHeaders();
+            $lheaders = new \Horde_ListHeaders();
             $headers = $lheaders->headers();
             $headers['Mailing-List'] = null;
             foreach (array_keys($headers) as $h) {

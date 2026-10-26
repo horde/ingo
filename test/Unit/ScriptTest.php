@@ -12,9 +12,11 @@
  * @coversNothing
  */
 
-class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
+namespace Horde\Ingo\Test\Unit;
+
+class ScriptTest extends TestBase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->markTestIncomplete('TODO');
     }
