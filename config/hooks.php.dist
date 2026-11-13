@@ -45,6 +45,34 @@ class Ingo_Hooks
 //                'password' => $ob->getParam('password'),
 //                'username' => $ob->getParam('username')
 //            );
+//
+//        case 'timsieved':
+//            // OIDC/XOAUTH2: if the user logged in via an OIDC provider
+//            // (e.g. Apereo CAS, Keycloak), use XOAUTH2 for timsieved.
+//            // Requires horde/Core >= 6.x with OAuthTokenService configured.
+//            global $injector;
+//            $username = $injector->getInstance('Horde_Registry')->getAuth();
+//            if ($username) {
+//                $tokenService   = $injector->getInstance(\Horde\Core\Service\OAuthTokenService::class);
+//                $providerConfig = $injector->getInstance(\Horde\Core\Service\OAuthProviderConfigRepository::class);
+//                $row = \Horde\Core\Service\OidcHookHelper::findProviderForUser(
+//                    $username, $tokenService, $providerConfig
+//                );
+//                if ($row !== null) {
+//                    $accessToken = \Horde\Core\Service\OidcHookHelper::getValidAccessToken(
+//                        $username, $row, $tokenService, $injector
+//                    );
+//                    if ($accessToken !== null) {
+//                        $xoauth2User = \Horde\Core\Service\OidcHookHelper::xoauth2Username($username, $row);
+//                        return array(
+//                            'username'      => $xoauth2User,
+//                            'xoauth2_token' => new \Horde\ManageSieve\Password\Xoauth2($xoauth2User, $accessToken),
+//                            'euser'         => '',
+//                        );
+//                    }
+//                }
+//            }
+//            break;
 //        }
 //
 //        // DEFAULT: Use hordeauth (identical to not defining hook at all).
