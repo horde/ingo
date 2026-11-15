@@ -27,10 +27,10 @@ authors:
     active: false
     role: lead
 version:
-  release: 4.0.1
+  release: 4.1.0-alpha
   api: 4.0.0alpha1
 state:
-  release: stable
+  release: alpha
   api: alpha
 license:
   identifier: Apache-1.0
