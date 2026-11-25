@@ -323,7 +323,6 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             }
 
             $page_output->addScriptFile('hordecore.js', 'horde');
-            $page_output->addScriptPackage('Horde_Core_Script_Package_Sortable');
         }
 
         $page_output->addScriptFile('stripe.js', 'horde');
