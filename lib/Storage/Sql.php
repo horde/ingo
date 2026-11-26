@@ -467,7 +467,15 @@ class Ingo_Storage_Sql extends Ingo_Storage
                                     . 'forward_keep = ? WHERE forward_owner = ?',
                                     $this->_params['table_forwards']
                                 );
-                                $this->_params['db']->update($query, $values);
+                                if ($this->_params['db']->update($query, $values) == 0 ) {
+                                    Horde::log("Updated 0 rows in ingo_forward. Try INSERT", 'DEBUG');
+                                    $query = sprintf(
+                                        'INSERT INTO %s (forward_addresses, '
+                                        . 'forward_keep, forward_owner) VALUES (?, ?, ?)',
+                                        $this->_params['table_forwards']
+                                    );
+                                    $this->_params['db']->insert($query, $values);
+                                }
                             }
                         } catch (Horde_Db_Exception $e) {
                             throw new Ingo_Exception($e);
