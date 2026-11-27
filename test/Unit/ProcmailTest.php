@@ -30,7 +30,16 @@
 namespace Horde\Ingo\Test\Unit;
 
 use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use Ingo;
+use Ingo_Rule_System_Blacklist;
+use Ingo_Rule_System_Forward;
+use Ingo_Rule_System_Vacation;
+use Ingo_Rule_System_Whitelist;
+use Ingo_Script_Procmail;
 
+/**
+ * @coversNothing
+ */
 #[AllowMockObjectsWithoutExpectations]
 
 class ProcmailTest extends TestBase
@@ -39,7 +48,7 @@ class ProcmailTest extends TestBase
     {
         parent::setUp();
 
-        $this->script = new \Ingo_Script_Procmail([
+        $this->script = new Ingo_Script_Procmail([
             'path_style' => 'mbox',
             'skip' => [],
             'spam_compare' => 'string',
@@ -47,7 +56,7 @@ class ProcmailTest extends TestBase
             'spam_char' => '*',
             'storage' => $this->storage,
             'transport' => [
-                \Ingo::RULE_ALL => [
+                Ingo::RULE_ALL => [
                     'driver' => 'Null',
                 ],
             ],
@@ -57,7 +66,7 @@ class ProcmailTest extends TestBase
 
     public function testForwardKeep()
     {
-        $forward = new \Ingo_Rule_System_Forward();
+        $forward = new Ingo_Rule_System_Forward();
         $forward->addAddresses('joefabetes@example.com');
         $forward->keep = true;
 
@@ -90,7 +99,7 @@ $DEFAULT
 
     public function testForwardNoKeep()
     {
-        $forward = new \Ingo_Rule_System_Forward();
+        $forward = new Ingo_Rule_System_Forward();
         $forward->addAddresses('joefabetes@example.com');
         $forward->keep = false;
 
@@ -123,7 +132,7 @@ $DEFAULT
 
     public function testBlacklistWithFolder()
     {
-        $bl = new \Ingo_Rule_System_Blacklist();
+        $bl = new Ingo_Rule_System_Blacklist();
         $bl->addAddresses('spammer@example.com');
         $bl->mailbox = 'Junk';
 
@@ -136,9 +145,9 @@ Junk');
 
     public function testBlacklistMarker()
     {
-        $bl = new \Ingo_Rule_System_Blacklist();
+        $bl = new Ingo_Rule_System_Blacklist();
         $bl->addAddresses('spammer@example.com');
-        $bl->mailbox = \Ingo_Rule_System_Blacklist::DELETE_MARKER;
+        $bl->mailbox = Ingo_Rule_System_Blacklist::DELETE_MARKER;
 
         $this->storage->updateRule($bl);
 
@@ -149,7 +158,7 @@ Junk');
 
     public function testBlacklistDiscard()
     {
-        $bl = new \Ingo_Rule_System_Blacklist();
+        $bl = new Ingo_Rule_System_Blacklist();
         $bl->addAddresses('spammer@example.com');
 
         $this->storage->updateRule($bl);
@@ -161,7 +170,7 @@ Junk');
 
     public function testWhitelist()
     {
-        $wl = new \Ingo_Rule_System_Whitelist();
+        $wl = new Ingo_Rule_System_Whitelist();
         $wl->addAddresses('spammer@example.com');
 
         $this->storage->updateRule($wl);
@@ -173,7 +182,7 @@ $DEFAULT');
 
     public function testVacationDisabled()
     {
-        $vacation = new \Ingo_Rule_System_Vacation();
+        $vacation = new Ingo_Rule_System_Vacation();
         $vacation->addAddresses('from@example.com');
         $vacation->disable = true;
 
@@ -184,7 +193,7 @@ $DEFAULT');
 
     public function testVacationEnabled()
     {
-        $vacation = new \Ingo_Rule_System_Vacation();
+        $vacation = new Ingo_Rule_System_Vacation();
         $vacation->addAddresses('from@example.com');
         $vacation->disable = false;
         $vacation->subject = 'Subject';

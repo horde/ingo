@@ -50,7 +50,7 @@ class Ingo_Form_Spam extends Ingo_Form_Base
         $this->folder_var = $this->addVariable(
             _("Folder to receive spam:"),
             'folder',
-            \Horde\Ingo\Form\V3\FoldersVariable::class,
+            Horde\Ingo\Form\V3\FoldersVariable::class,
             true
         );
         $this->folder_var->setHelp('spam-folder');

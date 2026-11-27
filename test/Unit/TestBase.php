@@ -28,8 +28,10 @@
  */
 
 namespace Horde\Ingo\Test\Unit;
-use PHPUnit\Framework\TestCase;
 
+use PHPUnit\Framework\TestCase;
+use Horde_Exception_HookNotSet;
+use Ingo_Storage_Memory;
 
 abstract class TestBase extends TestCase
 {
@@ -71,7 +73,7 @@ abstract class TestBase extends TestCase
             define('INGO_BASE', realpath(__DIR__ . '/../../..'));
         }
 
-        $this->storage = new \Ingo_Storage_Memory();
+        $this->storage = new Ingo_Storage_Memory();
 
         $GLOBALS['conf']['spam'] = [
             'enabled' => true,
@@ -130,7 +132,7 @@ abstract class TestBase extends TestCase
 
     public function _hooksCallback()
     {
-        throw new \Horde_Exception_HookNotSet();
+        throw new Horde_Exception_HookNotSet();
     }
 
     protected function _assertScript($expect)

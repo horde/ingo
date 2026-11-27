@@ -14,6 +14,9 @@
 
 namespace Horde\Ingo\Test\Unit;
 
+/**
+ * @coversNothing
+ */
 class ScriptTest extends TestBase
 {
     protected function setUp(): void

@@ -1,4 +1,5 @@
 <?php
+
 use Horde\Ingo\IngoConfig;
 
 /**
