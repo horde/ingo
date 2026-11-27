@@ -82,6 +82,13 @@ abstract class Ingo_Storage implements Countable, IteratorAggregate
     protected $_params = [];
 
     /**
+     * Logger.
+     *
+     * @var Psr\Log\LoggerInterface
+     */
+    protected $_logger;
+
+    /**
      * Rules list.
      *
      * @var array
@@ -91,11 +98,15 @@ abstract class Ingo_Storage implements Countable, IteratorAggregate
     /**
      * Constructor.
      *
-     * @params array $params  Configuration parameters.
+     * @param array $params  Configuration parameters.
+     * @param Psr\Log\LoggerInterface $logger  PSR-3 logger.
      */
-    public function __construct(array $params = [])
-    {
+    public function __construct(
+        array $params = [],
+        ?Psr\Log\LoggerInterface $logger = null
+    ) {
         $this->_params = $params;
+        $this->_logger = $logger ?? new Psr\Log\NullLogger();
     }
 
     /**

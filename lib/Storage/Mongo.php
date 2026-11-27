@@ -44,16 +44,19 @@ class Ingo_Storage_Mongo extends Ingo_Storage implements Horde_Mongo_Collection_
      * @param array $params  Parameters:
      *   - collection: (string) The name of the storage collection.
      *   - mongo_db: (Horde_Mongo_Client) [REQUIRED] The DB instance.
+     * @param Psr\Log\LoggerInterface $logger  PSR-3 logger.
      */
-    public function __construct(array $params = [])
-    {
+    public function __construct(
+        array $params = [],
+        ?Psr\Log\LoggerInterface $logger = null
+    ) {
         if (!isset($params['mongo_db'])) {
             throw new InvalidArgumentException('Missing mongo_db parameter.');
         }
 
         parent::__construct(array_merge([
             'collection' => 'ingo_storage',
-        ], $params));
+        ], $params), $logger);
 
         $this->_params['db'] = $this->_params['mongo_db']
             ->selectCollection(null, $this->_params['collection']);

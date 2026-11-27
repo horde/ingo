@@ -95,7 +95,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                             $values
                         );
                     } catch (Horde_Db_Exception $e) {
-                        Horde::log($e, 'ERR');
+                        $this->_logger->error($e->getMessage(), ['exception' => $e]);
                         throw new Ingo_Exception($e);
                     }
                     break;
@@ -213,7 +213,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                             $values
                         );
                     } catch (Horde_Db_Exception $e) {
-                        Horde::log($e, 'ERR');
+                        $this->_logger->error($e->getMessage(), ['exception' => $e]);
                         throw new Ingo_Exception($e);
                     }
                     break;
@@ -278,7 +278,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             try {
                 $this->_params['db']->delete($query, $values);
             } catch (Horde_Db_Exception $e) {
-                Horde::log($e, 'ERR');
+                $this->_logger->error($e->getMessage(), ['exception' => $e]);
             }
         }
     }
@@ -418,7 +418,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                         try {
                             $this->_params['db']->delete($query, $values);
                         } catch (Horde_Db_Exception $e) {
-                            Horde::log($e, 'ERR');
+                            $this->_logger->error($e->getMessage(), ['exception' => $e]);
                             throw new Ingo_Exception($e);
                         }
 
@@ -437,7 +437,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                                 );
                             }
                         } catch (Horde_Db_Exception $e) {
-                            Horde::log($e, 'ERR');
+                            $this->_logger->error($e->getMessage(), ['exception' => $e]);
                             $this->_params['db']->rollbackDbTransaction();
                             throw new Ingo_Exception($e);
                         }
@@ -454,27 +454,22 @@ class Ingo_Storage_Sql extends Ingo_Storage
                         ];
 
                         try {
+                            $insert = sprintf(
+                                'INSERT INTO %s (forward_addresses, '
+                                . 'forward_keep, forward_owner) VALUES (?, ?, ?)',
+                                $this->_params['table_forwards']
+                            );
                             if ($action === self::STORE_ADD) {
-                                $query = sprintf(
-                                    'INSERT INTO %s (forward_addresses, '
-                                    . 'forward_keep, forward_owner) VALUES (?, ?, ?)',
-                                    $this->_params['table_forwards']
-                                );
-                                $this->_params['db']->insert($query, $values);
+                                $this->_params['db']->insert($insert, $values);
                             } else {
                                 $query = sprintf(
                                     'UPDATE %s SET forward_addresses = ?, '
                                     . 'forward_keep = ? WHERE forward_owner = ?',
                                     $this->_params['table_forwards']
                                 );
-                                if ($this->_params['db']->update($query, $values) == 0 ) {
-                                    Horde::log("Updated 0 rows in ingo_forward. Try INSERT", 'DEBUG');
-                                    $query = sprintf(
-                                        'INSERT INTO %s (forward_addresses, '
-                                        . 'forward_keep, forward_owner) VALUES (?, ?, ?)',
-                                        $this->_params['table_forwards']
-                                    );
-                                    $this->_params['db']->insert($query, $values);
+                                if ($this->_params['db']->update($query, $values) === 0) {
+                                    $this->_logger->debug('Updated 0 rows in ingo_forward, inserting instead.');
+                                    $this->_params['db']->insert($insert, $values);
                                 }
                             }
                         } catch (Horde_Db_Exception $e) {

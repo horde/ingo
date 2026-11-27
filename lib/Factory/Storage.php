@@ -20,6 +20,8 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
+use Psr\Log\LoggerInterface as PsrLoggerInterface;
+
 class Ingo_Factory_Storage extends Horde_Core_Factory_Base
 {
     /**
@@ -55,7 +57,7 @@ class Ingo_Factory_Storage extends Horde_Core_Factory_Base
 
             switch ($driver) {
                 case 'Nosql':
-                    $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')
+                    $nosql = $injector->get(Horde_Core_Factory_Nosql::class)
                         ->create('ingo', 'storage');
                     if ($nosql instanceof Horde_Mongo_Client) {
                         $params['mongo_db'] = $nosql;
@@ -64,7 +66,7 @@ class Ingo_Factory_Storage extends Horde_Core_Factory_Base
                     break;
 
                 case 'Sql':
-                    $params['db'] = $injector->getInstance('Horde_Db_Adapter');
+                    $params['db'] = $injector->get(Horde_Db_Adapter::class);
                     $params['table_forwards'] = 'ingo_forwards';
                     $params['table_lists'] = 'ingo_lists';
                     $params['table_rules'] = 'ingo_rules';
@@ -75,7 +77,10 @@ class Ingo_Factory_Storage extends Horde_Core_Factory_Base
 
             $class = 'Ingo_Storage_' . $driver;
             if (class_exists($class)) {
-                $this->_instances[$driver] = new $class($params);
+                $this->_instances[$driver] = new $class(
+                    $params,
+                    $injector->getInstance(PsrLoggerInterface::class)
+                );
             } else {
                 throw new Ingo_Exception(sprintf(
                     _("Unable to load the storage driver \"%s\"."),
